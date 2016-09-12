@@ -11,6 +11,5 @@ module.exports = db.define('order', {
     content: {
       type: Sequelize.STRING
     },
-
   }
 );

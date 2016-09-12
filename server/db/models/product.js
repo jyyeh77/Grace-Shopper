@@ -17,7 +17,7 @@ module.exports = db.define('product', {
   quantity: {
     type: Sequelize.INTEGER
   },
-  creationDate: {
+  releaseDate: {
     type:Sequelize.STRING
   }
 });
