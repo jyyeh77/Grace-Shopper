@@ -8,7 +8,11 @@ router.use('/users', require('./users/userRoute'));
 
 router.use('/members', require('./members'));
 
+
+router.use('/products', require('./products/productRoute'));
+
 router.use('/orders', require('./orders/orderRoutes'));
+
 
 
 // Make sure this is after all of
