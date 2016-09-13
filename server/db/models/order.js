@@ -8,8 +8,10 @@ var Sequelize = require('sequelize');
 var db = require('../_db');
 
 module.exports = db.define('order', {
-    content: {
-      type: Sequelize.STRING
-    },
+
+	status: {
+		type: Sequelize.ENUM('Pending', 'Completed', 'Shipped', 'Cancelled'),
+		allowNull: false
+	}
   }
 );
