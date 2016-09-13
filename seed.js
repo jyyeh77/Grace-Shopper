@@ -482,6 +482,10 @@ var seedOrders = function(){
   ]
 
   var creatingOrders = orders.map(function(orderObj){
+    orderObj.products.map(function(product){
+      return JSON.stringify(product)
+    })
+
     Order.create(orderObj)
   })
 

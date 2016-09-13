@@ -15,7 +15,7 @@ module.exports = db.define('order', {
 	},
 
 	products: {
-		type: Sequelize.ARRAY,
+		type: Sequelize.ARRAY(Sequelize.STRING),
 		allowNull: false
 	}
   }
