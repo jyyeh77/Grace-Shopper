@@ -9,6 +9,7 @@ router.get('/', function(req, res, next){
   .then(function(allCategories){
     res.send(allCategories)
   })
+  .catch(next);
 });
 
 router.get('/:category', function (req, res, next) {
@@ -26,12 +27,14 @@ router.get('/:category', function (req, res, next) {
       return foundCategory.getProducts();
     }
   })
-  .then(products => res.send(products));
+  .then(products => res.send(products))
+  .catch(next);
 });
 
 router.post('/:category', function(req, res, next){
   Category.create({name: req.params.category})
   .then(createdCategory => res.send(createdCategory))
+  .catch(next)
 });
 
 router.delete('/:category', function(req, res, next){
@@ -40,5 +43,6 @@ router.delete('/:category', function(req, res, next){
       name: req.params.category
     } 
   })
-  .then(destroyedCategory => res.send(destroyedCategory));
+  .then(destroyedCategory => res.send(destroyedCategory))
+  .catch(next)
 });
