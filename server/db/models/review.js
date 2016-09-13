@@ -14,7 +14,6 @@ module.exports = db.define('review', {
     },
     content: {
       type: Sequelize.TEXT
-    },
-
+    }
   }
 );
