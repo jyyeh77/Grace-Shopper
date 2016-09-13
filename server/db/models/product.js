@@ -17,7 +17,10 @@ module.exports = db.define('product', {
   quantity: {
     type: Sequelize.INTEGER
   },
-  releaseDate: {
-    type:Sequelize.STRING
+  creationDate: {
+    type: Sequelize.STRING
+  },
+  imageUrl: {
+    type: Sequelize.STRING
   }
 });
