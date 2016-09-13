@@ -12,9 +12,9 @@ var Order = require('./models/order');
 // associations
 User.hasMany(Order);
 User.hasMany(Review);
-Product.hasMany(Category);
+Product.belongsToMany(Category, {through: 'product_categories'});
 Product.hasMany(Review);
-Category.hasMany(Product);
+
 
 // if we had more models, we could associate them in this file
 // e.g. User.hasMany(Reports)

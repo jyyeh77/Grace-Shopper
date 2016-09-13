@@ -335,7 +335,7 @@ var seedOrders = function(){
               quantityOrdered: 1,
               releaseDate: '1908',
               imageUrl: 'http://graphicdesign-blog.com/wp-content/uploads/2012/02/Serie_1_Retro_TV_Front.jpg'
-            } 
+            }
       ]
     },
 
@@ -481,12 +481,14 @@ var seedOrders = function(){
     }
   ]
 
-  var creatingOrders = orders.map(function(orderObj){
-    orderObj.products.map(function(product){
-      return JSON.stringify(product)
+  // stringifies all products in each order to put into Sequelize Array
+  orders.forEach(orderObj => {
+    orderObj.products = orderObj.products.map(product => {
+      return JSON.stringify(product);
     })
-
-    Order.create(orderObj)
+  })
+  var creatingOrders = orders.map(function(orderObj){
+    return Order.create(orderObj)
   })
 
   return Promise.all(creatingOrders)
@@ -496,32 +498,32 @@ var seedOrders = function(){
 var seedReviews = function () {
   var reviews = [
     {
-      stars: 4,
+      stars: '4',
       content: "This is great!",
       userId: 2
     },
     {
-      stars: 3,
+      stars: '3',
       content: "This is okay...",
       userId: 1
     },
     {
-      stars: 5,
+      stars: '5',
       content: "This makes my life!!",
       userId: 3
     },
     {
-      stars: 1,
+      stars: '1',
       content: "I regret this heavily.",
       userId: 4
     },
     {
-      stars: 4,
+      stars: '4',
       content: "Brings back good memories :)",
       userId: 6
     },
     {
-      stars: 2,
+      stars: '2',
       content: "Could be better :(",
       userId: 5
     }
