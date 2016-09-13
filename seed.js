@@ -21,6 +21,8 @@ var chalk = require('chalk');
 var db = require('./server/db');
 var User = db.model('user');
 var Product = db.model('product');
+var Category = db.model('category');
+var Order = db.model('order');
 var Review = db.model('review');
 var Promise = require('sequelize').Promise;
 
@@ -60,6 +62,25 @@ var seedUsers = function () {
   return Promise.all(creatingUsers);
 
 };
+
+var seedCategories = function (){
+  var categories = [
+    {name: 'Cars'},
+    {name: 'Video'},
+    {name: 'Phones'},
+    {name: 'TVs'},
+    {name: 'Clocks'},
+    {name: 'Computers'},
+    {name: 'Radios'}
+  ]
+
+  var creatingCategories = categories.map(function(catObj){
+    return Category.create(catObj)
+  })
+
+  return Promise.all(creatingCategories)
+
+}
 
 
 var seedProducts = function () {
@@ -183,35 +204,326 @@ var seedProducts = function () {
 
 };
 
+
+var seedOrders = function(){
+
+  var orders = [
+    {
+      status: 'Pending',
+      userId: 1,
+      products: [
+        {
+              title: "iRazor",
+              description: "This may look like your granny's flip-phone, but inside it's running the latest iOS",
+              specs: '{"screensize":"2 in.","weight":"95g","quality":"primo"}',
+              price: 599.99,
+              quantityOrdered: 1,
+              releaseDate: '2003',
+              imageUrl: 'http://i-cdn.phonearena.com/images/phones/4573-large/Motorola-RAZR-V3-0.jpg'
+            },
+
+          {
+                title: "Rich Grandpa",
+                description: "This may look like your grandfather's clock, but inside is a lot of unnecessary platinum, some bitcoins, and a quad-core processor",
+                specs: '{"height":"4 ft","weight":"60kg","quality":"primo"}',
+                price: 8000,
+                quantityOrdered: 2,
+                releaseDate: '1656',
+                imageUrl: 'http://www.todayifoundout.com/wp-content/uploads/2012/09/grandfather-clock.jpg'
+              }
+      ]
+    },
+
+    {
+      status: 'Pending',
+      userId: 2,
+      products: [
+        {
+              title: "Steampunk Watch Phone",
+              description: "The internals of this steampunk watch phone combine the state-of-the-art components of the Apple watch AND iPhone 7",
+              specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
+              price: 1500,
+              quantityOrdered: 1,
+              releaseDate: '1874',
+              imageUrl: 'https://mir-s3-cdn-cf.behance.net/project_modules/disp/21b2fe19036859.562d3e03e799d.jpg'
+            }
+      ]
+    },
+
+    {
+      status: 'Completed',
+      userId: 3,
+      products: [
+        {
+              title: 'Retro Phone',
+              description: 'This phone has a classic look.',
+              specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
+              price: 80,
+              quantityOrdered: 3,
+              releaseDate: '1980',
+              imageUrl: 'http://www.retroplanet.com/mm5/graphics/00000006/23914_main.jpg'
+            }
+      ]
+    },
+
+    {
+      status: 'Shipped',
+      userId: 4,
+      products: [
+        {
+              title: "Steampunk Watch Phone",
+              description: "The internals of this steampunk watch phone combine the state-of-the-art components of the Apple watch AND iPhone 7",
+              specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
+              price: 1500,
+              quantityOrdered: 2,
+              releaseDate: '1874',
+              imageUrl: 'https://mir-s3-cdn-cf.behance.net/project_modules/disp/21b2fe19036859.562d3e03e799d.jpg'
+            }
+      ]
+    },
+
+    {
+      status: 'Cancelled',
+      userId: 5,
+      products: [
+        {
+          title: 'Model T',
+          description: 'Great car',
+          specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
+          price: 3000,
+          quantityOrdered: 1,
+          releaseDate: '1908',
+          imageUrl: 'http://assets.blog.hemmings.com/wp-content/uploads/2011/03/model-t.jpg'
+        }
+      ]
+    },
+
+    {
+      status: 'Completed',
+      userId: 6,
+      products: [
+        {
+          title: 'Model T',
+          description: 'Great car',
+          specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
+          price: 3000,
+          quantityOrdered: 1,
+          releaseDate: '1908' ,
+          imageUrl: 'http://assets.blog.hemmings.com/wp-content/uploads/2011/03/model-t.jpg'
+        }
+      ]
+    },
+
+    {
+      status: 'Shipped',
+      userId: 2,
+      products: [
+        {
+          title: 'Model T',
+          description: 'Great car',
+          specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
+          price: 3000,
+          quantityOrdered: 5,
+          releaseDate: '1908' ,
+          imageUrl: 'http://assets.blog.hemmings.com/wp-content/uploads/2011/03/model-t.jpg'
+        },
+        {
+              title: 'Retro Tv',
+              description: 'Old looking TV',
+              specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
+              price: 200,
+              quantityOrdered: 1,
+              releaseDate: '1908',
+              imageUrl: 'http://graphicdesign-blog.com/wp-content/uploads/2012/02/Serie_1_Retro_TV_Front.jpg'
+            }
+      ]
+    },
+
+    {
+      status: 'Shipped',
+      userId: 1,
+      products: [
+        {
+              title: 'Rich Grandpa',
+              description: "This may look like your grandfather's clock, but inside is a lot of unnecessary platinum, some bitcoins, and a quad-core processor",
+              specs: '{"height":"4 ft","weight":"60kg","quality":"primo"}',
+              price: "Rich Grandpa",
+              quantityOrdered: 1,
+              releaseDate: '1656',
+              imageUrl: 'http://www.todayifoundout.com/wp-content/uploads/2012/09/grandfather-clock.jpg'
+            }
+
+      ]
+    },
+
+    {
+      status: 'Cancelled',
+      userId: 3,
+      products: [
+        {
+              title: 'Retro Phone',
+              description: 'This phone has a classic look.',
+              specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
+              price: 80,
+              quantityOrdered: 7,
+              releaseDate: '1980',
+              imageUrl: 'http://www.retroplanet.com/mm5/graphics/00000006/23914_main.jpg'
+            }
+
+      ]
+    },
+
+    {
+      status: 'Shipped',
+      userId: 4,
+      products: [
+        {
+              title: "Steampunk Watch Phone",
+              description: "The internals of this steampunk watch phone combine the state-of-the-art components of the Apple watch AND iPhone 7",
+              specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
+              price: 1500,
+              quantityOrdered: 1,
+              releaseDate: '1874',
+              imageUrl: 'https://mir-s3-cdn-cf.behance.net/project_modules/disp/21b2fe19036859.562d3e03e799d.jpg'
+            }
+
+      ]
+    },
+
+    {
+      status: 'Completed',
+      userId: 6,
+      products: [
+        {
+              title: 'Retro Tv',
+              description: 'Old looking TV',
+              specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
+              price: 200,
+              quantityOrdered: 2,
+              releaseDate: '1908' ,
+              imageUrl: 'http://graphicdesign-blog.com/wp-content/uploads/2012/02/Serie_1_Retro_TV_Front.jpg'
+          }
+      ]
+    },
+
+    {
+      status: 'Completed',
+      userId: 1,
+      products: [
+        {
+              title: "iRazor",
+              description: "This may look like your granny's flip-phone, but inside it's running the latest iOS",
+              specs: '{"screensize":"2 in.","weight":"95g","quality":"primo"}',
+              price: 599.99,
+              quantityOrdered: 1,
+              releaseDate: '2003',
+              imageUrl: 'http://i-cdn.phonearena.com/images/phones/4573-large/Motorola-RAZR-V3-0.jpg'
+            }
+
+      ]
+    },
+
+    {
+      status: 'Pending',
+      userId: 6,
+      products: [
+        {
+              title: "iRazor",
+              description: "This may look like your granny's flip-phone, but inside it's running the latest iOS",
+              specs: '{"screensize":"2 in.","weight":"95g","quality":"primo"}',
+              price: 599.99,
+              quantityOrdered: 1,
+              releaseDate: '2003',
+              imageUrl: 'http://i-cdn.phonearena.com/images/phones/4573-large/Motorola-RAZR-V3-0.jpg'
+            }
+      ]
+    },
+
+    {
+      status: 'Pending',
+      userId: 5,
+      products: [
+        {
+              title: 'Retro Phone',
+              description: 'This phone has a classic look.',
+              specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
+              price: 80,
+              quantityOrdered: 1,
+              releaseDate: '1980',
+              imageUrl: 'http://www.retroplanet.com/mm5/graphics/00000006/23914_main.jpg'
+            }
+      ]
+    },
+
+    {
+      status: 'Pending',
+      userId: 1,
+      products: [
+        {
+              title: 'Retro Phone',
+              description: 'This phone has a classic look.',
+              specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
+              price: 80,
+              quantityOrdered: 1,
+              releaseDate: '1980',
+              imageUrl: 'http://www.retroplanet.com/mm5/graphics/00000006/23914_main.jpg'
+            },
+            {
+                title: "iRazor",
+                description: "This may look like your granny's flip-phone, but inside it's running the latest iOS",
+                specs: '{"screensize":"2 in.","weight":"95g","quality":"primo"}',
+                price: 599.99,
+                quantityOrdered: 2,
+                releaseDate: '2003',
+                imageUrl: 'http://i-cdn.phonearena.com/images/phones/4573-large/Motorola-RAZR-V3-0.jpg'
+              }
+      ]
+    }
+  ]
+
+  // stringifies all products in each order to put into Sequelize Array
+  orders.forEach(orderObj => {
+    orderObj.products = orderObj.products.map(product => {
+      return JSON.stringify(product);
+    })
+  })
+  var creatingOrders = orders.map(function(orderObj){
+    return Order.create(orderObj)
+  })
+
+  return Promise.all(creatingOrders)
+}
+
+
 var seedReviews = function () {
   var reviews = [
     {
-      stars: 4,
+      stars: '4',
       content: "This is great!",
       userId: 2
     },
     {
-      stars: 3,
+      stars: '3',
       content: "This is okay...",
       userId: 1
     },
     {
-      stars: 5,
+      stars: '5',
       content: "This makes my life!!",
       userId: 3
     },
     {
-      stars: 1,
+      stars: '1',
       content: "I regret this heavily.",
       userId: 4
     },
     {
-      stars: 4,
+      stars: '4',
       content: "Brings back good memories :)",
       userId: 6
     },
     {
-      stars: 2,
+      stars: '2',
       content: "Could be better :(",
       userId: 5
     }
@@ -224,23 +536,28 @@ var seedReviews = function () {
   return Promise.all(creatingReviews);
 }
 
-
-db.sync({force: true})
-  .then(function () {
-    return seedUsers();
-  })
-  .then(function () {
-    return seedProducts();
-  })
-  .then(function () {
-    return seedReviews();
-  })
-  .then(function () {
-    console.log(chalk.green('Seed successful!'));
-    process.exit(0);
-  })
-  .catch(function (err) {
-    console.error(err);
-    process.exit(1);
-  });
+db.sync({ force: true })
+    .then(function () {
+        return seedUsers();
+    })
+    .then(function(){
+        return seedCategories();
+    })
+    .then(function () {
+        return seedProducts();
+    })
+    .then(function(){
+      return seedOrders();
+    })
+    .then(function(){
+      return seedReviews();
+    })
+    .then(function () {
+        console.log(chalk.green('Seed successful!'));
+        process.exit(0);
+    })
+    .catch(function (err) {
+        console.error(err);
+        process.exit(1);
+    });
 

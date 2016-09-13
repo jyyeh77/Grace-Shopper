@@ -13,9 +13,8 @@ module.exports = db.define('order', {
 		type: Sequelize.ENUM('Pending', 'Completed', 'Shipped', 'Cancelled'),
 		allowNull: false
 	},
-
 	products: {
-		type: Sequelize.ARRAY,
+		type: Sequelize.ARRAY(Sequelize.STRING),
 		allowNull: false
 	}
   }
