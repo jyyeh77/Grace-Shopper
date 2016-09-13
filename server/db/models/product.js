@@ -11,6 +11,9 @@ module.exports = db.define('product', {
   description: {
     type: Sequelize.STRING
   },
+  specs: {
+    type: Sequelize.JSONB
+  },
   price: {
     type: Sequelize.INTEGER
   },
@@ -24,3 +27,6 @@ module.exports = db.define('product', {
     type: Sequelize.STRING
   }
 });
+
+
+
