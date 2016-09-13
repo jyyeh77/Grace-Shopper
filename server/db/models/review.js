@@ -9,7 +9,7 @@ var db = require('../_db');
 
 module.exports = db.define('review', {
     stars: {
-      type: Sequelize.ENUM(1,2,3,4,5),
+      type: Sequelize.ENUM('1','2','3','4','5'),
       allowNull: false
     },
     content: {
