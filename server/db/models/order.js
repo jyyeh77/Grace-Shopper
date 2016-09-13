@@ -11,11 +11,12 @@ module.exports = db.define('order', {
 
 	status: {
 		type: Sequelize.ENUM('Pending', 'Completed', 'Shipped', 'Cancelled'),
-		allowNull: false
+		allowNull: false,
 	},
 	products: {
 		type: Sequelize.ARRAY(Sequelize.STRING),
-		allowNull: false
+		allowNull: false,
+		defaultValue: []
 	}
   }
 );
