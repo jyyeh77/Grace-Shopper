@@ -1,7 +1,6 @@
 'use strict';
 var router = require('express').Router(); // eslint-disable-line new-cap
 var Category = require('../../../db/models/category');
-var Product = require('../../../db/models/category')
 module.exports = router;
 
 
@@ -10,7 +9,7 @@ router.get('/', function(req, res, next){
   .then(function(allCategories){
     res.send(allCategories)
   })
-})
+});
 
 router.get('/:category', function (req, res, next) {
   Category.findOne({
@@ -28,4 +27,18 @@ router.get('/:category', function (req, res, next) {
     }
   })
   .then(products => res.send(products));
+});
+
+router.post('/:category', function(req, res, next){
+  Category.create({name: req.params.category})
+  .then(createdCategory => res.send(createdCategory))
+});
+
+router.delete('/:category', function(req, res, next){
+  Category.destroy({
+    where:{
+      name: req.params.category
+    } 
+  })
+  .then(destroyedCategory => res.send(destroyedCategory));
 });
