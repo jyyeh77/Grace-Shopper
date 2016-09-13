@@ -9,10 +9,8 @@ module.exports = router;
 
 // retrieves single user if ID parameter is specified in an /api/users/:id route
 router.param('id', function (req, res, next, id) {
-  console.log("ID: ", id);
   User.findById(id)
     .then(foundUser => {
-      console.log("TESTING!!!!");
       if (!foundUser) res.sendStatus(404)
       else req.requestedUser = foundUser;
       next();
@@ -36,7 +34,6 @@ router.get('/:id/orders', function (req, res, next) {
 
 // admins can update current user info here
 router.put('/:id', function (req, res, next) {
-  console.log("PARAM: ", req.params.id);
   req.requestedUser.update(req.body)
     .then(user => {
       res.send(user);
