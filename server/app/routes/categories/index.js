@@ -41,8 +41,10 @@ router.delete('/:category', function(req, res, next){
   Category.destroy({
     where:{
       name: req.params.category
-    } 
+    }
+  }, {
+    returning: true
   })
-  .then(destroyedCategory => res.send(destroyedCategory))
+  .then( () => res.send(204) )
   .catch(next)
 });
