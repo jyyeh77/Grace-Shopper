@@ -18,6 +18,9 @@ module.exports = db.define('product', {
     type: Sequelize.INTEGER
   },
   creationDate: {
-    type:Sequelize.STRING
+    type: Sequelize.STRING
+  },
+  imageUrl: {
+    type: Sequelize.STRING
   }
 });
