@@ -71,7 +71,7 @@ describe('Review model', function () {
                 badCar = car3;
                 greatPhone = phone1;
                 // adds 'Car' category to cars through Product.belongsToMany('category') association
-                return Promise.all([car1.addCategory(carCategory), car2.addCategory(carCategory), car3.addCategory(carCategory), phone1.addCategory(phoneCategory)]
+                return Promise.all([car1.addCategory([carCategory, phoneCategory]), car2.addCategory(carCategory), car3.addCategory(carCategory), phone1.addCategory(phoneCategory)]
                 );
             })
           })
@@ -88,8 +88,8 @@ describe('Review model', function () {
           })
       })
 
-      it('never gets products in another category', function (done) {
-        greatCar.getSimilar()
+      it('never gets products that it doesn\'t share a category with', function (done) {
+        goodCar.getSimilar()
           .then(similarProducts => {
               expect(similarProducts).to.not.contain.a.thing.with.property('title', greatPhone.title);
               done();
@@ -100,11 +100,12 @@ describe('Review model', function () {
       })
 
       it('gets the correct similar products', function (done) {
-        badCar.getSimilar()
+        greatCar.getSimilar()
           .then(similarProducts => {
-            expect(similarProducts).to.have.lengthOf(2);
-            expect(similarProducts).to.contain.a.thing.with.property('title', greatCar.title);
+            expect(similarProducts).to.have.lengthOf(3);
+            expect(similarProducts).to.contain.a.thing.with.property('title', badCar.title);
             expect(similarProducts).to.contain.a.thing.with.property('title', goodCar.title);
+            expect(similarProducts).to.contain.a.thing.with.property('title', greatPhone.title);
             done();
           })
           .catch(err => {
