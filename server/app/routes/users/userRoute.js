@@ -50,8 +50,9 @@ router.delete('/:id', function (req, res, next) {
 })
 
 router.post('/', function(req, res, next){
-  // prevents people from adding additional properties 
-  User.findOrCreate({
+
+  // maybe make this find or create in order to customize error messages on front end?
+  User.create({
     email: req.body.email,
     password: req.body.password
   })
