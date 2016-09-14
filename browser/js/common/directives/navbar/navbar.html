@@ -14,12 +14,19 @@
                 </ul>
             </li>
         </ul>
-        <button ng-show="user" ui-sref="account" class="btn login-button">My Account</button>
+
+        <ul class="nav navbar-nav">
+
+        <li><a ui-sref="cart" ui-sref-active="active"> My Cart </a></li>
+        </ul>
         <button ng-show="!user" ui-sref="login" class="btn login-button">Login</button>
+
         <button id="signup-button" ng-hide="isLoggedIn()" ui-sref="signup" class="btn login-button">Signup</button>
         <div ng-show="user" class="welcome">
             <span>Welcome, {{ user.email }}!</span>
-            <a ng-click="logout()">Logout</a>
+            <a ui-sref="account">My Account</a>
+
+            <button ng-show="user" ng-click="logout()" class="btn logout-button">Logout</button>
         </div>
     </div>
 </nav>
