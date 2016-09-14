@@ -1,4 +1,4 @@
-app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) {
+app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, Category) {
 
     return {
         restrict: 'E',
@@ -7,11 +7,33 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
         link: function (scope) {
 
             scope.items = [
-                { label: 'Home', state: 'home' },
-                { label: 'About', state: 'about' },
-                { label: 'Documentation', state: 'docs' },
-                { label: 'Members Only', state: 'membersOnly', auth: true }
+                //{ label: 'Home', state: 'home' },
+                // { label: 'About', state: 'about' },
+                // { label: 'Documentation', state: 'docs' },
+                // { label: 'Members Only', state: 'membersOnly', auth: true }
             ];
+
+            Category.fetchAll()
+            .then(cats => {
+                scope.categories = cats
+                console.log("scope categories: " + scope.categories[0])
+            })
+
+            Category.getMetaCategories()
+            .then(cats => {
+                scope.metaCategories = cats
+                scope.metaCategories.forEach(metaCat => {
+                    scope.items.push({label: metaCat, state: null})
+                })
+            })
+
+            scope.inMetaCat = function(category){
+                console.log("category: " + category);
+                console.log("metaCAt: " + metaCategory)
+                console.log("result" + category.metaCategory === metaCategory)
+                return category.metaCategory === 'Electronics'
+            }
+
 
             scope.user = null;
 
@@ -46,3 +68,9 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
     };
 
 });
+
+// app.filter('inMetaCat', function(){
+//     return function(category){
+//         return category.metaCategory === 'Electronics'
+//     }
+// })
