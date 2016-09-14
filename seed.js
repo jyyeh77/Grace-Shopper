@@ -39,15 +39,15 @@ var seedUsers = function () {
     },
     {
       email: 'j.soulfire77@gmail.com',
-      password: 'FSA'
+      password: 'FSAB'
     },
     {
       email: 'kfuchs24@gmail.com',
-      password: '123'
+      password: '123B'
     },
     {
       email: 'j@osh.com',
-      password: '2fly'
+      password: '2flyB'
     },
     {
       email: 'd@an.com',
