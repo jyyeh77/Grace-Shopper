@@ -4,16 +4,17 @@
             <fullstack-logo></fullstack-logo>
         </div>
         <ul class="nav navbar-nav">
-            <li ng-repeat="item in items" ng-mouseenter="hovering=true" ng-mouseleave="hovering=false">
-                <a ui-sref-active="active">{{ item.label }}</a>
-                <ul  class="dropdown" ng-show="hovering">
-                    <li ng-repeat="category in categories">
-                        <a ui-sref-active="active" ui-sref="{{ category.state }}">{{ category.name }}</a>
+            <li><a ui-sref="home"> Home </a></li>
+            <li ng-repeat="metaCat in metaCategories" ng-mouseenter="hovering=true" ng-mouseleave="hovering=false">
+                <a ui-sref-active="active">{{ metaCat }}</a>
+                <ul class="dropdown" ng-show="hovering" ng-init="selectedCats = subCats(metaCat)">
+                    <li ng-repeat="category in selectedCats">
+                        <a ui-sref="category({name:category.name})">{{ category.name }}</a>
                     </li>
                 </ul>
             </li>
         </ul>
-<!--         <div>
+        <!--         <div>
         Categories: {{categories}}
         </div>
         <div>
