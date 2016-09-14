@@ -48,3 +48,13 @@ router.delete('/:id', function (req, res, next) {
     })
     .catch(next);
 })
+
+router.post('/', function(req, res, next){
+  // prevents people from adding additional properties 
+  User.findOrCreate({
+    email: req.body.email,
+    password: req.body.password
+  })
+  .then(result => res.send(result.data))
+  .catch(next);
+})
