@@ -1,37 +1,57 @@
-app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) {
+app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state, Category) {
 
     return {
         restrict: 'E',
         scope: {},
         templateUrl: 'js/common/directives/navbar/navbar.html',
-        link: function (scope) {
+        link: function(scope) {
 
-            scope.items = [
-                { label: 'Home', state: 'home' },
-                { label: 'About', state: 'about' },
-                { label: 'Documentation', state: 'docs' },
-                { label: 'Members Only', state: 'membersOnly', auth: true }
-            ];
 
-            scope.user = null;
+            Category.fetchAll()
+                .then(cats => scope.categories = cats);
 
-            scope.isLoggedIn = function () {
-                return AuthService.isAuthenticated();
-            };
+            Category.getMetaCategories()
+                .then(cats => scope.metaCategories = cats);
 
-            scope.logout = function () {
-                AuthService.logout().then(function () {
-                   $state.go('home');
+            scope.subCats = function(metaCat){
+                return scope.categories.filter(function(cat){
+                    console.log('cat, meta', cat, cat.metaCategory)
+                    return cat.metaCategory === metaCat;
                 });
             };
 
-            var setUser = function () {
-                AuthService.getLoggedInUser().then(function (user) {
+    
+
+// <<<<<<< HEAD
+// =======
+//             scope.items = [
+//                 { label: 'Home', state: 'home' },
+//                 { label: 'About', state: 'about' },
+//                 { label: 'Documentation', state: 'docs' },
+//                 { label: 'Members Only', state: 'membersOnly', auth: true },
+//                 { label: 'My Account', state: 'account', auth: true }
+//             ];
+// >>>>>>> master
+
+            scope.user = null;
+
+            scope.isLoggedIn = function() {
+                return AuthService.isAuthenticated();
+            };
+
+            scope.logout = function() {
+                AuthService.logout().then(function() {
+                    $state.go('home');
+                });
+            };
+
+            var setUser = function() {
+                AuthService.getLoggedInUser().then(function(user) {
                     scope.user = user;
                 });
             };
 
-            var removeUser = function () {
+            var removeUser = function() {
                 scope.user = null;
             };
 
@@ -46,3 +66,5 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
     };
 
 });
+
+

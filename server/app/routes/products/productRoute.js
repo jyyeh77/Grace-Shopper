@@ -20,7 +20,6 @@
  // fetch one product instance
  router.get('/:id', function(req, res, next) {
      res.send(req.requestedProduct)
-         .catch(next);
  });
 
  //fetch all

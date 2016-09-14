@@ -4,6 +4,40 @@
             <fullstack-logo></fullstack-logo>
         </div>
         <ul class="nav navbar-nav">
+            <li><a ui-sref="home"> Home </a></li>
+            <li ng-repeat="metaCat in metaCategories" ng-mouseenter="hovering=true" ng-mouseleave="hovering=false">
+                <a ui-sref-active="active">{{ metaCat }}</a>
+                <ul class="dropdown" ng-show="hovering" ng-init="selectedCats = subCats(metaCat)">
+                    <li ng-repeat="category in selectedCats">
+                        <a ui-sref="category({name:category.name})">{{ category.name }}</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+        <ul class="nav navbar-nav">
+
+        <li><a ui-sref="cart" ui-sref-active="active"> My Cart </a></li>
+        </ul>
+        <button ng-show="!user" ui-sref="login" class="btn login-button">Login</button>
+
+        <button id="signup-button" ng-hide="isLoggedIn()" ui-sref="signup" class="btn login-button">Signup</button>
+        <div ng-show="user" class="welcome">
+            <span>Welcome, {{ user.email }}!</span>
+            <a ui-sref="account">My Account</a>
+
+            <button ng-show="user" ng-click="logout()" class="btn logout-button">Logout</button>
+        </div>
+    </div>
+</nav>
+
+<!-- 
+<nav class="navbar navbar-static-top">
+    <div class="container">
+        <div class="navbar-header">
+            <fullstack-logo></fullstack-logo>
+        </div>
+        <ul class="nav navbar-nav">
             <li ng-repeat="item in items" ng-show="!item.auth || isLoggedIn()">
                 <a ui-sref-active="active" ui-sref="{{ item.state }}">{{ item.label }}</a>
             </li>
@@ -14,4 +48,4 @@
             <a ng-click="logout()">Logout</a>
         </div>
     </div>
-</nav>
+</nav> -->
