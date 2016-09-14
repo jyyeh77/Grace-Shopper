@@ -65,13 +65,13 @@ var seedUsers = function () {
 
 var seedCategories = function (){
   var categories = [
-    {name: 'Cars'},
-    {name: 'Video'},
-    {name: 'Phones'},
-    {name: 'TVs'},
-    {name: 'Clocks'},
-    {name: 'Computers'},
-    {name: 'Radios'}
+    {name: 'Cars', metaCategory: 'Vehicles'},
+    {name: 'Video', metaCategory: 'Electronics'},
+    {name: 'Phones', metaCategory: 'Electronics'},
+    {name: 'TVs', metaCategory: 'Electronics'},
+    {name: 'Clocks', metaCategory: 'Electronics'},
+    {name: 'Computers', metaCategory: 'Electronics'},
+    {name: 'Radios', metaCategory: 'Electronics'}
   ]
 
   var creatingCategories = categories.map(function(catObj){
