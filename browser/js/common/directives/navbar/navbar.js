@@ -20,13 +20,18 @@ app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state, C
                 });
             };
 
-            scope.inMetaCat = function(category) {
-                // console.log("category: " + category);
-                // console.log("metaCAt: " + metaCategory)
-                // console.log("result" + category.metaCategory === metaCategory)
-                return category.metaCategory === 'Electronics'
-            }
+    
 
+// <<<<<<< HEAD
+// =======
+//             scope.items = [
+//                 { label: 'Home', state: 'home' },
+//                 { label: 'About', state: 'about' },
+//                 { label: 'Documentation', state: 'docs' },
+//                 { label: 'Members Only', state: 'membersOnly', auth: true },
+//                 { label: 'My Account', state: 'account', auth: true }
+//             ];
+// >>>>>>> master
 
             scope.user = null;
 
@@ -62,8 +67,4 @@ app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state, C
 
 });
 
-// app.filter('inMetaCat', function(){
-//     return function(category){
-//         return category.metaCategory === 'Electronics'
-//     }
-// })
+

@@ -48,3 +48,14 @@ router.delete('/:id', function (req, res, next) {
     })
     .catch(next);
 })
+
+router.post('/', function(req, res, next){
+
+  // maybe make this find or create in order to customize error messages on front end?
+  User.create({
+    email: req.body.email,
+    password: req.body.password
+  })
+  .then(result => res.send(result.data))
+  .catch(next);
+})
