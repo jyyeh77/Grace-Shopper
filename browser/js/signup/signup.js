@@ -7,23 +7,13 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('SignupCtrl', function($scope, AuthService, $state, $http, $log){
+app.controller('SignupCtrl', function($scope, AuthService, $state){
     $scope.newUser = {};
+    $scope.error = null;
     $scope.submitFunc = function(){
-        //maybe put this into a factory/service eventually
-        //make this a find or create
-        $http({
-            method: 'POST',
-            url: '/api/users',
-            data: $scope.newUser
-        }) //based on the return value of the returnOrCreate, either continue or show an error message
-        .then(() => {
-            return AuthService.login($scope.newUser);
-        })
-        .then(() => {
-            $scope.newUser = {};
-            $state.go('home');
-        })
-        //figure out how to .catch() with $log
+        AuthService.signup($scope.newUser)
+        .catch(err => {$scope.error = err.message})
+        .then(() => AuthService.login($scope.newUser))
+        .then(() => $state.go('home'));
     };
 });

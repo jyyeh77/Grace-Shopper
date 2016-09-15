@@ -1,16 +1,15 @@
 'use strict';
-var crypto = require('crypto');
-var _ = require('lodash');
-var Sequelize = require('sequelize');
-
-var db = require('../_db');
+const crypto = require('crypto');
+const _ = require('lodash');
+const Sequelize = require('sequelize');
+const db = require('../_db');
 
 module.exports = db.define('user', {
     email: {
         type: Sequelize.STRING,
-        isUnique: true,
+        unique: true,
         validate: {
-            isEmail: true
+            isEmail: true,
         }
     },
     password: {
@@ -30,6 +29,10 @@ module.exports = db.define('user', {
     },
     google_id: {
         type: Sequelize.STRING
+    },
+    isAdmin: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
     }
 }, {
     instanceMethods: {
