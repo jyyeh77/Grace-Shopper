@@ -94,6 +94,15 @@
                 });
         };
 
+        this.signup = function(credentials){
+            console.log('runnign the fun')
+            return $http({
+                method: 'POST',
+                url: '/api/users',
+                data: credentials
+            }); 
+        };
+
         this.logout = function () {
             return $http.get('/logout').then(function () {
                 Session.destroy();

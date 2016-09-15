@@ -52,10 +52,36 @@ router.delete('/:id', function (req, res, next) {
 router.post('/', function(req, res, next){
 
   // maybe make this find or create in order to customize error messages on front end?
-  User.create({
-    email: req.body.email,
-    password: req.body.password
+  console.log('running post thng')
+  User.findOne({
+    where: {
+      email: req.body.email
+    }
   })
-  .then(result => res.send(result.data))
+  .then(userExists => {
+    if (!userExists){
+        User.create({
+          email: req.body.email,
+          password: req.body.password
+      })
+       //.then((user) => {})
+    } else {
+      console.log('stuff')
+    }
+    console.log('founddddddddddddddddddddddddddd:',result)
+    res.send('hey')
+  })
+
+  // User.findOrCreate({
+  //   where: {
+  //     email: req.body.email,
+  //     password: req.body.password
+  //   }
+  // })
+  // .then((found,created) => {
+  //   console.log('found:', found)
+  //   console.log('created:', created)
+  //   res.send(204)
+  // })
   .catch(next);
 })
