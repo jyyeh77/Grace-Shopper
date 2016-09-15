@@ -1,7 +1,14 @@
 <section id="category-page">
-    <h1>
+    <h1 ng-show="items.length">
         This is a category page for {{category}}
     </h1>
+
+
+
+    <div ng-show="!items.length">
+        <h1 class="unfound">We don't have any {{category}} right now!</h1>
+    </div>
+
     <div ng-repeat="item in items">
     	<category-page-item item="item">
     	</category-page-item>

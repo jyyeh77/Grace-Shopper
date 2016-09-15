@@ -15,7 +15,6 @@ app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state, C
 
             scope.subCats = function(metaCat){
                 return scope.categories.filter(function(cat){
-                    console.log('cat, meta', cat, cat.metaCategory)
                     return cat.metaCategory === metaCat;
                 });
             };
