@@ -5,6 +5,7 @@
 var router = require('express').Router(); // eslint-disable-line new-cap
 var User = require('../../../db/models/user')
 var Order = require('../../../db/models/order')
+var authUtils = require('../../configure/authentication/auth-utils.js')
 module.exports = router;
 
 // retrieves single user if ID parameter is specified in an /api/users/:id route
@@ -17,19 +18,9 @@ router.param('id', function (req, res, next, id) {
     })
     .catch(next);
 })
-
-// fetch one user instance
-router.get('/:id', function (req, res, next) {
+router.get('/:id', authUtils.ensureAdmin, function (req, res, next) {
+  console.log('sesh:',req.session.passport.user)
   res.send(req.requestedUser);
-})
-
-// use this route to retrieve orders associated with user instance
-router.get('/:id/orders', function (req, res, next) {
-  req.requestedUser.reload({include: [Order]})
-    .then(user => {
-      res.send(user);
-    })
-    .catch(next);
 })
 
 // admins can update current user info here

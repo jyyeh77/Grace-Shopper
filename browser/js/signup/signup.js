@@ -12,7 +12,7 @@ app.controller('SignupCtrl', function($scope, AuthService, $state){
     $scope.error = null;
     $scope.submitFunc = function(){
         AuthService.signup($scope.newUser)
-        .catch(function(err){ $scope.error = err.message; })
+        .catch(err => {$scope.error = err.message})
         .then(() => AuthService.login($scope.newUser))
         .then(() => $state.go('home'));
     };

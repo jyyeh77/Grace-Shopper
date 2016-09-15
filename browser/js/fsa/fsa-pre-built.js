@@ -63,6 +63,13 @@
             return !!Session.user;
         };
 
+        
+        // this.isAdmin = function(userId){
+        //             console.log('running admin func')
+        //             return $http.get('/session')
+        //                 .then(data => {console.log('data::::::::::::::::::::::',data)})
+        //         }
+
         this.getLoggedInUser = function (fromServer) {
 
             // If an authenticated session exists, we
@@ -90,7 +97,7 @@
             return $http.post('/login', credentials)
                 .then(onSuccessfulLogin)
                 .catch(function () {
-                    return $q.reject({ message: 'Invalid login credentials.' });
+                    return $q.reject({ message: 'Invalid login credentials.'});
                 });
         };
 
