@@ -1,6 +1,12 @@
 <div>
 <center><strong>SIGNUP</strong></center>
+	
+
 	<form id="signup-form" name="signup-form" ng-submit="submitFunc()">
+		<alert type="danger" ng-show="error">
+	        {{ error }}
+	    </alert>
+    
 		<div class="form-group">
 			<input id="signup-email" ng-model="newUser.email" type="text" class="form-control" value="Email Address" placeholder="Email Address">
 		</div>

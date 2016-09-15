@@ -2,15 +2,17 @@
 var crypto = require('crypto');
 var _ = require('lodash');
 var Sequelize = require('sequelize');
+//require('sequelize-isunique-validator')(Sequelize);
 
 var db = require('../_db');
 
 module.exports = db.define('user', {
     email: {
         type: Sequelize.STRING,
-        isUnique: true,
+        unique: true,
         validate: {
-            isEmail: true
+            isEmail: true,
+            
         }
     },
     password: {

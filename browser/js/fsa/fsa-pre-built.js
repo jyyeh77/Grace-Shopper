@@ -95,12 +95,15 @@
         };
 
         this.signup = function(credentials){
-            console.log('runnign the fun')
             return $http({
                 method: 'POST',
-                url: '/api/users',
+                url: '/signup',
                 data: credentials
-            }); 
+            })
+            .then(result => result.data)
+            .catch(function(){
+                return $q.reject({message: 'That email is already being used.'});
+            })
         };
 
         this.logout = function () {

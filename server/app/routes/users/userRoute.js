@@ -12,7 +12,7 @@ router.param('id', function (req, res, next, id) {
   User.findById(id)
     .then(foundUser => {
       if (!foundUser) res.sendStatus(404)
-      else req.requestedUser = foundUser;
+      else req.requestedUser = foundUser.sanitize();
       next();
     })
     .catch(next);
@@ -49,39 +49,26 @@ router.delete('/:id', function (req, res, next) {
     .catch(next);
 })
 
+//change this to a /signup
 router.post('/', function(req, res, next){
+  //   User.find({
+  //     where: {
+  //       email: req.body.email,
+  //     }
+  //   })
+  //   .then(userExists => {
+  //     console.log('running asfdas', userExists)
+  //     if (!userExists) {
+  //       User.create({
+  //         email: req.body.email,
+  //         password: req.body.password
+  //       })
+  //       .then(createdUser => res.send(createdUser))
+  //     } else {
+  //       res.send('user exists ')
+  //     }
+  //   })
 
-  // maybe make this find or create in order to customize error messages on front end?
-  console.log('running post thng')
-  User.findOne({
-    where: {
-      email: req.body.email
-    }
-  })
-  .then(userExists => {
-    if (!userExists){
-        User.create({
-          email: req.body.email,
-          password: req.body.password
-      })
-       //.then((user) => {})
-    } else {
-      console.log('stuff')
-    }
-    console.log('founddddddddddddddddddddddddddd:',result)
-    res.send('hey')
-  })
 
-  // User.findOrCreate({
-  //   where: {
-  //     email: req.body.email,
-  //     password: req.body.password
-  //   }
-  // })
-  // .then((found,created) => {
-  //   console.log('found:', found)
-  //   console.log('created:', created)
-  //   res.send(204)
-  // })
-  .catch(next);
+  // .catch(next);
 })
