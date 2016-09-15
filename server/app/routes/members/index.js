@@ -3,6 +3,8 @@ var router = require('express').Router(); // eslint-disable-line new-cap
 module.exports = router;
 var _ = require('lodash');
 
+
+//this will be placed in app/configure/something
 var ensureAuthenticated = function (req, res, next) {
     if (req.isAuthenticated()) {
         next();
@@ -10,6 +12,16 @@ var ensureAuthenticated = function (req, res, next) {
         res.status(401).end();
     }
 };
+
+// var ensureAdmin = function (req, res, next) {
+//     if (req.isAdmin()) {
+//         next();
+//     } else {
+//         res.status(401).end();
+//     }
+// };
+
+
 
 router.get('/secret-stash', ensureAuthenticated, function (req, res) {
 
