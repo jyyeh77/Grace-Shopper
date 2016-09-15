@@ -1,51 +1,99 @@
-<nav class="navbar navbar-static-top">
+<!--top-header-->
+<div class="top-header">
     <div class="container">
-        <div class="navbar-header">
-            <fullstack-logo></fullstack-logo>
-        </div>
-        <ul class="nav navbar-nav">
-            <li><a ui-sref="home"> Home </a></li>
-            <li ng-repeat="metaCat in metaCategories" ng-mouseenter="hovering=true" ng-mouseleave="hovering=false">
-                <a ui-sref-active="active">{{ metaCat }}</a>
-                <ul class="dropdown" ng-show="hovering" ng-init="selectedCats = subCats(metaCat)">
-                    <li ng-repeat="category in selectedCats">
-                        <a ui-sref="category({name:category.name})">{{ category.name }}</a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
+        <div class="top-header-main">
+            <div class="col-md-4 top-header-left">
+                <div class="search-bar">
+                    <input type="text" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}">
+                    <input type="submit" value="">
+                </div>
+            </div>
+            <div class="col-md-4 top-header-middle">
+                <a href="index.html"><img src="/js/common/directives/fullstack-logo/retrotech-logo-small.png" style="width: 70%"/></a>
+            </div>
+            <div class="col-md-4 top-header-right">
+                <button ng-show="!user" ui-sref="login" class="btn login-button">Login</button>
 
-        <ul class="nav navbar-nav">
+                <button id="signup-button" ng-hide="isLoggedIn()" ui-sref="signup" class="btn login-button">Signup</button>
+                <div ng-show="user" class="welcome">
+                    <span>Welcome, {{ user.email }}!</span>
+                    <a ui-sref="account">My Account</a>
 
-        <li><a ui-sref="cart" ui-sref-active="active"> My Cart </a></li>
-        </ul>
-        <button ng-show="!user" ui-sref="login" class="btn login-button">Login</button>
-
-        <button id="signup-button" ng-hide="isLoggedIn()" ui-sref="signup" class="btn login-button">Signup</button>
-        <div ng-show="user" class="welcome">
-            <span>Welcome, {{ user.email }}!</span>
-            <a ui-sref="account">My Account</a>
-
-            <button ng-show="user" ng-click="logout()" class="btn logout-button">Logout</button>
+                    <button ng-show="user" ng-click="logout()" class="btn logout-button">Logout</button>
+                </div>
+                <div class="cart box_1">
+                    <!--TODO: PUT CART STATE HERE!!-->
+                    <a href="">
+                        <h3> <div class="total">
+                            <span class="simpleCart_total"></span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span> items)</div>
+                            <span class="glyphicon glyphicon-shopping-cart"></span>
+                    </a>
+                    <p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
         </div>
     </div>
-</nav>
+</div>
+<!--top-header-->
 
-<!-- 
-<nav class="navbar navbar-static-top">
+<!--bottom-header-->
+<div class="header-bottom">
     <div class="container">
-        <div class="navbar-header">
-            <fullstack-logo></fullstack-logo>
+        <div class="top-nav">
+            <ul class="memenu skyblue" >
+                <li class="active"><a ui-sref="home"> Home </a></li>
+                <li class="grid" ng-repeat="metaCat in metaCategories" ng-mouseenter="hovering=true" ng-mouseleave="hovering=false">
+                    <a ui-sref-active="active">{{ metaCat }}</a>
+                    <div ng-show="hovering" class="mepanel" style="display:block" >
+                        <div class="row">
+                            <div class="col1 me-one">
+                                <ul ng-init="selectedCats = subCats(metaCat)">
+                                    <li ng-repeat="category in selectedCats">
+                                        <a ui-sref="category({name:category.name})">{{ category.name }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
         </div>
-        <ul class="nav navbar-nav">
-            <li ng-repeat="item in items" ng-show="!item.auth || isLoggedIn()">
-                <a ui-sref-active="active" ui-sref="{{ item.state }}">{{ item.label }}</a>
-            </li>
-        </ul>
-        <button ng-show="!user" ui-sref="login" class="btn login-button">Login</button>
-        <div ng-show="user" class="welcome">
-            <span>Welcome, {{ user.email }}!</span>
-            <a ng-click="logout()">Logout</a>
-        </div>
+        <div class="clearfix"> </div>
     </div>
-</nav> -->
+</div>
+
+<!--<nav class="navbar navbar-static-top">-->
+    <!--<div class="container">-->
+        <!--<div class="navbar-header">-->
+            <!--<fullstack-logo></fullstack-logo>-->
+        <!--</div>-->
+        <!--<ul class="nav navbar-nav">-->
+            <!--<li><a ui-sref="home"> Home </a></li>-->
+            <!--<li ng-repeat="metaCat in metaCategories" ng-mouseenter="hovering=true" ng-mouseleave="hovering=false">-->
+                <!--<a ui-sref-active="active">{{ metaCat }}</a>-->
+                <!--<ul class="dropdown" ng-show="hovering" ng-init="selectedCats = subCats(metaCat)">-->
+                    <!--<li ng-repeat="category in selectedCats">-->
+                        <!--<a ui-sref="category({name:category.name})">{{ category.name }}</a>-->
+                    <!--</li>-->
+                <!--</ul>-->
+            <!--</li>-->
+        <!--</ul>-->
+
+        <!--<ul class="nav navbar-nav">-->
+
+        <!--<li><a ui-sref="cart" ui-sref-active="active"> My Cart </a></li>-->
+        <!--</ul>-->
+        <!--<button ng-show="!user" ui-sref="login" class="btn login-button">Login</button>-->
+
+        <!--<button id="signup-button" ng-hide="isLoggedIn()" ui-sref="signup" class="btn login-button">Signup</button>-->
+        <!--<div ng-show="user" class="welcome">-->
+            <!--<span>Welcome, {{ user.email }}!</span>-->
+            <!--<a ui-sref="account">My Account</a>-->
+
+            <!--<button ng-show="user" ng-click="logout()" class="btn logout-button">Logout</button>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</nav>-->
+
