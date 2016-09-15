@@ -3,13 +3,15 @@
 var router = require('express').Router();
 var Order = require('../../../db/models/order');
 var User = require('../../../db/models/user');
-var auth = require('../../configure/authentication/auth-utils')
+var auth = require('../../configure/authentication/auth-utils');
+var newError = require('../errorUtils').generateError;
 module.exports = router;
+
+
 
 // gets single order if param id is included in URI (/api/orders/:id)
 router.param('id', function(req, res, next, id){
-	let errNotFound = new Error("Order not found.");
-	errNotFound.status = 404
+	let errNotFound = newError("Order not found.", 404);
 
 	Order.findById(req.params.id)
 	.then(foundOrder => {
@@ -23,12 +25,8 @@ router.param('id', function(req, res, next, id){
 
 //get single order instance by id
 router.get('/:id', function(req, res, next){
-	let errForbidden = new Error("Nice try, buddy. You don't have access to this order. Now stop snooping.");
-	errForbidden.status = 403;
-
+	let errForbidden = newError("Nice try, buddy. You don't have access to this order. Now stop snooping.", 403);
 	let user = req.session.passport.user;
-
-	console.log("the session", req.session)
 
 	auth.isAdmin(user)
 	.then(admin => {
@@ -42,12 +40,8 @@ router.get('/:id', function(req, res, next){
 
 //update single order instance. will mostly be used to update order status
 router.put('/:id', function(req, res, next){
-	let errFailed = new Error("Order update failed.");
-	errFailed.status = 403;
-
-	let errForbidden = new Error("Sorry, you don't have permission to update this order.");
-	errForbidden.status = 403;
-	
+	let errFailed = newError("Order update failed.", 500);
+	let errForbidden = newError("Sorry, you don't have permission to update this order.", 403)
 	let user = req.session.passport.user;
 
 	auth.isAdmin(user)
@@ -68,12 +62,8 @@ router.put('/:id', function(req, res, next){
 // get all orders associated with a given user. admins can access all orders. 
 // query string can also be used to filter by order status, e.g. "/?userId=3&status=Shipped"
 router.get('/', function (req, res, next) {
-	let errNoOrders = new Error("No orders found.");
-	errNoOrders.status = 404;
-
-	let errForbidden = new Error("Nice try, buddy. You don't have access to these orders. Now stop snooping.");
-	errForbidden.status = 403;
-
+	let errNoOrders = newError("No orders found", 404);
+	let errForbidden = newError("Nice try, buddy. You don't have access to these orders. Now stop snooping.", 403);
 	let user = req.session.passport.user
 
 	auth.isAdmin(user)
@@ -93,12 +83,8 @@ router.get('/', function (req, res, next) {
 //create new order instance. stringifies all objects in products array before creating instance.
 //users can only place orders for themselves. admins can place orders for any user.
 router.post('/', function( req, res, next){
-	let errFailed = new Error("Could not place order. Please try again.");
-	errFailed.status = 500;
-
-	let errForbidden = new Error("Stop trying to place orders for other people, ya dingus.");
-	errForbidden.status = 403;
-
+	let errFailed = newError("Could not place order. Please try again.", 500);
+	let errForbidden = newError("Stop trying to place orders for other people, ya dingus.", 403);
 	let user = req.session.passport.user
 
 	auth.isAdmin(user)
