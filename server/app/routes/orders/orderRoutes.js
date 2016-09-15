@@ -3,6 +3,7 @@
 var router = require('express').Router();
 var Order = require('../../../db/models/order');
 var User = require('../../../db/models/user');
+var auth = require('../../configure/authentication/auth-utils')
 module.exports = router;
 
 // gets single order if param id is included in URI (/api/orders/:id)
@@ -12,7 +13,7 @@ router.param('id', function(req, res, next, id){
 
 	Order.findById(req.params.id)
 	.then(foundOrder => {
-		if (!foundOrder) return next(errNotFound);
+		if (!foundOrder) throw(errNotFound);
 		else req.order = foundOrder;
 		next()
 	})
@@ -27,11 +28,16 @@ router.get('/:id', function(req, res, next){
 
 	let user = req.session.passport.user;
 
-	if (user.isAdmin || (req.isAuthenticated() && user == req.order.userId)){
-		res.send(req.order)
-	} else {
-		return next(errForbidden);
-	}	
+	console.log("the session", req.session)
+
+	auth.isAdmin(user)
+	.then(admin => {
+		if (admin || (req.isAuthenticated() && user == req.order.userId)){
+			res.send(req.order)
+		} else {
+			return next(errForbidden);
+		}
+	})	
 })
 
 //update single order instance. will mostly be used to update order status
@@ -41,14 +47,22 @@ router.put('/:id', function(req, res, next){
 
 	let errForbidden = new Error("Sorry, you don't have permission to update this order.");
 	errForbidden.status = 403;
-	// >>> update to only allow admin users to edit placed orders.
+	
+	let user = req.session.passport.user;
 
-	req.order.update(req.body, {returning: true})
-	.then(updatedOrder => {
-		if (!updatedOrder) return next(err)
-		res.send(updatedOrder);
+	auth.isAdmin(user)
+	.then(admin => {
+		if (admin){
+			req.order.update(req.body, {returning: true})
+			.then(updatedOrder => {
+				if (!updatedOrder) return next(errFailed)
+				res.send(updatedOrder);
+			})
+			.catch(next);
+		} else {
+			return next(errForbidden)
+		}
 	})
-	.catch(next);
 })
 
 // get all orders associated with a given user. admins can access all orders. 
@@ -62,15 +76,18 @@ router.get('/', function (req, res, next) {
 
 	let user = req.session.passport.user
 
-	if (user.isAdmin || (req.isAuthenticated() && user == req.query.userId)){
-		Order.findAll({where: req.query})
-		.then(foundOrders => {
-			if (!foundOrders.length) return next(errNoOrders);
-			else res.send(foundOrders)
-		})	
-	} else {
-		return next(errForbidden)
-	}
+	auth.isAdmin(user)
+	.then(admin => {
+		if (admin || (req.isAuthenticated() && user == req.query.userId)){
+			Order.findAll({where: req.query})
+			.then(foundOrders => {
+				if (!foundOrders.length) return next(errNoOrders);
+				else res.send(foundOrders);
+			})	
+		} else {
+			return next(errForbidden);
+		}
+	})
 })
 
 //create new order instance. stringifies all objects in products array before creating instance.
@@ -84,18 +101,21 @@ router.post('/', function( req, res, next){
 
 	let user = req.session.passport.user
 
-	if (user.isAdmin || (req.isAuthenticated() && user == req.body.userId)){
-		req.body.products.forEach(product => {
-			product = JSON.stringify(product);
-		})
+	auth.isAdmin(user)
+	.then(admin => {
+		if (admin || (req.isAuthenticated() && user == req.body.userId)){
+			req.body.products.forEach(product => {
+				product = JSON.stringify(product);
+			})
 
-		Order.create(req.body)
-		.then(newOrder => {
-			if (!newOrder) return next(err);
-			else res.send(newOrder);
-		})
-		.catch(next);	
-	} else {
-		return next(errForbidden)
-	}
+			Order.create(req.body)
+			.then(newOrder => {
+				if (!newOrder) return next(errFailed);
+				else res.send(newOrder);
+			})
+			.catch(next);	
+		} else {
+			return next(errForbidden)
+		}
+	})
 })
