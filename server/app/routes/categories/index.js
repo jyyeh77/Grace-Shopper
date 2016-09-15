@@ -1,11 +1,12 @@
 'use strict';
 var router = require('express').Router(); // eslint-disable-line new-cap
-var Category = require('../../../db/models/category');
+var Category = require('../../../db/models/category'); //require in db and db.model('category') OR db.models.category
 module.exports = router;
 
 
 router.get('/', function(req, res, next){
-  Category.findAll()
+  //URL bar - /api/categories/?name=sdlfjklsdkjf -- KHJH
+  Category.findAll() //{where: req.query} -- KHJH 
   .then(function(allCategories){
     res.send(allCategories)
   })
@@ -20,7 +21,7 @@ router.get('/:category', function (req, res, next) {
   })
   .then(function(foundCategory){
     if (!foundCategory){
-      res.send(404);
+      res.send(404); //error handling middleware -- KHJH
       return;
     }
     else {

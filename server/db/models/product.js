@@ -36,8 +36,8 @@ var Product = db.define('product', {
     	//does not include itself in the array 
         getSimilar: function() {
         		var self = this;
-            return this.getCategories()
-                .then(function(productCategories) {
+            return this.getCategories() //use self not this if you define it -- KHJH
+                .then(function(productCategories) { //fat arrow? -- KHJH
                     return Promise.all(
                         productCategories.map(function(category) {
                             return category.getProducts({
@@ -52,7 +52,7 @@ var Product = db.define('product', {
                 })
                 .then(function(similarProducts) {
                     var output = [];
-                    var flattenedProducts = _.flatten(similarProducts);
+                    var flattenedProducts = _.flatten(similarProducts); //lodash!! check out _.uniq -- KHJH
                     flattenedProducts.forEach(function(prod) {
                         if (!output.includes(prod)) output.push(prod);
                     });

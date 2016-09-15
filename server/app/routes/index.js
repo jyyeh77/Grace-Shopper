@@ -18,5 +18,8 @@ router.use('/orders', require('./orders/orderRoutes'));
 // Make sure this is after all of
 // the registered routes!
 router.use(function (req, res) {
+	//let error = new Error('no route existed')
+	//error.status = 404;
+	//return next(error); -- KHJH
     res.status(404).end();
 });

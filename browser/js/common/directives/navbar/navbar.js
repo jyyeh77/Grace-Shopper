@@ -1,5 +1,7 @@
 app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state, Category) {
 
+    //angular material design, free bootstrap angular theme -- KHJH
+
     return {
         restrict: 'E',
         scope: {},

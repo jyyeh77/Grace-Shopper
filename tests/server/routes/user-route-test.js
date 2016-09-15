@@ -14,6 +14,8 @@ chai.use(require('chai-things'))
 const app = require('../../../server/app')(db);
 const agent = supertest.agent(app);
 
+//could define function and objects here to better clarify what is happening in the function -- KHJH
+
 describe('Users Route', function () {
 
   function toPlainObject (instance) {
@@ -39,7 +41,7 @@ describe('Users Route', function () {
       return User.create(userObj);
     });
     return Promise.all(creatingUsers)
-      .spread((user1, user2) => {
+      .spread((user1, user2) => { //great use of let and fat arrow functions! -- KHJH
         let orders = [{
           status: 'Pending',
           products: [
@@ -107,6 +109,7 @@ describe('Users Route', function () {
             return JSON.stringify(product);
           })
         })
+        //
         var creatingOrders = orders.map(function(orderObj){
           return Order.create(orderObj)
         })
@@ -121,7 +124,7 @@ describe('Users Route', function () {
 
   describe('GET /api/users/:id', function () {
 
-    it('responds with 200 on a page that exists', function (done) {
+    it('responds with 200 on a page that exists', function (done) { //for admin use? Otherwise I would expect user/home and rely on req.user -- KHJH
       agent.get('/api/users/1').expect(200).end(function (err, res) {
         if (err) return done(err);
         expect(res.body.email).to.equal('testing@fsa.com');
@@ -136,7 +139,7 @@ describe('Users Route', function () {
 
   })
 
-  describe('GET /api/users/:id/orders', function () {
+  describe('GET /api/users/:id/orders', function () { //think about RESTful and descriptive routes. Orders in order.js. -- KHJH
 
     it('retrieves all orders for existing user', function (done) {
       agent.get('/api/users/1/orders').expect(200).end((err, res) => {
@@ -154,7 +157,7 @@ describe('Users Route', function () {
     it('deletes an user', function (done) {
       agent.delete('/api/users/1').expect(204).end((err, res) => {
         if (err) return done(err);
-        User.findById(1)
+        User.findById(1) //gerat!! -- KHJH
           .then((deletedUser) => {
             expect(deletedUser).to.be.null;
             done()
