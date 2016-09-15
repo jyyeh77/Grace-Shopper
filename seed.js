@@ -17,6 +17,8 @@
 
  */
 
+//for dev, maybe have a run seed that db inits and then runs this -- KHJH
+
 var chalk = require('chalk');
 var db = require('./server/db');
 var User = db.model('user');
@@ -24,7 +26,7 @@ var Product = db.model('product');
 var Category = db.model('category');
 var Order = db.model('order');
 var Review = db.model('review');
-var Promise = require('sequelize').Promise;
+var Promise = require('sequelize').Promise; 
 
 var seedUsers = function () {
 
@@ -146,7 +148,7 @@ var seedProducts = function () {
       imageUrl: 'https://mir-s3-cdn-cf.behance.net/project_modules/disp/21b2fe19036859.562d3e03e799d.jpg'
     })
       .then(function (newProduct) {
-        newProduct.addCategory([Phones, Clocks]);
+        newProduct.addCategory([Phones, Clocks]); //addCategories -- KHJH
       })
       .catch(function (err) {
         console.err(err);
@@ -206,7 +208,7 @@ var seedProducts = function () {
 
 
 var seedOrders = function(){
-
+  //talk about redundancy/space requirements of entire product being repeated -- KHJH
   var orders = [
     {
       status: 'Pending',
@@ -538,7 +540,7 @@ var seedReviews = function () {
 
 db.sync({ force: true })
     .then(function () {
-        return seedUsers();
+        return seedUsers(); //could combine this and categories -- KHJH
     })
     .then(function(){
         return seedCategories();
@@ -547,7 +549,7 @@ db.sync({ force: true })
         return seedProducts();
     })
     .then(function(){
-      return seedOrders();
+      return seedOrders(); //could combine this with reviews (promise.all) --KHJH
     })
     .then(function(){
       return seedReviews();

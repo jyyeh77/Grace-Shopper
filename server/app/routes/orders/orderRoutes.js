@@ -4,9 +4,10 @@ var router = require('express').Router();
 var Order = require('../../../db/models/order')
 module.exports = router;
 
+//router.params -- KHJH
 
 //get single order instance by id
-router.get('/:id', function(req, res, next){
+router.get('/:id', function(req, res, next){ //auth only the logged in user should find their own orders/admin can see all orders (same for the following) -- KHJH
 	Order.findById(req.params.id)
 	.then(foundOrder => {
 		if (!foundOrder) res.sendStatus(404);
@@ -29,7 +30,7 @@ router.put('/:id', function(req, res, next){
 })
 
 //get all orders. option for query string ?status={insertStatusHere} to get all Completed, Pending, Shipped, orders etc.
-router.get('/', function(req, res, next){
+router.get('/', function(req, res, next){ //get all should only get all for a specific user (logged in -- req.user) or all for the admin -- KHJH
 	const options = {}
 	if (req.query.status) options.where = {status: req.query.status};
 

@@ -16,6 +16,8 @@ Product.belongsToMany(Category, {through: 'product_categories'});
 Category.belongsToMany(Product, {through: 'product_categories'});
 Product.hasMany(Review);
 
+//maybe have 2-way associations, for finding all products by review -- KHJH
+
 // TODO: might want to add this as an alternative....
 // Order.hasMany(Products);
 

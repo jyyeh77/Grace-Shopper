@@ -1,6 +1,8 @@
 'use strict';
 window.app = angular.module('FullstackGeneratedApp', ['fsaPreBuilt', 'ui.router', 'ui.bootstrap', 'ngAnimate']);
 
+//handle errors on the front in the controller and show them to the user, consider growls, angular growl library -- KHJH
+
 app.config(function ($urlRouterProvider, $locationProvider) {
     // This turns off hashbang urls (/#about) and changes it to something normal (/about)
     $locationProvider.html5Mode(true);

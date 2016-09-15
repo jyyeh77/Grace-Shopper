@@ -4,7 +4,7 @@ module.exports = router;
 var _ = require('lodash');
 
 var ensureAuthenticated = function (req, res, next) {
-    if (req.isAuthenticated()) {
+    if (req.isAuthenticated()) { //check req.user == user.id of order trying to be gotten -- KHJH
         next();
     } else {
         res.status(401).end();

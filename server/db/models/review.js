@@ -13,7 +13,7 @@ module.exports = db.define('review', {
       allowNull: false
     },
     content: {
-      type: Sequelize.TEXT
+      type: Sequelize.TEXT //why is this text but product description is string? -- KHJH
     }
   }
 );
