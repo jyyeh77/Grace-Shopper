@@ -15,23 +15,11 @@ app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state, C
 
             scope.subCats = function(metaCat){
                 return scope.categories.filter(function(cat){
+
                     console.log('cat, meta', cat, cat.metaCategory)
                     return cat.metaCategory === metaCat;
                 });
             };
-
-    
-
-// <<<<<<< HEAD
-// =======
-//             scope.items = [
-//                 { label: 'Home', state: 'home' },
-//                 { label: 'About', state: 'about' },
-//                 { label: 'Documentation', state: 'docs' },
-//                 { label: 'Members Only', state: 'membersOnly', auth: true },
-//                 { label: 'My Account', state: 'account', auth: true }
-//             ];
-// >>>>>>> master
 
             scope.user = null;
 

@@ -39,19 +39,23 @@ var seedUsers = function () {
     },
     {
       email: 'j.soulfire77@gmail.com',
-      password: 'FSAB'
+      password: 'FSAB',
+      isAdmin: true
     },
     {
       email: 'kfuchs24@gmail.com',
-      password: '123B'
+      password: '123B',
+      isAdmin: true
     },
     {
       email: 'j@osh.com',
-      password: '2flyB'
+      password: '2flyB',
+      isAdmin: true
     },
     {
-      email: 'd@an.com',
-      password: '3fly'
+      email: 'd@n.com',
+      password: '3fly',
+      isAdmin: true
     }
   ];
 
