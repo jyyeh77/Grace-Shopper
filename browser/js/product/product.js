@@ -19,4 +19,7 @@ app.controller('ProductController', function ($scope, theProduct) {
 
 	$scope.product = theProduct;
 
+    
+
 });
+ 

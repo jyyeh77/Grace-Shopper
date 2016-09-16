@@ -1,13 +1,19 @@
 <div>
-	{{product.title}}
+    <div ng-show="product.error">
+        <h1 class="unfound">{{product.data}}</h1>
+        <img src="http://www.noviquitaeten.de/images/steamdriven_sewing_machine.x1600.jpg" />
+    </div>
 
-	<img src="{{product.imageUrl}}" width="800"/>
 
-	{{product.price}}
-	{{product.description}}
-	{{product.specs}}
-	{{product.creationDate}}
+    {{product.title}}
+    <img src="{{product.imageUrl}}" width="800" /> 
+    {{product.price}} {{product.description}} {{product.specs}} {{product.creationDate}}
 
+
+    <h2>Reviews</h2>
+    <div ng-repeat="review in product.reviews">
+    	<h3> {{review}} </h3>
 </div>
 
+</div>
 

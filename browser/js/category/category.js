@@ -20,3 +20,4 @@ app.controller('CategoryController', function ($scope, itemsInCat, $stateParams)
 	$scope.category = $stateParams.name;
 
 });
+ 
