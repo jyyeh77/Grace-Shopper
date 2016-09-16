@@ -16,7 +16,7 @@
  name in the environment files.
 
  */
-
+'use strict';
 var chalk = require('chalk');
 var db = require('./server/db');
 var User = db.model('user');
