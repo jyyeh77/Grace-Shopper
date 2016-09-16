@@ -1,5 +1,5 @@
 app.factory('Product', function($http) {
-
+    var selectProduct = null;
     return {
         fetchById: function(id){
             return $http.get('/api/products/'+id)
@@ -17,6 +17,21 @@ app.factory('Product', function($http) {
               err.error=true;
               return err;
             })
+        },
+
+      // used in type-ahead to transition to correct product state
+        fetchByName: function () {
+          return $http.post('/api/products/single/?title=' + selectProduct)
+            .then(res => res.data)
+            .catch(err => {
+              err.error = true;
+              return err;
+            })
+        },
+
+        setSelectedProduct: function (product) {
+          selectProduct = product;
         }
+
     };
 });
