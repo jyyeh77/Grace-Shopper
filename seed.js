@@ -24,6 +24,7 @@ var Product = db.model('product');
 var Category = db.model('category');
 var Order = db.model('order');
 var Review = db.model('review');
+var Cart = db.model('cart');
 var Promise = require('sequelize').Promise;
 
 var seedUsers = function () {
@@ -67,7 +68,7 @@ var seedUsers = function () {
 
 };
 
-var seedCategories = function (){
+var seedCategories = function () {
   var categories = [
     {name: 'Cars', metaCategory: 'Vehicles'},
     {name: 'Video', metaCategory: 'Electronics'},
@@ -78,7 +79,7 @@ var seedCategories = function (){
     {name: 'Radios', metaCategory: 'Electronics'}
   ]
 
-  var creatingCategories = categories.map(function(catObj){
+  var creatingCategories = categories.map(function (catObj) {
     return Category.create(catObj)
   })
 
@@ -209,7 +210,7 @@ var seedProducts = function () {
 };
 
 
-var seedOrders = function(){
+var seedOrders = function () {
 
   var orders = [
     {
@@ -217,24 +218,24 @@ var seedOrders = function(){
       userId: 1,
       products: [
         {
-              title: "iRazor",
-              description: "This may look like your granny's flip-phone, but inside it's running the latest iOS",
-              specs: '{"screensize":"2 in.","weight":"95g","quality":"primo"}',
-              price: 599.99,
-              quantityOrdered: 1,
-              releaseDate: '2003',
-              imageUrl: 'http://i-cdn.phonearena.com/images/phones/4573-large/Motorola-RAZR-V3-0.jpg'
-            },
+          title: "iRazor",
+          description: "This may look like your granny's flip-phone, but inside it's running the latest iOS",
+          specs: '{"screensize":"2 in.","weight":"95g","quality":"primo"}',
+          price: 599.99,
+          quantityOrdered: 1,
+          releaseDate: '2003',
+          imageUrl: 'http://i-cdn.phonearena.com/images/phones/4573-large/Motorola-RAZR-V3-0.jpg'
+        },
 
-          {
-                title: "Rich Grandpa",
-                description: "This may look like your grandfather's clock, but inside is a lot of unnecessary platinum, some bitcoins, and a quad-core processor",
-                specs: '{"height":"4 ft","weight":"60kg","quality":"primo"}',
-                price: 8000,
-                quantityOrdered: 2,
-                releaseDate: '1656',
-                imageUrl: 'http://www.todayifoundout.com/wp-content/uploads/2012/09/grandfather-clock.jpg'
-              }
+        {
+          title: "Rich Grandpa",
+          description: "This may look like your grandfather's clock, but inside is a lot of unnecessary platinum, some bitcoins, and a quad-core processor",
+          specs: '{"height":"4 ft","weight":"60kg","quality":"primo"}',
+          price: 8000,
+          quantityOrdered: 2,
+          releaseDate: '1656',
+          imageUrl: 'http://www.todayifoundout.com/wp-content/uploads/2012/09/grandfather-clock.jpg'
+        }
       ]
     },
 
@@ -243,14 +244,14 @@ var seedOrders = function(){
       userId: 2,
       products: [
         {
-              title: "Steampunk Watch Phone",
-              description: "The internals of this steampunk watch phone combine the state-of-the-art components of the Apple watch AND iPhone 7",
-              specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
-              price: 1500,
-              quantityOrdered: 1,
-              releaseDate: '1874',
-              imageUrl: 'https://mir-s3-cdn-cf.behance.net/project_modules/disp/21b2fe19036859.562d3e03e799d.jpg'
-            }
+          title: "Steampunk Watch Phone",
+          description: "The internals of this steampunk watch phone combine the state-of-the-art components of the Apple watch AND iPhone 7",
+          specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
+          price: 1500,
+          quantityOrdered: 1,
+          releaseDate: '1874',
+          imageUrl: 'https://mir-s3-cdn-cf.behance.net/project_modules/disp/21b2fe19036859.562d3e03e799d.jpg'
+        }
       ]
     },
 
@@ -259,14 +260,14 @@ var seedOrders = function(){
       userId: 3,
       products: [
         {
-              title: 'Retro Phone',
-              description: 'This phone has a classic look.',
-              specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
-              price: 80,
-              quantityOrdered: 3,
-              releaseDate: '1980',
-              imageUrl: 'http://www.retroplanet.com/mm5/graphics/00000006/23914_main.jpg'
-            }
+          title: 'Retro Phone',
+          description: 'This phone has a classic look.',
+          specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
+          price: 80,
+          quantityOrdered: 3,
+          releaseDate: '1980',
+          imageUrl: 'http://www.retroplanet.com/mm5/graphics/00000006/23914_main.jpg'
+        }
       ]
     },
 
@@ -275,14 +276,14 @@ var seedOrders = function(){
       userId: 4,
       products: [
         {
-              title: "Steampunk Watch Phone",
-              description: "The internals of this steampunk watch phone combine the state-of-the-art components of the Apple watch AND iPhone 7",
-              specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
-              price: 1500,
-              quantityOrdered: 2,
-              releaseDate: '1874',
-              imageUrl: 'https://mir-s3-cdn-cf.behance.net/project_modules/disp/21b2fe19036859.562d3e03e799d.jpg'
-            }
+          title: "Steampunk Watch Phone",
+          description: "The internals of this steampunk watch phone combine the state-of-the-art components of the Apple watch AND iPhone 7",
+          specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
+          price: 1500,
+          quantityOrdered: 2,
+          releaseDate: '1874',
+          imageUrl: 'https://mir-s3-cdn-cf.behance.net/project_modules/disp/21b2fe19036859.562d3e03e799d.jpg'
+        }
       ]
     },
 
@@ -312,7 +313,7 @@ var seedOrders = function(){
           specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
           price: 3000,
           quantityOrdered: 1,
-          releaseDate: '1908' ,
+          releaseDate: '1908',
           imageUrl: 'http://assets.blog.hemmings.com/wp-content/uploads/2011/03/model-t.jpg'
         }
       ]
@@ -328,18 +329,18 @@ var seedOrders = function(){
           specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
           price: 3000,
           quantityOrdered: 5,
-          releaseDate: '1908' ,
+          releaseDate: '1908',
           imageUrl: 'http://assets.blog.hemmings.com/wp-content/uploads/2011/03/model-t.jpg'
         },
         {
-              title: 'Retro Tv',
-              description: 'Old looking TV',
-              specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
-              price: 200,
-              quantityOrdered: 1,
-              releaseDate: '1908',
-              imageUrl: 'http://graphicdesign-blog.com/wp-content/uploads/2012/02/Serie_1_Retro_TV_Front.jpg'
-            }
+          title: 'Retro Tv',
+          description: 'Old looking TV',
+          specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
+          price: 200,
+          quantityOrdered: 1,
+          releaseDate: '1908',
+          imageUrl: 'http://graphicdesign-blog.com/wp-content/uploads/2012/02/Serie_1_Retro_TV_Front.jpg'
+        }
       ]
     },
 
@@ -348,14 +349,14 @@ var seedOrders = function(){
       userId: 1,
       products: [
         {
-              title: 'Rich Grandpa',
-              description: "This may look like your grandfather's clock, but inside is a lot of unnecessary platinum, some bitcoins, and a quad-core processor",
-              specs: '{"height":"4 ft","weight":"60kg","quality":"primo"}',
-              price: "Rich Grandpa",
-              quantityOrdered: 1,
-              releaseDate: '1656',
-              imageUrl: 'http://www.todayifoundout.com/wp-content/uploads/2012/09/grandfather-clock.jpg'
-            }
+          title: 'Rich Grandpa',
+          description: "This may look like your grandfather's clock, but inside is a lot of unnecessary platinum, some bitcoins, and a quad-core processor",
+          specs: '{"height":"4 ft","weight":"60kg","quality":"primo"}',
+          price: "Rich Grandpa",
+          quantityOrdered: 1,
+          releaseDate: '1656',
+          imageUrl: 'http://www.todayifoundout.com/wp-content/uploads/2012/09/grandfather-clock.jpg'
+        }
 
       ]
     },
@@ -365,14 +366,14 @@ var seedOrders = function(){
       userId: 3,
       products: [
         {
-              title: 'Retro Phone',
-              description: 'This phone has a classic look.',
-              specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
-              price: 80,
-              quantityOrdered: 7,
-              releaseDate: '1980',
-              imageUrl: 'http://www.retroplanet.com/mm5/graphics/00000006/23914_main.jpg'
-            }
+          title: 'Retro Phone',
+          description: 'This phone has a classic look.',
+          specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
+          price: 80,
+          quantityOrdered: 7,
+          releaseDate: '1980',
+          imageUrl: 'http://www.retroplanet.com/mm5/graphics/00000006/23914_main.jpg'
+        }
 
       ]
     },
@@ -382,14 +383,14 @@ var seedOrders = function(){
       userId: 4,
       products: [
         {
-              title: "Steampunk Watch Phone",
-              description: "The internals of this steampunk watch phone combine the state-of-the-art components of the Apple watch AND iPhone 7",
-              specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
-              price: 1500,
-              quantityOrdered: 1,
-              releaseDate: '1874',
-              imageUrl: 'https://mir-s3-cdn-cf.behance.net/project_modules/disp/21b2fe19036859.562d3e03e799d.jpg'
-            }
+          title: "Steampunk Watch Phone",
+          description: "The internals of this steampunk watch phone combine the state-of-the-art components of the Apple watch AND iPhone 7",
+          specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
+          price: 1500,
+          quantityOrdered: 1,
+          releaseDate: '1874',
+          imageUrl: 'https://mir-s3-cdn-cf.behance.net/project_modules/disp/21b2fe19036859.562d3e03e799d.jpg'
+        }
 
       ]
     },
@@ -399,14 +400,14 @@ var seedOrders = function(){
       userId: 6,
       products: [
         {
-              title: 'Retro Tv',
-              description: 'Old looking TV',
-              specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
-              price: 200,
-              quantityOrdered: 2,
-              releaseDate: '1908' ,
-              imageUrl: 'http://graphicdesign-blog.com/wp-content/uploads/2012/02/Serie_1_Retro_TV_Front.jpg'
-          }
+          title: 'Retro Tv',
+          description: 'Old looking TV',
+          specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
+          price: 200,
+          quantityOrdered: 2,
+          releaseDate: '1908',
+          imageUrl: 'http://graphicdesign-blog.com/wp-content/uploads/2012/02/Serie_1_Retro_TV_Front.jpg'
+        }
       ]
     },
 
@@ -415,14 +416,14 @@ var seedOrders = function(){
       userId: 1,
       products: [
         {
-              title: "iRazor",
-              description: "This may look like your granny's flip-phone, but inside it's running the latest iOS",
-              specs: '{"screensize":"2 in.","weight":"95g","quality":"primo"}',
-              price: 599.99,
-              quantityOrdered: 1,
-              releaseDate: '2003',
-              imageUrl: 'http://i-cdn.phonearena.com/images/phones/4573-large/Motorola-RAZR-V3-0.jpg'
-            }
+          title: "iRazor",
+          description: "This may look like your granny's flip-phone, but inside it's running the latest iOS",
+          specs: '{"screensize":"2 in.","weight":"95g","quality":"primo"}',
+          price: 599.99,
+          quantityOrdered: 1,
+          releaseDate: '2003',
+          imageUrl: 'http://i-cdn.phonearena.com/images/phones/4573-large/Motorola-RAZR-V3-0.jpg'
+        }
 
       ]
     },
@@ -432,14 +433,14 @@ var seedOrders = function(){
       userId: 6,
       products: [
         {
-              title: "iRazor",
-              description: "This may look like your granny's flip-phone, but inside it's running the latest iOS",
-              specs: '{"screensize":"2 in.","weight":"95g","quality":"primo"}',
-              price: 599.99,
-              quantityOrdered: 1,
-              releaseDate: '2003',
-              imageUrl: 'http://i-cdn.phonearena.com/images/phones/4573-large/Motorola-RAZR-V3-0.jpg'
-            }
+          title: "iRazor",
+          description: "This may look like your granny's flip-phone, but inside it's running the latest iOS",
+          specs: '{"screensize":"2 in.","weight":"95g","quality":"primo"}',
+          price: 599.99,
+          quantityOrdered: 1,
+          releaseDate: '2003',
+          imageUrl: 'http://i-cdn.phonearena.com/images/phones/4573-large/Motorola-RAZR-V3-0.jpg'
+        }
       ]
     },
 
@@ -448,14 +449,14 @@ var seedOrders = function(){
       userId: 5,
       products: [
         {
-              title: 'Retro Phone',
-              description: 'This phone has a classic look.',
-              specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
-              price: 80,
-              quantityOrdered: 1,
-              releaseDate: '1980',
-              imageUrl: 'http://www.retroplanet.com/mm5/graphics/00000006/23914_main.jpg'
-            }
+          title: 'Retro Phone',
+          description: 'This phone has a classic look.',
+          specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
+          price: 80,
+          quantityOrdered: 1,
+          releaseDate: '1980',
+          imageUrl: 'http://www.retroplanet.com/mm5/graphics/00000006/23914_main.jpg'
+        }
       ]
     },
 
@@ -464,23 +465,23 @@ var seedOrders = function(){
       userId: 1,
       products: [
         {
-              title: 'Retro Phone',
-              description: 'This phone has a classic look.',
-              specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
-              price: 80,
-              quantityOrdered: 1,
-              releaseDate: '1980',
-              imageUrl: 'http://www.retroplanet.com/mm5/graphics/00000006/23914_main.jpg'
-            },
-            {
-                title: "iRazor",
-                description: "This may look like your granny's flip-phone, but inside it's running the latest iOS",
-                specs: '{"screensize":"2 in.","weight":"95g","quality":"primo"}',
-                price: 599.99,
-                quantityOrdered: 2,
-                releaseDate: '2003',
-                imageUrl: 'http://i-cdn.phonearena.com/images/phones/4573-large/Motorola-RAZR-V3-0.jpg'
-              }
+          title: 'Retro Phone',
+          description: 'This phone has a classic look.',
+          specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
+          price: 80,
+          quantityOrdered: 1,
+          releaseDate: '1980',
+          imageUrl: 'http://www.retroplanet.com/mm5/graphics/00000006/23914_main.jpg'
+        },
+        {
+          title: "iRazor",
+          description: "This may look like your granny's flip-phone, but inside it's running the latest iOS",
+          specs: '{"screensize":"2 in.","weight":"95g","quality":"primo"}',
+          price: 599.99,
+          quantityOrdered: 2,
+          releaseDate: '2003',
+          imageUrl: 'http://i-cdn.phonearena.com/images/phones/4573-large/Motorola-RAZR-V3-0.jpg'
+        }
       ]
     }
   ]
@@ -491,7 +492,7 @@ var seedOrders = function(){
       return JSON.stringify(product);
     })
   })
-  var creatingOrders = orders.map(function(orderObj){
+  var creatingOrders = orders.map(function (orderObj) {
     return Order.create(orderObj)
   })
 
@@ -540,28 +541,45 @@ var seedReviews = function () {
   return Promise.all(creatingReviews);
 }
 
-db.sync({ force: true })
-    .then(function () {
-        return seedUsers();
+var seedCart = function () {
+  let cartOne = {
+    itemCounts: {
+      2 : 1,
+      3 : 2
+    },
+    userId: 3
+  }
+  let createCart = Cart.create(cartOne);
+  let productOne = Product.findById(2);
+  let productTwo = Product.findById(3);
+  return Promise.all([productOne, productTwo, createCart])
+    .spread((prod1, prod2, createdCart) => {
+      return createdCart.addProducts([prod1, prod2])
     })
-    .then(function(){
-        return seedCategories();
-    })
-    .then(function () {
-        return seedProducts();
-    })
-    .then(function(){
-      return seedOrders();
-    })
-    .then(function(){
-      return seedReviews();
-    })
-    .then(function () {
-        console.log(chalk.green('Seed successful!'));
-        process.exit(0);
-    })
-    .catch(function (err) {
-        console.error(err);
-        process.exit(1);
-    });
+}
+
+db.sync({force: true})
+  .then(function () {
+    return Promise.all([seedUsers(), seedCategories()]);
+  })
+  .then(function () {
+    return seedProducts();
+  })
+  .then(function () {
+    return seedOrders();
+  })
+  .then(function () {
+    return seedReviews();
+  })
+  .then(function () {
+    return seedCart();
+  })
+  .then(function () {
+    console.log(chalk.green('Seed successful!'));
+    process.exit(0);
+  })
+  .catch(function (err) {
+    console.error(err);
+    process.exit(1);
+  });
 

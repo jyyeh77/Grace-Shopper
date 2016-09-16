@@ -657,7 +657,7 @@ ol.breadcrumb {
 }
 /*--end-product--*/
 /*--start-checkout--*/
-.ckeckout{
+.checkout{
 	padding:6em 0px;
 }
 a.add-cart {
@@ -965,7 +965,7 @@ ul.size li a:hover {
 .product {
 	padding: 5em 0px;
 }
-.contact,.account,.ckeckout{
+.contact,.account,.checkout{
 	padding: 5em 0px;
 }
 .map iframe {
@@ -1087,7 +1087,7 @@ ul.size {
 	float: left;
 }
 .single-top-right {
-	margin-top: 4%;
+	margin-top: 10%;
 }
 .address span {
 	font-size: 13px;
@@ -1114,7 +1114,7 @@ ul.size {
 .map iframe {
 	height: 290px;
 }
-.contact,.account,.ckeckout{
+.contact,.account,.checkout{
 	padding: 4em 0px;
 }
 .contact-left {
@@ -1322,7 +1322,7 @@ ul.unit li span {
 .contact-left textarea {
 	height: 146px;
 }
-.contact,.account,.ckeckout{
+.contact,.account,.checkout{
 	padding: 3em 0px;
 }
 .box_1 a img {
@@ -1477,7 +1477,7 @@ a.add-cart {
 .heading h3 {
 	font-size: 1.6em;
 }
-.contact,.account,.ckeckout {
+.contact,.account,.checkout {
 	padding: 2.5em 0px;
 }
 .contact-left {
@@ -1636,7 +1636,7 @@ a.simpleCart_empty {
 	padding: 1.2em 0px;
 }
 .single-main-left {
-	padding: 0;
+	padding: 0px;
 }
 }
 @media(max-width:320px){
@@ -1728,7 +1728,7 @@ a.simpleCart_empty {
 .heading h3 {
 	font-size: 1.3em;
 }
-.account, .ckeckout {
+.account, .checkout {
 	padding: 2em 0px 0 0;
 }
 .contact{

@@ -1,4 +1,4 @@
-app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, Category) {
+app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, Category, Product) {
 
   return {
     restrict: 'E',
@@ -6,18 +6,21 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
     templateUrl: 'js/common/directives/navbar/navbar.html',
     link: function (scope) {
 
-
+      // for rendering dropdown category menus
       Category.fetchAll()
         .then(cats => scope.categories = cats);
 
       Category.getMetaCategories()
         .then(cats => scope.metaCategories = cats);
-
             scope.subCats = function(metaCat){
                 return scope.categories.filter(function(cat){
                     return cat.metaCategory === metaCat;
                 });
             };
+
+      // for type-ahead functionality
+      Product.fetchAll()
+        .then(products => scope.products = products.map(product => product.title));
 
 
       scope.user = null;
