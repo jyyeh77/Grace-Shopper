@@ -16,10 +16,11 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('AccountController', function ($scope, loggedInUser) {
+app.controller('AccountController', function ($scope, loggedInUser, AuthService) {
 
     $scope.greeting = 'Welcome to your account page';
     $scope.currentUser = loggedInUser; // might be redundant
+    $scope.changeEmail = AuthService.changeEmail;
     //$scope.changeEmail = 
     //AuthService.changeEmail
     //AuthService.signup

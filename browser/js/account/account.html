@@ -1,9 +1,10 @@
 <div>
-	hey {{greeting}}, {{currentUser.email}}
+	{{greeting}}, {{currentUser.email}}
 
 	<div>
 		<h4> Change User Information </h4>
 		Current Email: {{currentUser.email}}
+		<button ng-click="changeEmail()">Change your email</button>
 		<br>
 		Current Password: {{}}
 
