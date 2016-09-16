@@ -1,133 +1,27 @@
-
-<div class="product">
+<!--From template-->
+<div class="product" style="padding-top: 0px">
     <h1>
     This is a category page for {{category}}
     </h1>
     <div class="container">
         <div class="product-main" ng-repeat="item in items">
-            <div class="col-md-9 p-left">
                 <div class="product-one">
-                    <div class="col-md-4 product-left single-left">
-                        <div class="p-one simpleCart_shelfItem">
-                            <a href="single.html">
-                                <img src="images/shoes-1.png" alt="" />
-                                <div class="mask mask1">
-                                    <span>Quick View</span>
-                                </div>
-                            </a>
-                            <h4>Aenean placerat</h4>
-                            <p><a class="item_add" href="#"><i></i> <span class=" item_price">$329</span></a></p>
-                        </div>
-                    </div>
-                    <div class="col-md-4 product-left single-left">
-                        <div class="p-one simpleCart_shelfItem">
-                            <a href="single.html">
-                                <img src="images/shoes-2.png" alt="" />
-                                <div class="mask mask1">
-                                    <span>Quick View</span>
-                                </div>
-                            </a>
-                            <h4>Aenean placerat</h4>
-                            <p><a class="item_add" href="#"><i></i> <span class=" item_price">$329</span></a></p>
-                        </div>
-                    </div>
-                    <div class="col-md-4 product-left single-left">
-                        <div class="p-one simpleCart_shelfItem">
-                            <a href="single.html">
-                                <img src="images/shoes-3.png" alt="" />
-                                <div class="mask mask1">
-                                    <span>Quick View</span>
-                                </div>
-                            </a>
-                            <h4>Aenean placerat</h4>
-                            <p><a class="item_add" href="#"><i></i> <span class=" item_price">$329</span></a></p>
-                        </div>
-                    </div>
-                    <div class="clearfix"> </div>
+                    <category-page-item item="item">
+                    </category-page-item>
                 </div>
-                <div class="product-one">
-                    <div class="col-md-4 product-left single-left">
-                        <div class="p-one simpleCart_shelfItem">
-                            <a href="single.html">
-                                <img src="images/shoes-5.png" alt="" />
-                                <div class="mask mask1">
-                                    <span>Quick View</span>
-                                </div>
-                            </a>
-                            <h4>Aenean placerat</h4>
-                            <p><a class="item_add" href="#"><i></i> <span class=" item_price">$329</span></a></p>
-                        </div>
-                    </div>
-                    <div class="col-md-4 product-left single-left">
-                        <div class="p-one simpleCart_shelfItem">
-                            <a href="single.html">
-                                <img src="images/shoes-6.png" alt="" />
-                                <div class="mask mask1">
-                                    <span>Quick View</span>
-                                </div>
-                            </a>
-                            <h4>Aenean placerat</h4>
-                            <p><a class="item_add" href="#"><i></i> <span class=" item_price">$329</span></a></p>
-                        </div>
-                    </div>
-                    <div class="col-md-4 product-left single-left">
-                        <div class="p-one simpleCart_shelfItem">
-                            <a href="single.html">
-                                <img src="images/shoes-7.png" alt="" />
-                                <div class="mask mask1">
-                                    <span>Quick View</span>
-                                </div>
-                            </a>
-                            <h4>Aenean placerat</h4>
-                            <p><a class="item_add" href="#"><i></i> <span class=" item_price">$329</span></a></p>
-                        </div>
-                    </div>
-                    <div class="clearfix"> </div>
-                </div>
-                <div class="product-one">
-                    <div class="col-md-4 product-left single-left">
-                        <div class="p-one simpleCart_shelfItem">
-                            <a href="single.html">
-                                <img src="images/shoes-15.png" alt="" />
-                                <div class="mask mask1">
-                                    <span>Quick View</span>
-                                </div>
-                            </a>
-                            <h4>Aenean placerat</h4>
-                            <p><a class="item_add" href="#"><i></i> <span class=" item_price">$329</span></a></p>
-
-                        </div>
-                    </div>
-                    <div class="col-md-4 product-left single-left">
-                        <div class="p-one simpleCart_shelfItem">
-                            <a href="single.html">
-                                <img src="images/shoes-10.png" alt="" />
-                                <div class="mask mask1">
-                                    <span>Quick View</span>
-                                </div>
-                            </a>
-                            <h4>Aenean placerat</h4>
-                            <p><a class="item_add" href="#"><i></i> <span class=" item_price">$329</span></a></p>
-
-                        </div>
-                    </div>
-                    <div class="col-md-4 product-left single-left">
-                        <div class="p-one simpleCart_shelfItem">
-                            <a href="single.html">
-                                <img src="images/shoes-11.png" alt="" />
-                                <div class="mask mask1">
-                                    <span>Quick View</span>
-                                </div>
-                            </a>
-                            <h4>Aenean placerat</h4>
-                            <p><a class="item_add" href="#"><i></i> <span class=" item_price">$329</span></a></p>
-                        </div>
-                    </div>
-                    <div class="clearfix"> </div>
-                </div>
-            </div>
-            <div class="clearfix"> </div>
         </div>
 
     </div>
 </div>
+
+
+<!--OLD TEMPLATE-->
+<!--<section id="category-page">-->
+<!--<h1>-->
+<!--This is a category page for {{category}}-->
+<!--</h1>-->
+<!--<div ng-repeat="item in items">-->
+<!--<category-page-item item="item">-->
+<!--</category-page-item>-->
+<!--</div>-->
+<!--</section>-->
