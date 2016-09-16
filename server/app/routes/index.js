@@ -13,6 +13,8 @@ router.use('/products', require('./products/productRoute'));
 
 router.use('/orders', require('./orders/orderRoutes'));
 
+router.user('/cart', require('./cart'));
+
 
 
 // Make sure this is after all of

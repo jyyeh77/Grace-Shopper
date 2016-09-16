@@ -17,10 +17,11 @@
                 </div>
                 <h2 class="quick">Item Description:</h2>
                 <p class="quick_desc">{{product.description}}</p>
+                <form name="addToCart" ng-submit="">
                 <div class="quantity_box">
                     <ul class="product-qty">
                         <span>Quantity:</span>
-                        <select>
+                        <select ng-model="chosenQuantity" name="quantity">
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>
@@ -32,8 +33,9 @@
                 </div>
                 <div class="clearfix"></div>
                 <div class="single-but item_add">
-                    <input type="submit" value="add to cart"/>
+                    <input type="submit"/>
                 </div>
+                </form>
             </div>
         </div>
         <div class="clearfix"></div>
