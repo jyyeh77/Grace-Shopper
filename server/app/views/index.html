@@ -18,16 +18,11 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="/templates/js/jquery-1.11.0.min.js"></script>
     <!--theme-style-->
-    <!--<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords" content="Free Style Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
     <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
     <!--fonts-->
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700,900" rel="stylesheet">
-    <!--<link href='http://fonts.googleapis.com/css?family=Alegreya+Sans+SC:100,300,400,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic' rel='stylesheet' type='text/css'>-->
-    <!--<link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>-->
     <!--//fonts-->
     <script type="text/javascript" src="/templates/js/move-top.js"></script>
     <script type="text/javascript" src="/templates/js/easing.js"></script>
@@ -41,13 +36,23 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </script>
     <!-- start menu -->
     <script src="/templates/js/simpleCart.min.js"> </script>
-    <!--<link href="css/memenu.css" rel="stylesheet" type="text/css" media="all" />-->
     <script type="text/javascript" src="/templates/js/memenu.js"></script>
+    <script defer src="/templates/js/jquery.flexslider.js"></script>
+    <!--<link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />-->
+    <script>
+        // Can also be used with $(document).ready()
+        $(document).ready(function() {
+            $('.flexslider').flexslider({
+                animation: "slide",
+                controlNav: "thumbnails"
+            });
+        });
+    </script>
+
 </head>
 
 <body ng-app="RetroTech">
     <navbar></navbar>
     <div id="main" ui-view></div>
-    <!--<script>$(document).ready(function(){$(".memenu").memenu();});</script>-->
 </body>
 </html>
