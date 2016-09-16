@@ -4,7 +4,8 @@
 	<div>
 		<h4> Change User Information </h4>
 		Current Email: {{currentUser.email}}
-		<button ng-click="changeEmail()">Change your email</button>
+		<button ng-click="changeEmail(newEmail)">Change your email</button>
+		<input type="text" ng-model="newEmail">
 		<br>
 		Current Password: {{}}
 

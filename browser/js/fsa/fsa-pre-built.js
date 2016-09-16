@@ -120,6 +120,18 @@
             });
         };
 
+        this.changeEmail = function(newEmail){
+            console.log('running func')
+            return $http({
+                method: 'PUT',
+                url: '/api/user',
+                data:newEmail
+            })
+            // return $http.put('/user/').then(function(){
+
+            // });
+        }
+
     });
 
     app.service('Session', function ($rootScope, AUTH_EVENTS) {
