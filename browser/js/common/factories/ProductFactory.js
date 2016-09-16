@@ -8,7 +8,15 @@ app.factory('Product', function($http) {
                 	err.error=true;
                 	return err;
                 });
+        },
+
+        fetchAll: function () {
+          return $http.get('/api/products/')
+            .then(res => res.data)
+            .catch(err => {
+              err.error=true;
+              return err;
+            })
         }
     };
 });
- 

@@ -8,6 +8,7 @@ var Product = require('./models/product');
 var Review = require('./models/review');
 var Category = require('./models/category');
 var Order = require('./models/order');
+var Cart = require('./models/cart');
 
 // associations
 User.hasMany(Order);
@@ -16,9 +17,12 @@ Product.belongsToMany(Category, {through: 'product_categories'});
 Category.belongsToMany(Product, {through: 'product_categories'});
 Product.hasMany(Review);
 
+User.hasOne(Cart);
+Cart.belongsToMany(Product, {through: 'cart_items'});
+Product.belongsToMany(Cart, {through: 'cart_items'});
+
+
 // TODO: might want to add this as an alternative....
 // Order.hasMany(Products);
 
 
-// if we had more models, we could associate them in this file
-// e.g. User.hasMany(Reports)

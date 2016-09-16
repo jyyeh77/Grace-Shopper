@@ -15,6 +15,12 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('CartController', function ($scope) {
-	
+app.controller('CartController', function ($scope, $log, AuthService) {
+
+  // for showing custom welcome message if user is logged in
+	AuthService.getLoggedInUser()
+    .then(user => {
+      $scope.user = user;
+    })
+    .catch($log.error())
 });
