@@ -13,13 +13,12 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
       Category.getMetaCategories()
         .then(cats => scope.metaCategories = cats);
 
+            scope.subCats = function(metaCat){
+                return scope.categories.filter(function(cat){
+                    return cat.metaCategory === metaCat;
+                });
+            };
 
-      scope.subCats = function (metaCat) {
-        return scope.categories.filter(function (cat) {
-          console.log('cat, meta', cat, cat.metaCategory)
-          return cat.metaCategory === metaCat;
-        });
-      };
 
       scope.user = null;
 
