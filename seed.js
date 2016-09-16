@@ -1,3 +1,4 @@
+'use strict';
 /*
 
  This seed file is only a placeholder. It should be expanded and altered
@@ -16,7 +17,7 @@
  name in the environment files.
 
  */
-'use strict';
+
 var chalk = require('chalk');
 var db = require('./server/db');
 var User = db.model('user');
@@ -542,16 +543,16 @@ var seedReviews = function () {
 }
 
 var seedCart = function () {
-  let cartOne = {
+  var cartOne = {
     itemCounts: {
       2 : 1,
       3 : 2
     },
     userId: 3
   }
-  let createCart = Cart.create(cartOne);
-  let productOne = Product.findById(2);
-  let productTwo = Product.findById(3);
+  var createCart = Cart.create(cartOne);
+  var productOne = Product.findById(2);
+  var productTwo = Product.findById(3);
   return Promise.all([productOne, productTwo, createCart])
     .spread((prod1, prod2, createdCart) => {
       return createdCart.addProducts([prod1, prod2])
