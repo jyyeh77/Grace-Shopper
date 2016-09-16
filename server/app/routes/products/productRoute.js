@@ -27,6 +27,20 @@
      res.send(req.requestedProduct)
  });
 
+ // fetch product by name via query string in URI
+ router.post('/single/', function (req, res, next) {
+   Product.findAll({
+     where: {
+       title: req.query.title
+     }
+   })
+     .spread(productByName => {
+       res.send(productByName)
+     })
+     .catch(next);
+ })
+
+
  //fetch all
  router.get('/', function(req, res, next) {
      Product.findAll({ include: [{ all: true }] })

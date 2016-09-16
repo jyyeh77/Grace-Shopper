@@ -22,6 +22,18 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
       Product.fetchAll()
         .then(products => scope.products = products.map(product => product.title));
 
+      scope.select = function ($item, $model, $label) {
+        Product.setSelectedProduct($item);
+        Product.fetchByName()
+          .then(foundProduct => {
+            scope.foundProduct = foundProduct;
+          });
+      }
+
+      scope.switch = function (product) {
+        console.log("SWITCHING!")
+        $state.go('product', {id: product.id})
+      }
 
       scope.user = null;
 

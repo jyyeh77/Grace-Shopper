@@ -4,8 +4,9 @@
         <div class="top-header-main">
             <div class="col-md-4 top-header-left">
                 <div class="search-bar">
-                    <input placeholder="Find product..." type="text" value="Search" ng-model="selectedProduct" uib-typeahead="product for product in products | filter:$viewValue">
-                    <input type="submit" value="">
+                    <p>{{typeaheadObject.query}}</p>
+                    <input  placeholder="Find product..." type="text" typeahead-on-select="select($item, $model, $label, $event)" value="Search" ng-model="selectedProduct" uib-typeahead="product for product in products | filter:$viewValue">
+                    <input ng-click="switch(foundProduct)" type="submit" value="" ng-enter="switch(selectedProduct)">
                 </div>
             </div>
             <div class="col-md-4 top-header-middle">
