@@ -7,7 +7,7 @@
  */
 
 module.exports = {
-    DATABASE_URI: process.env.DATABASE_URL, //changed from URI
+    DATABASE_URI: process.env.DATABASE_URI, //changed from URI
     SESSION_SECRET: process.env.SESSION_SECRET,
     TWITTER: {
         consumerKey: process.env.TWITTER_CONSUMER_KEY,
