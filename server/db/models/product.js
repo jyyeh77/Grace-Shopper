@@ -31,33 +31,22 @@ var Product = db.define('product', {
     }
 }, {
     instanceMethods: {
-    	//careful if you try to edit this! it finds the categories of an instance and
-    	//returns an array of unique instances which share at least one of those categories.
-    	//does not include itself in the array 
+        //finds the categories of an instance, returns an array of unique instances which share 
+        //at least one of those categories, without including itself in the array 
         getSimilar: function() {
-        		var self = this;
             return this.getCategories()
-                .then(function(productCategories) {
-                    return Promise.all(
-                        productCategories.map(function(category) {
-                            return category.getProducts({
-                                where: {
-                                    id: {
-                                        $ne: self.id
-                                    }
+                .then(productCategories => Promise.all(
+                    productCategories.map(category =>
+                        category.getProducts({
+                            where: {
+                                id: {
+                                    $ne: this.id
                                 }
-                            });
+                            }
                         })
-                    );
-                })
-                .then(function(similarProducts) {
-                    var output = [];
-                    var flattenedProducts = _.flatten(similarProducts);
-                    flattenedProducts.forEach(function(prod) {
-                        if (!output.includes(prod)) output.push(prod);
-                    });
-                    return output;
-                });
+                    )
+                ))
+            .then(similarProducts => _.uniq(_.flatten(similarProducts)));
         }
     }
 });

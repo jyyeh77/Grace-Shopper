@@ -1,10 +1,26 @@
-<a ui-sref="product({id:item.id})">
-    <div>
-        <div>
-            <img src="{{item.imageUrl}}" width="400" />
-        </div>
-        <div>
-            {{ item.title }} {{item.price}}
-        </div>
+<div class="col-md-4 product-left single-left">
+    <div class="p-one simpleCart_shelfItem">
+        <a ui-sref="product({id:item.id})">
+            <img src="{{item.imageUrl}}" width="400"/>
+            <div class="mask mask1">
+                <span>Quick View</span>
+            </div>
+        </a>
+        <h4>{{ item.title }}</h4>
+        <p><a class="item_add" href="#"><i></i> <span class=" item_price">{{ item.price }}</span></a></p>
     </div>
-</a>
+</div>
+
+
+<!--OLD TEMPLATE-->
+
+<!--<a ui-sref="product({id:item.id})">-->
+<!--<div>-->
+<!--<div>-->
+<!--<img src="{{item.imageUrl}}" width="400" />-->
+<!--</div>-->
+<!--<div>-->
+<!--{{ item.title }} {{item.price}}-->
+<!--</div>-->
+<!--</div>-->
+<!--</a>-->
