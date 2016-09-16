@@ -8,45 +8,23 @@ var auth = require('../../configure/authentication/auth-utils');
 var newError = require('../errorUtils').generateError;
 module.exports = router;
 
-
-// gets single cart instance if cart param is in URI
-// router.param('id', function(req, res, next, id){
-// 	let errNotFound = newError("Cart not found", 404);
-
-// 	if (req.session.cart){
-// 		next();
-// 	} else if (req.isAuthenticated()) {
-// 		Cart.findById(req.params.id)
-// 		.then(foundCart => {
-// 			if (!foundCart) return next(errNotFound)
-// 			else req.session.cart = foundCart;
-// 			next()
-// 		})
-// 		.catch(next);
-// 	}
-// })
-
-// gets a single cart instance. first tries to use session cart object, then queries database if necessary
-// for authenticated users, otherwise creates new empty session cart
+// gets cart object on current session. if nothing in cart, returns empty object
 router.get('/', function(req, res, next){
 	res.send(req.session.cart)
 })
 
-//gets single cart by id
-router.get('/:id', function(req, res, next){
-	res.send(req.session.cart);
-})
-
+// sends session cart object to database. only happens if user with cart is logged in and their 
+// session ends or they logout
 router.post('/', function(req, res, next){
 	let cart = req.session.cart;
 
 	if (req.isAuthenticated() && Object.keys(cart).length){
 		let user = req.session.passport.user;
-
 		Cart.findOrCreate({where: {userId: user}})
-		.spread(cart =>{
-			return cart.update({itemCounts: cart}, {returning: true})
+		.spread(cart => {
+			cart.update({itemCounts: cart})
 		})
+		.then(() => res.sendStatus(200))
 	}
 })
 
