@@ -10,16 +10,27 @@ app.config(function ($stateProvider) {
         		return Product.fetchById($stateParams.id);
         	}
         }
-
     });
-
 });
 
-app.controller('ProductController', function ($scope, theProduct) {
+app.controller('ProductController', function ($rootScope, $scope, theProduct, CartFactory) {
 
 	$scope.product = theProduct;
+  $scope.quantity = 1;
 
-    
+  // allow user to increase/decrease quantity of product to be added to cart
+  $scope.increment = function () {
+    if ($scope.quantity < $scope.product.quantity) $scope.quantity++;
+  }
+  $scope.decrement = function () {
+    if ($scope.quantity > 1) $scope.quantity--;
+  }
 
+  // sends product ID and quantity of product to be added to cart upon pressing ADD TO CART
+  $scope.addProduct = function (product) {
+    let productInCart = {id: product.id, quantity: $scope.quantity};
+    // sends product quantity to nav-bar cart for update
+    $rootScope.$emit('updateNavBarCart', $scope.quantity);
+    return CartFactory.addProduct(productInCart);
+  }
 });
- 

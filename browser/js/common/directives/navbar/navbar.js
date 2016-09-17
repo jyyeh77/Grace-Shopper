@@ -1,4 +1,4 @@
-app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, Category, Product) {
+app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, Category, Product, CartFactory) {
 
   return {
     restrict: 'E',
@@ -22,6 +22,7 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
       Product.fetchAll()
         .then(products => scope.products = products.map(product => product.title));
 
+      // finds product in DB by name and sends back all product info upon select
       scope.select = function ($item, $model, $label) {
         Product.setSelectedProduct($item);
         Product.fetchByName()
@@ -30,9 +31,31 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
           });
       }
 
+      // switches to correct single product page upon search
       scope.switch = function (product) {
-        console.log("SWITCHING!")
         $state.go('product', {id: product.id})
+      }
+
+      // fetches cart information from session
+      CartFactory.fetchCart()
+        .then(cart => {
+          scope.cart = cart;
+
+          // default # of items in cart is 0, otherwise set to sum of all items in current cart!
+          if (CartFactory.totalQuantity(scope.cart) > 0) scope.cartQuantity = CartFactory.totalQuantity(scope.cart)
+          else scope.cartQuantity = 0
+
+          console.log("CART SET TO: ", scope.cart);
+        });
+
+      // listens for emit event from ADD TO CART click in Product Controller
+      $rootScope.$on('updateNavBarCart', function (event, data) {
+        scope.cartQuantity = scope.cartQuantity + data;
+      })
+
+      // only resets cart quantity in nav-bar scope, but NOT in session!
+      scope.resetCart = function () {
+        scope.cartQuantity = 0;
       }
 
       scope.user = null;

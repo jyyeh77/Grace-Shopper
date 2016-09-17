@@ -5,28 +5,35 @@
             <div class=" cart-items heading">
                 <h1 ng-show="user">Welcome to your cart, {{user.email}}!</h1>
                 <h3>My Cart</h3>
-
-
-                <div class="in-check" >
-                    <ul class="unit">
-                        <li><span>Item</span></li>
-                        <li><span>Product Name</span></li>
-                        <li><span>Unit Price</span></li>
-                        <li><span>Stock Status</span></li>
-                        <li> </li>
-                        <div class="clearfix"> </div>
-                    </ul>
+                <br>
+                <ul class="unit">
+                    <li><span>Item</span></li>
+                    <li><span>Product Name</span></li>
+                    <li><span>Unit Price</span></li>
+                    <li><span>Stock Status</span></li>
+                    <li><span>Quantity</span></li>
+                    <div class="clearfix"> </div>
+                </ul>
+                <div class="in-check" ng-repeat="product in cartProducts">
                     <ul class="cart-header">
                         <div class="close1"> </div>
-                        <li class="ring-in"><a href="single.html" ><img src="images/s-1.jpg" class="img-responsive" alt=""></a>
+                        <li class="ring-in"><a ui-sref="product({id: product.id})" ><img src="{{product.imageUrl}}" class="img-responsive" alt=""></a>
                         </li>
-                        <li><span>Woo Dress</span></li>
-                        <li><span>$ 290.00</span></li>
+                        <li><span>{{product.title}}</span></li>
+                        <li><span>${{product.price}}.00</span></li>
                         <li><span>In Stock</span></li>
+                        <li><span>{{product.cartNumber}}</span></li>
                         <div class="clearfix"> </div>
                     </ul>
-
                 </div>
+                <ul class="unit">
+                    <li><span></span></li>
+                    <li style="text-align: center; font-weight: bold"><span>Your total: </span></li>
+                    <li style="text-align: center; font-weight: bold"><span>${{cartTotal}}.00</span></li>
+                    <li><span></span></li>
+                    <li><span></span></li>
+                    <div class="clearfix"> </div>
+                </ul>
             </div>
         </div>
     </div>
