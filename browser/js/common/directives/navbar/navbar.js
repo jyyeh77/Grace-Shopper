@@ -39,15 +39,18 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
       // fetches cart information from session
       CartFactory.fetchCart()
         .then(cart => {
-          scope.cart = cart;
-
-          // default # of items in cart is 0, otherwise set to sum of all items in current cart!
-          if (CartFactory.totalQuantity(scope.cart) > 0) scope.cartQuantity = CartFactory.totalQuantity(scope.cart)
-          else scope.cartQuantity = 0
-
-          console.log("CART SET TO: ", scope.cart);
+          if (!scope.user) {
+            scope.cart = cart;
+            // default # of items in cart is 0, otherwise set to sum of all items in current cart!
+            if (CartFactory.totalQuantity(scope.cart) > 0) scope.cartQuantity = CartFactory.totalQuantity(scope.cart)
+            else scope.cartQuantity = 0
+            console.log("No user logged in - cart is empty! ", scope.cart);
+          } else {
+            console.log("User logged in, using their cart from DB!", scope.user.email)
+          }
         });
 
+      // TODO: might want to consider using cart factory instead + scope.watch
       // listens for emit event from ADD TO CART click in Product Controller
       $rootScope.$on('updateNavBarCart', function (event, data) {
         scope.cartQuantity = scope.cartQuantity + data;
@@ -56,6 +59,10 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
       // only resets cart quantity in nav-bar scope, but NOT in session!
       scope.resetCart = function () {
         scope.cartQuantity = 0;
+        // TODO: only empties session cart!
+        // updates nav-bar cart
+        $rootScope.$broadcast('emptyCart');
+        return CartFactory.emptyCart();
       }
 
       scope.user = null;
@@ -73,6 +80,10 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
       var setUser = function () {
         AuthService.getLoggedInUser().then(function (user) {
           scope.user = user;
+
+          // empties pre-existing session cart upon login
+          scope.cartQuantity = 0;
+          return CartFactory.emptyCart();
         });
       };
 

@@ -43,6 +43,12 @@ router.put('/', function(req, res, next){
   res.send(cart);
 })
 
+// empties session cart
+router.delete('/', function (req, res, next) {
+  req.session.cart = {};
+  res.sendStatus(204);
+})
+
 
 
 //possible method for getting a user's cart

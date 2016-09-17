@@ -15,7 +15,13 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('CartController', function ($scope, $log, $q, AuthService, CartFactory, Product) {
+app.controller('CartController', function ($rootScope, $scope, $log, $q, AuthService, CartFactory, Product) {
+
+  // upon broadcast from resetCart() in nav-bar directive, reset cart!
+  $scope.$on('emptyCart', function (event, data) {
+    $scope.cartProducts = null;
+    $scope.cartTotal = 0;
+  })
 
   // for showing custom welcome message if user is logged in
   AuthService.getLoggedInUser()

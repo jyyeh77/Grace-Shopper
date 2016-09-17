@@ -15,7 +15,7 @@ app.factory('CartFactory', function ($http) {
   };
 
   // adds product ID and quantity of product as key-value pair to session cart
-  CartFactory.addProduct = function (product) {
+  CartFactory.editProductNum = function (product) {
     return $http.put(`/api/cart/?prod=${product.id}&quantity=${product.quantity}`)
       .then(res => {
         // console.log("ADDING PRODUCT TO CART: ", product.id)
@@ -25,7 +25,16 @@ app.factory('CartFactory', function ($http) {
         err.error = true;
         return err;
       })
+  }
 
+  // empties session cart
+  CartFactory.emptyCart = function () {
+    return $http.delete('/api/cart/')
+      .then(res => res.data)
+      .catch(err => {
+        err.error = true;
+        return err;
+      })
   }
 
   // calculates total # of items in saved cart

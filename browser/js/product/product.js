@@ -27,10 +27,10 @@ app.controller('ProductController', function ($rootScope, $scope, theProduct, Ca
   }
 
   // sends product ID and quantity of product to be added to cart upon pressing ADD TO CART
-  $scope.addProduct = function (product) {
+  $scope.editProductNum = function (product) {
     let productInCart = {id: product.id, quantity: $scope.quantity};
     // sends product quantity to nav-bar cart for update
     $rootScope.$emit('updateNavBarCart', $scope.quantity);
-    return CartFactory.addProduct(productInCart);
+    return CartFactory.editProductNum(productInCart);
   }
 });
