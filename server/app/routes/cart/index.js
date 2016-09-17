@@ -13,27 +13,29 @@ var passport = require('passport');
 module.exports = router;
 
 // gets cart object on current session. if nothing in cart, returns empty object
-router.get('/', function(req, res, next){
+router.get('/', function (req, res, next) {
   res.send(req.session.cart)
 })
 
 // sends session cart object to database. only happens if user with cart is logged in and their
 // session ends or they logout
-router.post('/', function(req, res, next){
-  let cart = req.session.cart;
-
-  if (req.isAuthenticated() && Object.keys(cart).length){
+router.post('/', function (req, res, next) {
+  var userCart = req.session.cart;
+  if (req.isAuthenticated() && Object.keys(userCart).length) {
+    console.log("Saving cart to DB!!!!!");
+    console.log("REQ USER: ", req.session.passport.user)
     let user = req.session.passport.user;
     Cart.findOrCreate({where: {userId: user}})
       .spread(cart => {
-        cart.update({itemCounts: cart})
+        //TODO: might want to check this - what happens if cart already exists??
+        cart.update({itemCounts: userCart})
       })
       .then(() => res.sendStatus(200))
   }
 })
 
 // add item to session cart object. item info in query string e.g. /?prod=1&quantity=1 (product id 3, quantity 1)
-router.put('/', function(req, res, next){
+router.put('/', function (req, res, next) {
   let cart = req.session.cart;
   let prodId = req.query.prod;
   let quantity = parseInt(req.query.quantity);
@@ -48,7 +50,6 @@ router.delete('/', function (req, res, next) {
   req.session.cart = {};
   res.sendStatus(204);
 })
-
 
 
 //possible method for getting a user's cart

@@ -1,7 +1,7 @@
 /**
  * Created by jyyeh77 on 9/17/16.
  */
-app.factory('CartFactory', function ($http) {
+app.factory('CartFactory', function ($http, Product) {
   let CartFactory = {};
 
   // gets existing cart on session regardless of login status
@@ -14,12 +14,41 @@ app.factory('CartFactory', function ($http) {
       });
   };
 
+  // gets cart from DB associated with 1 user via email
+  CartFactory.fetchUserCart = function (user) {
+    return $http.get(`/api/users/cart/${user.email}`)
+      .then(res => res.data)
+      .catch(err => {
+        err.error = true;
+        return err;
+      })
+  }
+
+  // get products from cart - use itemCounts property as parameter if cart is retrieved from DB!!!!
+  CartFactory.getCartProducts = function (cart) {
+    return Object.keys(cart).map(productId => {
+      return Product.fetchById(productId);
+    })
+  }
+
   // adds product ID and quantity of product as key-value pair to session cart
   CartFactory.editProductNum = function (product) {
     return $http.put(`/api/cart/?prod=${product.id}&quantity=${product.quantity}`)
       .then(res => {
         // console.log("ADDING PRODUCT TO CART: ", product.id)
-        return res.data
+        return res.data;
+      })
+      .catch(err => {
+        err.error = true;
+        return err;
+      })
+  }
+
+  // save cart products on logout
+  CartFactory.saveUserCart = function () {
+    return $http.post('/api/cart/')
+      .then(res => {
+        return res.data;
       })
       .catch(err => {
         err.error = true;

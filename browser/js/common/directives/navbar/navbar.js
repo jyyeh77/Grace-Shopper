@@ -12,11 +12,11 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
 
       Category.getMetaCategories()
         .then(cats => scope.metaCategories = cats);
-            scope.subCats = function(metaCat){
-                return scope.categories.filter(function(cat){
-                    return cat.metaCategory === metaCat;
-                });
-            };
+      scope.subCats = function (metaCat) {
+        return scope.categories.filter(function (cat) {
+          return cat.metaCategory === metaCat;
+        });
+      };
 
       // for type-ahead functionality
       Product.fetchAll()
@@ -44,9 +44,7 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
             // default # of items in cart is 0, otherwise set to sum of all items in current cart!
             if (CartFactory.totalQuantity(scope.cart) > 0) scope.cartQuantity = CartFactory.totalQuantity(scope.cart)
             else scope.cartQuantity = 0
-            console.log("No user logged in - cart is empty! ", scope.cart);
-          } else {
-            console.log("User logged in, using their cart from DB!", scope.user.email)
+            console.log("No user logged in - cart is temporary! ", scope.cart);
           }
         });
 
@@ -67,23 +65,55 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
 
       scope.user = null;
 
+      let cartLogout = function () {
+        return AuthService.logout().then(function () {
+          // empties nav-bar cart on logout
+          scope.cartQuantity = 0;
+          // empties req.session.cart on logout!
+          return CartFactory.emptyCart()
+            .then(() => $state.go('home'))
+        });
+      }
+
       scope.isLoggedIn = function () {
         return AuthService.isAuthenticated();
       };
 
+      // saves session cart to database for user on logout
       scope.logout = function () {
-        AuthService.logout().then(function () {
-          $state.go('home');
-        });
+        return CartFactory.fetchCart()
+          .then(cart => {
+            // only save user session cart if there are items in cart!
+            if (Object.keys(cart).length > 0) {
+              return CartFactory.saveUserCart(cart)
+                .then(() => {
+                  cartLogout();
+                })
+            } else {
+              cartLogout();
+            }
+          })
       };
 
       var setUser = function () {
         AuthService.getLoggedInUser().then(function (user) {
           scope.user = user;
 
-          // empties pre-existing session cart upon login
-          scope.cartQuantity = 0;
-          return CartFactory.emptyCart();
+          if (scope.user) {
+            console.log("User logged in, using their cart from DB!", scope.user.email)
+            // empties pre-existing session cart upon login
+            scope.cartQuantity = 0;
+            return CartFactory.emptyCart()
+              .then(() => {
+                return CartFactory.fetchUserCart(scope.user)
+                  .then(userCart => {
+                    console.log("FETCHING CART FOR USER ON NAVBAR!", userCart);
+                    scope.cartQuantity = CartFactory.totalQuantity(userCart.itemCounts)
+                  });
+              });
+          } else {
+            console.log("NO USER LOGGED IN UPON SESSION RETURN");
+          }
         });
       };
 
