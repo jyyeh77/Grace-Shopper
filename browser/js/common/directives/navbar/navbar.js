@@ -58,9 +58,15 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
       scope.resetCart = function () {
         scope.cartQuantity = 0;
         // TODO: only empties session cart!
-        // updates nav-bar cart
+        // updates actual cart page
         $rootScope.$broadcast('emptyCart');
-        return CartFactory.emptyCart();
+        // empties both session cart and saves empty cart in DB if user is logged in
+        return CartFactory.emptyCart()
+          .then(() => {
+            if (scope.isLoggedIn()){
+              return CartFactory.saveUserCart();
+            }
+          });
       }
 
       scope.user = null;
@@ -95,19 +101,18 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
           })
       };
 
-      // TODO: if user isn't logged-in...session cart is transferred into user cart!!
       var setUser = function () {
         AuthService.getLoggedInUser().then(function (user) {
           scope.user = user;
-          if (!user) console.log("NO USER!");
 
-          // for cart persistence DURING login
+          // for cart persistence ONLY DURING login
           if (scope.isLoggedIn()) {
             console.log("User logged in, using their cart from DB!", scope.user.email)
             return CartFactory.fetchCart()
               .then(updatedUserCart => {
+                // we need this condition for refreshes while logged in as session Cart WONT BE EMPTY!
                 if (Object.keys(updatedUserCart).length > 0) {
-                  console.log('current user session cart length: ', Object.keys(updatedUserCart).length);
+                  // console.log('current user session cart length: ', Object.keys(updatedUserCart).length);
                   // upon refresh, will save updated user cart if user is logged in
                   return CartFactory.saveUserCart(updatedUserCart)
                     .then(() => {

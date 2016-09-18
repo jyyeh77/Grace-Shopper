@@ -18,16 +18,13 @@ router.get('/', function (req, res, next) {
 })
 
 // sends session cart object to database. only happens if user with cart is logged in and their
-// session ends or they logout
+// session ends or they logout, used in emptying a cart as well!
 router.post('/', function (req, res, next) {
   var userCart = req.session.cart;
-  if (req.isAuthenticated() && Object.keys(userCart).length) {
-    console.log("Saving cart to DB!!!!!");
-    console.log("REQ USER: ", req.session.passport.user)
+  if (req.isAuthenticated()) {
     let user = req.session.passport.user;
     Cart.findOrCreate({where: {userId: user}})
       .spread(cart => {
-        //TODO: might want to check this - what happens if cart already exists??
         cart.update({itemCounts: userCart})
       })
       .then(() => res.sendStatus(200))

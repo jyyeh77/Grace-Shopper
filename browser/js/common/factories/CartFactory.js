@@ -53,7 +53,7 @@ app.factory('CartFactory', function ($http, Product) {
       })
   }
 
-  // save cart products on logout
+  // save cart products on logout and refresh/session exit
   CartFactory.saveUserCart = function () {
     return $http.post('/api/cart/')
       .then(res => {
@@ -82,6 +82,33 @@ app.factory('CartFactory', function ($http, Product) {
       sum += cartObj[product];
     }
     return sum;
+  }
+
+  // formats cart products to save as order instance
+  CartFactory.checkoutProducts = function (productArray) {
+    return productArray.map(product => {
+      let checkoutProduct = {
+        title: product.title,
+        description: product.description,
+        specs: product.specs,
+        price: product.price,
+        quantityOrdered: product.cartNumber,
+        // TODO: products don't have release dates on their model....
+        releaseDate: '',
+        imageUrl: product.imageUrl
+      }
+      return checkoutProduct;
+    })
+  }
+
+  // saves order for user in database!
+  CartFactory.finalCheckout = function (orderObject) {
+    return $http.post('/api/orders/', orderObject)
+      .then(res => res.data)
+      .catch(err => {
+        err.error = true;
+        return err;
+      })
   }
   return CartFactory;
 

@@ -16,7 +16,7 @@
                 </ul>
                 <div class="in-check" ng-repeat="product in cartProducts">
                     <ul class="cart-header">
-                        <div class="close1"> </div>
+                        <div class="close1"></div>
                         <li class="ring-in"><a ui-sref="product({id: product.id})" ><img src="{{product.imageUrl}}" class="img-responsive" alt=""></a>
                         </li>
                         <li><span>{{product.title}}</span></li>
@@ -30,8 +30,9 @@
                     <li><span></span></li>
                     <li style="text-align: center; font-weight: bold"><span>Cart Total: </span></li>
                     <li style="text-align: center; font-weight: bold"><span>${{cartTotal}}.00</span></li>
+                    <li><span ng-show="!user">Please Sign Up To Checkout</span></li>
                     <li><span></span></li>
-                    <li><span><button class="btn btn-danger">CHECKOUT</button></span></li>
+                    <li><span><button class="btn btn-danger" ng-show="user" ng-click="submitCheckout(cartProducts)">CHECKOUT</button></span></li>
                     <div class="clearfix"> </div>
                 </ul>
             </div>

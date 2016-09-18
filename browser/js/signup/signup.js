@@ -13,7 +13,9 @@ app.controller('SignupCtrl', function($scope, AuthService, $state){
     $scope.submitFunc = function(){
         AuthService.signup($scope.newUser)
         .catch(err => {$scope.error = err.message})
-        .then(() => AuthService.login($scope.newUser))
+        .then(() => {
+          AuthService.login($scope.newUser)
+        })
         .then(() => $state.go('home'));
     };
 });

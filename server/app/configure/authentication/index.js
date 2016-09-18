@@ -56,7 +56,6 @@ module.exports = function (app, db) {
     // logged in already.
     app.get('/session', function (req, res) {
         if (!req.session.cart) req.session.cart = {};
-        console.log("REQ SESSION~~~~~~~~", req.session);
         if (req.user) {
             res.send({ user: req.user.sanitize()});
         } else {

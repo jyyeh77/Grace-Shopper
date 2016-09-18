@@ -1,6 +1,6 @@
 app.config(function ($stateProvider) {
 
-  // Register our category state.
+  // Register our cart state.
   $stateProvider.state('cart', {
     url: '/cart',
     controller: 'CartController',
@@ -15,7 +15,7 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('CartController', function ($rootScope, $scope, $log, $q, AuthService, CartFactory) {
+app.controller('CartController', function ($rootScope, $scope, $log, $q, $state, AuthService, CartFactory) {
 
   // upon broadcast from resetCart() in nav-bar directive, reset cart!
   $scope.$on('emptyCart', function (event, data) {
@@ -27,6 +27,7 @@ app.controller('CartController', function ($rootScope, $scope, $log, $q, AuthSer
   AuthService.getLoggedInUser()
     .then(user => {
       $scope.user = user;
+      console.log("USER IN CART: ", $scope.user);
     })
     .catch($log.error())
 
@@ -38,7 +39,6 @@ app.controller('CartController', function ($rootScope, $scope, $log, $q, AuthSer
       return $q.all(cartProducts)
         .then(cartProducts => {
           let cartTotal = 0;
-          console.log("USING SESSION CART!", cartProducts);
           // attaches current # of each product in cart & calculates total price
           cartProducts.forEach(product => {
             product.cartNumber = cart[product.id];
@@ -46,8 +46,20 @@ app.controller('CartController', function ($rootScope, $scope, $log, $q, AuthSer
           })
           $scope.cartProducts = cartProducts;
           $scope.cartTotal = cartTotal;
+          console.log($scope.cartProducts);
+          console.log("checkout products!", CartFactory.checkoutProducts($scope.cartProducts))
         })
     })
     .catch($log.error());
+
+    $scope.submitCheckout = function (cartProducts) {
+      let orderProducts = CartFactory.checkoutProducts($scope.cartProducts);
+      let finalOrder = {status: 'Pending', userId: $scope.user.id, products: orderProducts};
+      return CartFactory.finalCheckout(finalOrder)
+        .then(savedOrder => {
+          $state.go('checkout', {id: savedOrder.id});
+        })
+    }
+
 
 });
