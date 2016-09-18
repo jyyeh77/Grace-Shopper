@@ -36,10 +36,10 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
         $state.go('product', {id: product.id})
       }
 
-      // fetches cart information from session
+      // fetches cart information from session to update cart quantity in NAV-BAR
       CartFactory.fetchCart()
         .then(cart => {
-          if (!scope.user) {
+          if (!scope.isLoggedIn()) {
             scope.cart = cart;
             // default # of items in cart is 0, otherwise set to sum of all items in current cart!
             if (CartFactory.totalQuantity(scope.cart) > 0) scope.cartQuantity = CartFactory.totalQuantity(scope.cart)
@@ -95,24 +95,47 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
           })
       };
 
+      // TODO: if user isn't logged-in...session cart is transferred into user cart!!
       var setUser = function () {
         AuthService.getLoggedInUser().then(function (user) {
           scope.user = user;
+          if (!user) console.log("NO USER!");
 
-          if (scope.user) {
+          // for cart persistence DURING login
+          if (scope.isLoggedIn()) {
             console.log("User logged in, using their cart from DB!", scope.user.email)
-            // empties pre-existing session cart upon login
-            scope.cartQuantity = 0;
-            return CartFactory.emptyCart()
-              .then(() => {
-                return CartFactory.fetchUserCart(scope.user)
-                  .then(userCart => {
-                    console.log("FETCHING CART FOR USER ON NAVBAR!", userCart);
-                    scope.cartQuantity = CartFactory.totalQuantity(userCart.itemCounts)
-                  });
-              });
-          } else {
-            console.log("NO USER LOGGED IN UPON SESSION RETURN");
+            return CartFactory.fetchCart()
+              .then(updatedUserCart => {
+                if (Object.keys(updatedUserCart).length > 0) {
+                  console.log('current user session cart length: ', Object.keys(updatedUserCart).length);
+                  // upon refresh, will save updated user cart if user is logged in
+                  return CartFactory.saveUserCart(updatedUserCart)
+                    .then(() => {
+                      // empties session cart once updated cart is saved
+                      scope.cartQuantity = 0;
+                      return CartFactory.emptyCart()
+                        .then(() => {
+                          return CartFactory.fetchUserCart(scope.user)
+                            .then(userCart => {
+                              scope.cartQuantity = CartFactory.totalQuantity(userCart.itemCounts);
+                              // sets req.session.cart to current user cart item counts
+                              return CartFactory.setCart(userCart.itemCounts);
+                            });
+                        });
+                    })
+                } else { // upon LOGIN, only retrieve pre-existing user cart, don't save empty session cart...
+                  console.log("Getting cart upon user login!")
+                  return CartFactory.emptyCart()
+                    .then(() => {
+                      return CartFactory.fetchUserCart(scope.user)
+                        .then(userCart => {
+                          scope.cartQuantity = CartFactory.totalQuantity(userCart.itemCounts);
+                          // sets req.session.cart to current user cart item counts
+                          return CartFactory.setCart(userCart.itemCounts);
+                        });
+                    })
+                }
+              })
           }
         });
       };

@@ -24,6 +24,16 @@ app.factory('CartFactory', function ($http, Product) {
       })
   }
 
+  CartFactory.setCart = function (userCart) {
+    console.log("Replacing empty session cart with user cart!");
+    return $http.put('/api/cart/', userCart)
+      .then(res => res.data)
+      .catch(err => {
+        err.error = true;
+        return err;
+      })
+  }
+
   // get products from cart - use itemCounts property as parameter if cart is retrieved from DB!!!!
   CartFactory.getCartProducts = function (cart) {
     return Object.keys(cart).map(productId => {
@@ -35,7 +45,6 @@ app.factory('CartFactory', function ($http, Product) {
   CartFactory.editProductNum = function (product) {
     return $http.put(`/api/cart/?prod=${product.id}&quantity=${product.quantity}`)
       .then(res => {
-        // console.log("ADDING PRODUCT TO CART: ", product.id)
         return res.data;
       })
       .catch(err => {

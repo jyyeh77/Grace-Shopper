@@ -34,6 +34,17 @@ router.post('/', function (req, res, next) {
   }
 })
 
+// update session cart - re-routes to second PUT if req.query has nonzero keys
+router.put('/', function (req, res, next) {
+  if (Object.keys(req.query).length > 0) {
+    next();
+  } else {
+    // useful for replacing session cart with stored user cart
+    req.session.cart = req.body;
+    res.send(req.session.cart);
+  }
+})
+
 // add item to session cart object. item info in query string e.g. /?prod=1&quantity=1 (product id 3, quantity 1)
 router.put('/', function (req, res, next) {
   let cart = req.session.cart;
