@@ -43,6 +43,7 @@ app.factory('AdminFactory', function ($http) {
         method: 'GET',
         url: `api/users?email=${userEmail}`,
     })
+    .then(res => res.data)
     .then(foundUser => {
          return $http({
             method: 'put',
@@ -50,6 +51,14 @@ app.factory('AdminFactory', function ($http) {
          })
     })
   }
+
+  AdminFactory.viewAllOrders = function(){
+    return $http({
+        method: 'GET',
+        url: 'api/orders'
+    })
+  }
+
 
   return AdminFactory;
 });

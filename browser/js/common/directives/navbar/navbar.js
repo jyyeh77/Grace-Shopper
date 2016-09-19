@@ -69,13 +69,7 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
       }
 
       scope.user = null;
-      AuthService.isAdmin().then(adminStatus => {
-        scope.isAdmin = adminStatus;
-        console.log('adminStatus', scope.isAdmin)
-        // scope.$digest()
-        // $scope.$digest()
-        $state.reload()
-      })
+
 
       let cartLogout = function () {
         return AuthService.logout().then(function () {
@@ -94,6 +88,7 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
       // saves session cart to database for user on logout
       scope.logout = function () {
         UserFactory.setUser(null);
+        scope.isAdmin = false;
         return CartFactory.fetchCart()
           .then(cart => {
             // only save user session cart if there are items in cart!
@@ -114,6 +109,12 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
 
           // for cart persistence ONLY DURING login
           if (scope.isLoggedIn()) {
+            if (scope.user.isAdmin){
+              scope.isAdmin = true
+            } else {
+              scope.isAdmin = false
+            }
+              
             console.log("User logged in, using their cart from DB!", scope.user.email);
             return CartFactory.fetchCart()
               .then(updatedUserCart => {

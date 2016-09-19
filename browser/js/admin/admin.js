@@ -23,9 +23,15 @@ app.controller('AdminController', function ($scope, AdminFactory) {
     $scope.showOM = false;
     $scope.showPM = false;
     $scope.showUM = false;
+    $scope.allOrders = [];
 
     //order management
-    $scope.viewAllOrders = AdminFactory.viewAllOrders;
+    $scope.viewAllOrders = function(){
+        AdminFactory.viewAllOrders()
+        .then(allOrders => {
+            $scope.allOrders = allOrders
+        })
+    }
 
     //user management
     $scope.setAdmin = AdminFactory.changeAdminStatus;
