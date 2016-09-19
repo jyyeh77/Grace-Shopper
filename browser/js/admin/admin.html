@@ -2,9 +2,17 @@
 	<button ng-click="showOM = !showOm"> order management</button>
 	<div id="order-management">
 		<!-- View a list of all orders -->
+		<div>View all orders:</div> <button ng-click="viewAllOrders">submit</button> 
+		<br>
+
 		<!-- Filter orders by status (Created, Processing, Cancelled, Completed) -->
+		<div>Filter orders by Status:</div>
+
 		<!-- Change the status of the order (Created -> Processing, Processing -> Cancelled || Completed) -->
+		<div>Change status of a specific Order: </div>
+
 		<!-- View details of a specific order -->
+		<div>View details of a specific order</div>
 	</div>
 	<button ng-click="showPM = !showPM"> product management</button>
 	<div id="product-management">
@@ -16,15 +24,15 @@
 	<button ng-click="showUM = !showUM"> user management</button>
 	<div ng-show="showUM" id="user-management">
 		<!-- Promote other user accounts to have admin status -->
-		Set a user to admin: <input ng-model="userEmailToMakeAdmin"placeholder="email"> <button ng-click="setAdmin(userEmailToMakeAdmin)">submit</button> 
+		<div>Set a user to admin: </div><input ng-model="emailOfUserToMakeAdmin" placeholder="email"> <button ng-click="setAdmin(emailOfUserToMakeAdmin)">submit</button> 
 		<br>
 
 		<!-- Delete a user -->
-		Delete a user: <input placeholder="email"> <button>submit</button>
+		<div>Delete a user: </div> <input ng-model="emailOfUserToDelete" placeholder="email"> <button ng-click="deleteUser(emailOfUserToDelete)">submit</button>
 		<br>
 
 		<!-- Trigger password reset for a user (next time they successfully log in—with their old password—they are prompted for a new one) -->
-		Trigger a password reset: <input placeholder="email"> <button>submit</button>
+		<div>Trigger a password reset: </div><input ng-model="emailOfUserToResetPassword" placeholder="email"> <button ng-click="resetPassword(emailOfUserToResetPassword)">submit</button>
 		<br>
 
 	</div>
