@@ -57,16 +57,6 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
       // only resets cart quantity in nav-bar scope, but NOT in session!
       scope.resetCart = function () {
         emptyCart();
-        // scope.cartQuantity = 0;
-        // // updates actual cart page
-        // $rootScope.$broadcast('emptyCart');
-        // // empties both session cart and saves empty cart in DB if user is logged in
-        // return CartFactory.emptyCart()
-        //   .then(() => {
-        //     if (scope.isLoggedIn()){
-        //       return CartFactory.saveUserCart();
-        //     }
-        //   });
       }
 
       var emptyCart = function () {
@@ -128,7 +118,7 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
             } else {
               scope.isAdmin = false
             }
-              
+
             console.log("User logged in, using their cart from DB!", scope.user.email);
             return CartFactory.fetchCart()
               .then(updatedUserCart => {

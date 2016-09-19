@@ -16,12 +16,16 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('AccountController', function ($scope, loggedInUser) {
+app.controller('AccountController', function ($scope, loggedInUser, OrderFactory) {
 
-    $scope.greeting = 'Welcome to your account page';
     $scope.currentUser = loggedInUser; // might be redundant
-    //$scope.changeEmail = 
-    //AuthService.changeEmail
-    //AuthService.signup
 
+    // fetch all orders for a user regardless of order status
+    OrderFactory.fetchAllUserOrders(loggedInUser)
+      .then(orders => {
+        orders.forEach(order => {
+          order.total = OrderFactory.getOrderCost(order);
+        })
+        $scope.userOrders = orders;
+      })
 });
