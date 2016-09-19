@@ -31,6 +31,15 @@ app.factory('Product', function($http) {
 
         setSelectedProduct: function (product) {
           selectProduct = product;
+        },
+
+        addReview: function(id, data){
+          return $http.put('/api/products' + id + '/review', data)
+          .then(res => res.data)
+          .catch(err => {
+            err.error = true;
+            return err;
+          })
         }
     };
 });

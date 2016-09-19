@@ -13,14 +13,18 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('ProductController', function ($rootScope, $scope, theProduct, CartFactory) {
+app.controller('ProductController', function ($rootScope, $scope, theProduct, CartFactory, Product) {
 
 	$scope.product = theProduct;
+  console.log($scope.product)
   $scope.quantity = 1;
   $scope.specs = JSON.parse($scope.product.specs);
   $scope.reviews = $scope.product.reviews
-  console.log("product", $scope.product);
-  console.log("reviews:", $scope.reviews);
+
+  //makes put request via product factory to add review to product
+  $scope.addReview = function(id, data){
+    return Product.addReview(id, data);
+  }
 
   // allow user to increase/decrease quantity of product to be added to cart
   $scope.increment = function () {
@@ -30,6 +34,7 @@ app.controller('ProductController', function ($rootScope, $scope, theProduct, Ca
     if ($scope.quantity > 1) $scope.quantity--;
   }
 
+  // turns "stars" string on each review into an array of integers that can be used in an ng-repeat
   $scope.reviews.forEach(review => {
     const stars = parseInt(review.stars);
     const starsArray = [];
@@ -37,6 +42,7 @@ app.controller('ProductController', function ($rootScope, $scope, theProduct, Ca
       starsArray.push(i);
     }
     review.stars = starsArray
+    review.date = review.createdAt.slice(0,10)
   })
 
   console.log("updated reviews", $scope.reviews);
