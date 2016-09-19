@@ -8,6 +8,10 @@
                     <input placeholder="Find product..." type="text" typeahead-on-select="select($item, $model, $label, $event)" value="Search" ng-model="selectedProduct" uib-typeahead="product for product in products | filter:$viewValue">
                     <input ng-click="switch(foundProduct)" type="submit" value="">
                 </div>
+                <br>
+                <div ng-show="isAdmin">
+                    <button ui-sref="admin">Admin Panel</button>
+                </div>
             </div>
             <div class="col-md-4 top-header-middle">
                 <a href="index.html"><img src="/js/common/directives/fullstack-logo/retrotech-logo-small.png" style="width: 70%"/></a>
@@ -16,9 +20,6 @@
                 <button ng-show="!user" ui-sref="login" class="btn login-button">Login</button>
 
                 <button id="signup-button" ng-hide="isLoggedIn()" ui-sref="signup" class="btn login-button">Signup</button>
-                <div ng-show="isAdmin">
-                    <button ui-sref="admin">Admin Panel</button>
-                </div>
                 <div ng-show="user" class="welcome">
                     <span>Welcome, {{ user.email }}!</span>
                     <a ui-sref="account">My Account</a>

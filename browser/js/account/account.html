@@ -1,11 +1,41 @@
-<div>
-	hey {{greeting}}, {{currentUser.email}}
-
-	<div>
-		<h4> Change User Information </h4>
-		Current Email: {{currentUser.email}}
-		<br>
-		Current Password: {{}}
-
-	</div>
+<div class="row">
+    <div class="col-xs-5 col-xs-offset-1" id="accountPage">
+        <h3>Welcome to your account page, {{currentUser.email}}</h3>
+        <div class="accountFormGroup">
+            <h4 style="font-style: italic; color: red"> Change User Information </h4>
+            <form name="accountForm" id="account-form" ng-submit="submitOrder(cartProducts)">
+                <div class="form-group">
+                    <label>Change email</label>
+                    <input type="email" ng-model="newEmail" class="form-control" placeholder="enter new email here..."
+                           required>
+                    <span class="error" ng-show="checkoutForm.input.$error.required">Required!</span>
+                </div>
+                <div class="form-group">
+                    <label>Reset password</label>
+                    <input type="text" ng-model="newPassword" class="form-control"
+                           placeholder="enter new password here..." required>
+                </div>
+                <input type="submit" id="submit" value="Submit"/>
+                <!--<button id="orderButton" type="submit" ng-click="submitOrder(cartProducts)">Submit Order</button>-->
+            </form>
+        </div>
+    </div>
+    <div class="col-xs-6" id="accountOrders">
+        <h4>Current Orders</h4>
+        <div class="panel panel-default" ng-repeat="order in userOrders">
+            <div class="panel-heading">
+                <h1 class="panel-title">
+                    <button type="button" class="btn" data-toggle="collapse"
+                            data-target="#{{order.id}}" id="orderButton">Order #{{order.id}} submitted on {{order.createdAt | date: shortDate}}</button>
+                </h1>
+            </div>
+            <div class="panel-collapse collapse in" id="{{order.id}}">
+                <div class="panel-body" ng-repeat="product in order.products">
+                    {{product.title}}
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+

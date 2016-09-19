@@ -16,12 +16,14 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('AccountController', function ($scope, loggedInUser) {
+app.controller('AccountController', function ($scope, loggedInUser, OrderFactory) {
 
-    $scope.greeting = 'Welcome to your account page';
     $scope.currentUser = loggedInUser; // might be redundant
-    //$scope.changeEmail = 
-    //AuthService.changeEmail
-    //AuthService.signup
+
+    OrderFactory.fetchAllUserOrders(loggedInUser)
+      .then(orders => {
+        $scope.userOrders = orders;
+        console.log($scope.userOrders);
+      })
 
 });
