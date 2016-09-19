@@ -40,13 +40,13 @@ app.controller('CheckoutController', function ($q, $log, $state, $scope, AuthSer
     })
     .catch($log.error());
 
-  // $scope.submitCheckout = function (cartProducts) {
-  //   let orderProducts = CartFactory.checkoutProducts($scope.cartProducts);
-  //   let finalOrder = {status: 'Pending', userId: $scope.user.id, products: orderProducts};
-  //   return CartFactory.finalCheckout(finalOrder)
-  //     .then(savedOrder => {
-  //       $state.go('checkout', {id: savedOrder.id});
-  //     })
-  // }
+  $scope.submitCheckout = function (cartProducts) {
+    let orderProducts = CartFactory.checkoutProducts($scope.cartProducts);
+    let finalOrder = {status: 'Pending', userId: $scope.user.id, products: orderProducts};
+    return CartFactory.finalCheckout(finalOrder)
+      .then(savedOrder => {
+        $state.go('order', {id: savedOrder.id});
+      })
+  }
 
 })
