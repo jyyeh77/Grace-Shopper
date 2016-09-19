@@ -24,7 +24,13 @@ app.factory('OrderFactory', function ($http) {
       })
   }
 
-
+  OrderFactory.getOrderCost = function (order) {
+    let total = 0;
+    order.products.forEach(product => {
+      total += product.price * product.quantityOrdered;
+    })
+    return total;
+  }
   return OrderFactory;
 })
 
