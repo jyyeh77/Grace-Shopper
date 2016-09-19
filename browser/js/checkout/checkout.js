@@ -10,6 +10,13 @@ app.config(function ($stateProvider) {
 
 app.controller('CheckoutController', function ($q, $log, $state, $scope, AuthService, CartFactory) {
 
+  // upon broadcast from resetCart() in nav-bar directive, reset cart!
+  $scope.$on('emptyCart', function (event, data) {
+    $scope.cartProducts = null;
+    $scope.cartTotal = 0;
+    console.log("Emptying checkout cart!");
+  })
+
   // gets user information from nav-bar $rootScope broadcast upon refresh...
   AuthService.getLoggedInUser()
     .then(user => {
@@ -32,5 +39,14 @@ app.controller('CheckoutController', function ($q, $log, $state, $scope, AuthSer
         })
     })
     .catch($log.error());
+
+  // $scope.submitCheckout = function (cartProducts) {
+  //   let orderProducts = CartFactory.checkoutProducts($scope.cartProducts);
+  //   let finalOrder = {status: 'Pending', userId: $scope.user.id, products: orderProducts};
+  //   return CartFactory.finalCheckout(finalOrder)
+  //     .then(savedOrder => {
+  //       $state.go('checkout', {id: savedOrder.id});
+  //     })
+  // }
 
 })

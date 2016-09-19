@@ -6,11 +6,8 @@ app.config(function ($stateProvider) {
     controller: 'CartController',
     templateUrl: 'js/cart/cart.html',
     resolve: {
-      // itemsInCat: function(Category, $stateParams){
-      // 	return Category.getProductsOfCategory($stateParams.name);
-      // }
-    }
 
+    }
   });
 
 });
@@ -58,15 +55,4 @@ app.controller('CartController', function ($rootScope, $scope, $log, $q, $state,
     $scope.goToCheckout = function () {
       $state.go('checkout');
     }
-
-    // $scope.submitCheckout = function (cartProducts) {
-    //   let orderProducts = CartFactory.checkoutProducts($scope.cartProducts);
-    //   let finalOrder = {status: 'Pending', userId: $scope.user.id, products: orderProducts};
-    //   return CartFactory.finalCheckout(finalOrder)
-    //     .then(savedOrder => {
-    //       $state.go('checkout', {id: savedOrder.id});
-    //     })
-    // }
-
-
 });
