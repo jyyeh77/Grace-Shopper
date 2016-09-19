@@ -98,8 +98,7 @@ app.factory('CartFactory', function ($http, Product) {
         specs: product.specs,
         price: product.price,
         quantityOrdered: product.cartNumber,
-        // TODO: products don't have release dates on their model....
-        releaseDate: product.creationDate,
+        releaseDate: product.releaseDate,
         imageUrl: product.imageUrl
       }
       return checkoutProduct;
@@ -107,7 +106,7 @@ app.factory('CartFactory', function ($http, Product) {
   }
 
   // saves order for user in database!
-  CartFactory.finalCheckout = function (orderObject) {
+  CartFactory.submitOrder = function (orderObject) {
     return $http.post('/api/orders/', orderObject)
       .then(res => res.data)
       .catch(err => {

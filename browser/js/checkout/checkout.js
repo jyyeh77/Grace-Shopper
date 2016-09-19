@@ -8,7 +8,7 @@ app.config(function ($stateProvider) {
   });
 });
 
-app.controller('CheckoutController', function ($q, $log, $state, $scope, AuthService, CartFactory) {
+app.controller('CheckoutController', function ($rootScope, $q, $log, $state, $scope, AuthService, CartFactory) {
 
   // upon broadcast from resetCart() in nav-bar directive, reset cart!
   $scope.$on('emptyCart', function (event, data) {
@@ -40,13 +40,13 @@ app.controller('CheckoutController', function ($q, $log, $state, $scope, AuthSer
     })
     .catch($log.error());
 
-  $scope.submitCheckout = function (cartProducts) {
-    let orderProducts = CartFactory.checkoutProducts($scope.cartProducts);
+  $scope.submitOrder = function (cartProducts) {
+    let orderProducts = CartFactory.checkoutProducts(cartProducts);
     let finalOrder = {status: 'Pending', userId: $scope.user.id, products: orderProducts};
-    return CartFactory.finalCheckout(finalOrder)
+    return CartFactory.submitOrder(finalOrder)
       .then(savedOrder => {
+        $rootScope.$broadcast('emptyOnOrder');
         $state.go('order', {id: savedOrder.id});
       })
   }
-
 })
