@@ -32,6 +32,5 @@ app.factory('Product', function($http) {
         setSelectedProduct: function (product) {
           selectProduct = product;
         }
-
     };
 });
