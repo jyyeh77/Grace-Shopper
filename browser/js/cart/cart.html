@@ -32,7 +32,7 @@
                     <li style="text-align: center; font-weight: bold"><span>${{cartTotal}}.00</span></li>
                     <li><span ng-show="!user">Please Sign Up To Checkout</span></li>
                     <li><span></span></li>
-                    <li><span><button class="btn btn-danger" ng-show="user" ng-click="submitCheckout(cartProducts)">CHECKOUT</button></span></li>
+                    <li><span><button class="btn btn-danger" ng-show="user && checkoutStatus" ng-click="goToCheckout()">CHECKOUT</button></span></li>
                     <div class="clearfix"> </div>
                 </ul>
             </div>

@@ -27,7 +27,6 @@ app.controller('CartController', function ($rootScope, $scope, $log, $q, $state,
   AuthService.getLoggedInUser()
     .then(user => {
       $scope.user = user;
-      console.log("USER IN CART: ", $scope.user);
     })
     .catch($log.error())
 
@@ -39,27 +38,35 @@ app.controller('CartController', function ($rootScope, $scope, $log, $q, $state,
       return $q.all(cartProducts)
         .then(cartProducts => {
           let cartTotal = 0;
+
           // attaches current # of each product in cart & calculates total price
           cartProducts.forEach(product => {
             product.cartNumber = cart[product.id];
             cartTotal += product.cartNumber * product.price;
           })
+
           $scope.cartProducts = cartProducts;
           $scope.cartTotal = cartTotal;
-          console.log($scope.cartProducts);
-          console.log("checkout products!", CartFactory.checkoutProducts($scope.cartProducts))
+
+          // will hide checkout button if no items in cart!
+          $scope.checkoutStatus = CartFactory.checkoutStatus(cartTotal);
         })
     })
     .catch($log.error());
 
-    $scope.submitCheckout = function (cartProducts) {
-      let orderProducts = CartFactory.checkoutProducts($scope.cartProducts);
-      let finalOrder = {status: 'Pending', userId: $scope.user.id, products: orderProducts};
-      return CartFactory.finalCheckout(finalOrder)
-        .then(savedOrder => {
-          $state.go('checkout', {id: savedOrder.id});
-        })
+    // takes user to checkout page with their saved cart
+    $scope.goToCheckout = function () {
+      $state.go('checkout');
     }
+
+    // $scope.submitCheckout = function (cartProducts) {
+    //   let orderProducts = CartFactory.checkoutProducts($scope.cartProducts);
+    //   let finalOrder = {status: 'Pending', userId: $scope.user.id, products: orderProducts};
+    //   return CartFactory.finalCheckout(finalOrder)
+    //     .then(savedOrder => {
+    //       $state.go('checkout', {id: savedOrder.id});
+    //     })
+    // }
 
 
 });

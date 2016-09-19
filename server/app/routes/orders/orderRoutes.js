@@ -93,8 +93,6 @@ router.post('/', function( req, res, next){
 			req.body.products = req.body.products.map(product => {
 				return JSON.stringify(product);
 			})
-      console.log("REQ BODY: ", req.body);
-      console.log("TYPE OF FIRST PRODUCT: ", typeof req.body.products[0])
 			Order.create(req.body)
 			.then(newOrder => {
 				if (!newOrder) {

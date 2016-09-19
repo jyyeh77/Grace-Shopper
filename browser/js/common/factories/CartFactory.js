@@ -15,8 +15,8 @@ app.factory('CartFactory', function ($http, Product) {
   };
 
   // gets cart from DB associated with 1 user via email
-  CartFactory.fetchUserCart = function (user) {
-    return $http.get(`/api/users/cart/${user.email}`)
+  CartFactory.fetchUserCart = function (userEmail) {
+    return $http.get(`/api/users/cart/${userEmail}`)
       .then(res => res.data)
       .catch(err => {
         err.error = true;
@@ -35,6 +35,7 @@ app.factory('CartFactory', function ($http, Product) {
   }
 
   // get products from cart - use itemCounts property as parameter if cart is retrieved from DB!!!!
+  // returns array of promises - must be resolved first using $q
   CartFactory.getCartProducts = function (cart) {
     return Object.keys(cart).map(productId => {
       return Product.fetchById(productId);
@@ -82,6 +83,10 @@ app.factory('CartFactory', function ($http, Product) {
       sum += cartObj[product];
     }
     return sum;
+  }
+
+  CartFactory.checkoutStatus = function (cartTotal) {
+    return cartTotal > 0 ? true : false;
   }
 
   // formats cart products to save as order instance

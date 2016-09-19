@@ -2,17 +2,35 @@ app.config(function ($stateProvider) {
 
   // Register our checkout state.
   $stateProvider.state('checkout', {
-    url: '/checkout/:id',
+    url: '/checkout/',
     controller: 'CheckoutController',
-    templateUrl: 'js/checkout/checkout.html',
-    resolve: {
-      // itemsInCat: function(Category, $stateParams){
-      // 	return Category.getProductsOfCategory($stateParams.name);
-      // }
-    }
+    templateUrl: 'js/checkout/checkout.html'
   });
 });
 
-app.controller('CheckoutController', function ($scope) {
+app.controller('CheckoutController', function ($q, $log, $state, $scope, AuthService, CartFactory) {
+
+  // gets user information from nav-bar $rootScope broadcast upon refresh...
+  AuthService.getLoggedInUser()
+    .then(user => {
+      $scope.user = user;
+      return CartFactory.fetchCart();
+    })
+    .then(userSessionCart => {
+      return $q.all(CartFactory.getCartProducts(userSessionCart))
+        .then(cartProducts => {
+          let cartTotal = 0;
+
+          // attach # of each product in cart & calculates total price
+          cartProducts.forEach(product => {
+            product.cartNumber = userSessionCart[product.id];
+            cartTotal += product.cartNumber * product.price;
+          })
+
+          $scope.cartProducts = cartProducts;
+          $scope.cartTotal = cartTotal;
+        })
+    })
+    .catch($log.error());
 
 })
