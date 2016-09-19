@@ -19,6 +19,7 @@ body {
   margin: 0 auto;
 }
 
+@import 'admin/main';
 @import 'directives/main';
 @import 'home/main';
 @import 'about/main';
@@ -30,4 +31,5 @@ body {
 @import '../templates/css/flexslider.css';
 @import '../templates/css/memenu.css';
 @import '../templates/css/style.css';
+
 

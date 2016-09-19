@@ -64,11 +64,11 @@
         };
 
         
-        // this.isAdmin = function(userId){
-        //             console.log('running admin func')
-        //             return $http.get('/session')
-        //                 .then(data => {console.log('data::::::::::::::::::::::',data)})
-        //         }
+        this.isAdmin = function(userId){
+            console.log('running admin func')
+            return $http.get('/session')
+                .then(res => res.data.user.isAdmin)
+        }
 
         this.getLoggedInUser = function (fromServer) {
 
