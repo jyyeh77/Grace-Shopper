@@ -1,9 +1,9 @@
 <!--TEMPLATE HTML for all products in select category-->
 <div class="product" style="padding-top: 0px">
-    <h1>
-    This is a category page for {{category}}
-    </h1>
     <div class="container">
+        <div class="cat-page-title col-md-12">
+        {{category}}
+        </div>
         <div class="product-main" ng-repeat="item in items">
                 <div class="product-one">
                     <category-page-item item="item">
