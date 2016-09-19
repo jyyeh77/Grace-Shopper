@@ -17,6 +17,9 @@ app.controller('ProductController', function ($rootScope, $scope, theProduct, Ca
 
 	$scope.product = theProduct;
   $scope.quantity = 1;
+  $scope.specs = JSON.parse($scope.product.specs);
+  console.log("product", $scope.product);
+  console.log("parsed specs:", $scope.specs);
 
   // allow user to increase/decrease quantity of product to be added to cart
   $scope.increment = function () {

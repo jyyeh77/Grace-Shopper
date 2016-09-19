@@ -1,10 +1,12 @@
 <!--FROM TEMPLATE-->
 
 <div class="single-main">
-    <div class="col-md-9 single-main-left">
+    <div class="col-md-12 single-main-left">
         <div class="sngl-top">
-            <div class="col-md-7 single-top-left" style="margin-top: 5%">
-                <img class="img-responsive" src="{{product.imageUrl}}"/>
+        <div class="col-md-1 single-top-left" style="margin-top: 5%">
+        </div>
+            <div class="col-md-6 single-top-left" style="margin-top: 5%">
+                <img class="p-one img-responsive" src="{{product.imageUrl}}"/>
             </div>
         </div>
         <div class="col-md-5 single-top-right" style="margin-top: 5%">
@@ -12,11 +14,13 @@
                 <h3>{{ product.title }}</h3>
                 <p class="availability">Availability: <span class="color">In stock</span></p>
                 <div class="price_single">
-                    <span class="reducedfrom">$800.00</span>
-                    <span class="actual item_price">${{product.price}}.00</span><a href="#">click for offer</a>
+                    <span class="item_price">${{product.price}}.00</span>
                 </div>
                 <h2 class="quick">Item Description:</h2>
                 <p class="quick_desc">{{product.description}}</p>
+                <h2 class="quick">Specs:</h2>
+                <p class="quick_desc capitalize spec_list_item" ng-repeat="(key, value) in specs">{{key}}: {{value}}</p>
+                <h2 class="quick" ng-show="product.creationDate">Created: <span>{{product.creationDate}}</span></h2>
                 <div class="quantity_box">
                     <ul class="product-qty">
                         <span>Quantity:

@@ -6,7 +6,7 @@
                 <div class="search-bar">
                     <p>{{typeaheadObject.query}}</p>
                     <input placeholder="Find product..." type="text" typeahead-on-select="select($item, $model, $label, $event)" value="Search" ng-model="selectedProduct" uib-typeahead="product for product in products | filter:$viewValue">
-                    <input ng-click="switch(foundProduct)" type="submit" value="" >
+                    <input ng-click="switch(foundProduct)" type="submit" value="">
                 </div>
             </div>
             <div class="col-md-4 top-header-middle">
