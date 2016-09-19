@@ -87,6 +87,7 @@ var seedCategories = function () {
 }
 
 
+
 var seedProducts = function () {
   var Clocks, Cars, Phones, TV;
 
@@ -107,6 +108,39 @@ var seedProducts = function () {
       TV = foundCategory;
     });
 
+  // var One, Two, Three, Four, Five, Six;
+
+  // Review.findById(1)
+  //   .then(foundReview => {
+  //     One = foundReview
+  // });
+
+  // Review.findById(2)
+  //   .then(foundReview => {
+  //     Two = foundReview
+  // });
+
+  // Review.findById(3)
+  //   .then(foundReview => {
+  //     Three = foundReview
+  // });
+
+  // Review.findById(4)
+  //   .then(foundReview => {
+  //     Four = foundReview
+  // });
+
+  // Review.findById(5)
+  //   .then(foundReview => {
+  //     Five = foundReview
+  // });
+
+  // Review.findById(6)
+  //   .then(foundReview => {
+  //     Six = foundReview
+  // });
+
+
   return Promise.all([
     Product.create({
       title: "iRazr",
@@ -118,7 +152,7 @@ var seedProducts = function () {
       imageUrl: '/product_images/Razr-xs.png'
     })
       .then(function (newProduct) {
-        newProduct.addCategory(Phones);
+        newProduct.addCategory(Phones)
       })
       .catch(function (err) {
         console.err(err);
@@ -134,7 +168,7 @@ var seedProducts = function () {
       imageUrl: '/product_images/rich-grandpa-xs.png'
     })
       .then(function (newProduct) {
-        newProduct.addCategory(Clocks);
+        newProduct.addCategory(Clocks)
       })
       .catch(function (err) {
         console.err(err);
@@ -207,6 +241,68 @@ var seedProducts = function () {
   ]);
 
 };
+
+var seedReviews = function () {
+  var reviews = [
+    {
+      stars: '4',
+      content: "This is great!",
+      userId: 2,
+      productId: 1
+    },
+    {
+      stars: '3',
+      content: "This is okay...",
+      userId: 1,
+      productId: 4
+    },
+
+    {
+      stars: '5',
+      content: "Incredible product. I bought one for all the old people in my life. Love the red color, so fun!",
+      userId: 2,
+      productId: 4
+    },
+
+    {
+      stars: '1',
+      content: "Couldn't figure it out. Meh. Going back to my iPhone 6.",
+      userId: 3,
+      productId: 4
+    },
+
+    {
+      stars: '5',
+      content: "This makes my life!!",
+      userId: 3,
+      productId: 2
+    },
+    {
+      stars: '1',
+      content: "I regret this heavily.",
+      userId: 4,
+      productId: 3
+    },
+    {
+      stars: '4',
+      content: "Brings back good memories :)",
+      userId: 6,
+      productId: 5
+    },
+    {
+      stars: '2',
+      content: "Could be better :(",
+      userId: 5,
+      productId: 6
+    }
+  ]
+
+  var creatingReviews = reviews.map(function (revObj) {
+    return Review.create(revObj);
+  });
+
+  return Promise.all(creatingReviews);
+}
 
 
 var seedOrders = function () {
@@ -499,47 +595,6 @@ var seedOrders = function () {
 }
 
 
-var seedReviews = function () {
-  var reviews = [
-    {
-      stars: '4',
-      content: "This is great!",
-      userId: 2
-    },
-    {
-      stars: '3',
-      content: "This is okay...",
-      userId: 1
-    },
-    {
-      stars: '5',
-      content: "This makes my life!!",
-      userId: 3
-    },
-    {
-      stars: '1',
-      content: "I regret this heavily.",
-      userId: 4
-    },
-    {
-      stars: '4',
-      content: "Brings back good memories :)",
-      userId: 6
-    },
-    {
-      stars: '2',
-      content: "Could be better :(",
-      userId: 5
-    }
-  ]
-
-  var creatingReviews = reviews.map(function (revObj) {
-    return Review.create(revObj);
-  });
-
-  return Promise.all(creatingReviews);
-}
-
 var seedCart = function () {
   let cartOne = {
     itemCounts: {
@@ -565,10 +620,10 @@ db.sync({force: true})
     return seedProducts();
   })
   .then(function () {
-    return seedOrders();
+    return seedReviews();
   })
   .then(function () {
-    return seedReviews();
+    return seedOrders();
   })
   .then(function () {
     return seedCart();
