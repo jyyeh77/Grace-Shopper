@@ -34,7 +34,7 @@ app.factory('Product', function($http) {
         },
 
         addReview: function(id, data){
-          return $http.put('/api/products' + id + '/review', data)
+          return $http.post('/api/products/' + id + '/review', data)
           .then(res => res.data)
           .catch(err => {
             err.error = true;

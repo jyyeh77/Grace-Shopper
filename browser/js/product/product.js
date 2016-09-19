@@ -13,17 +13,31 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('ProductController', function ($rootScope, $scope, theProduct, CartFactory, Product) {
+app.controller('ProductController', function ($rootScope, $state, $scope, theProduct, CartFactory, Product, AuthService) {
 
 	$scope.product = theProduct;
-  console.log($scope.product)
+  console.log("id" , $scope.product.id)
   $scope.quantity = 1;
   $scope.specs = JSON.parse($scope.product.specs);
-  $scope.reviews = $scope.product.reviews
+  $scope.reviews = $scope.product.reviews;
+  $scope.starOptions = ['1', '2', '3', '4', '5'];
+
+  AuthService.getLoggedInUser()
+  .then(user => {
+    console.log(user)
+    $scope.user = user;
+    console.log($scope.user)
+  })
+
 
   //makes put request via product factory to add review to product
-  $scope.addReview = function(id, data){
-    return Product.addReview(id, data);
+  $scope.addReview = function(){
+    console.log("got to add review");
+    var stars = $scope.review.stars;
+    var content = $scope.review.content;
+    var id = $scope.product.id
+    Product.addReview(id, {stars: stars, content: content, productId: id})
+      .then(() => $state.reload())
   }
 
   // allow user to increase/decrease quantity of product to be added to cart

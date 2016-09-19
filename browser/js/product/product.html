@@ -43,25 +43,20 @@
         <div class="clearfix"></div>
         <div class="col-md-12 reviews">
             <h4 class="review-title">Write a review of {{product.title}}</h4>
-            <form id="write-review" name="writeReview" ng-submit="">
+            <form id="write-review" name="writeReview" ng-submit="addReview()">
                 <alert type="danger" ng-show="error">
                     {{ error }}
                 </alert>
 
                 <div class="form-group review-form">
                     <label for="stars">How many stars would you give this product?  </label>
-                    <select class="product-qty">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
+                    <select name="stars" ng-model="review.stars" ng-options="number as number for number in starOptions" ng-init="review.stars='1'">
                     </select>
                 </div>
                 <div class="form-group review-form">
-                    <textarea type="password" ng-model="review.content" class="form-control" id="content" placeholder="Write your review here"></textarea>
+                    <textarea ng-model="review.content" name="content" class="form-control" id="content" placeholder="Write your review here"></textarea>
                 </div>
-                <button type="submit" class="btn btn-default">Submit Review</button>
+                <button type="submit" value="Submit" class="btn btn-default">Submit Review</button>
             </form>
         </div>
         <div class="col-md-12 reviews">
