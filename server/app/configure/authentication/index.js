@@ -55,8 +55,9 @@ module.exports = function (app, db) {
     // This is used by the browser application (Angular) to determine if a user is
     // logged in already.
     app.get('/session', function (req, res) {
+        if (!req.session.cart) req.session.cart = {};
         if (req.user) {
-            res.send({ user: req.user.sanitize() });
+            res.send({ user: req.user.sanitize()});
         } else {
             res.status(401).send('No authenticated user.');
         }

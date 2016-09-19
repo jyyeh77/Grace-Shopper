@@ -35,7 +35,7 @@ router.get('/:id', function(req, res, next){
 		} else {
 			return next(errForbidden);
 		}
-	})	
+	})
 })
 
 //update single order instance. will mostly be used to update order status
@@ -59,7 +59,7 @@ router.put('/:id', function(req, res, next){
 	})
 })
 
-// get all orders associated with a given user. admins can access all orders. 
+// get all orders associated with a given user. admins can access all orders.
 // query string can also be used to filter by order status, e.g. "/?userId=3&status=Shipped"
 router.get('/', function (req, res, next) {
 	let errNoOrders = newError("No orders found", 404);
@@ -73,7 +73,7 @@ router.get('/', function (req, res, next) {
 			.then(foundOrders => {
 				if (!foundOrders.length) return next(errNoOrders);
 				else res.send(foundOrders);
-			})	
+			})
 		} else {
 			return next(errForbidden);
 		}
@@ -90,16 +90,17 @@ router.post('/', function( req, res, next){
 	auth.isAdmin(user)
 	.then(admin => {
 		if (admin || (req.isAuthenticated() && user == req.body.userId)){
-			req.body.products.forEach(product => {
-				product = JSON.stringify(product);
+			req.body.products = req.body.products.map(product => {
+				return JSON.stringify(product);
 			})
-
 			Order.create(req.body)
 			.then(newOrder => {
-				if (!newOrder) return next(errFailed);
+				if (!newOrder) {
+				  return next(errFailed);
+        }
 				else res.send(newOrder);
 			})
-			.catch(next);	
+			.catch(next);
 		} else {
 			return next(errForbidden)
 		}

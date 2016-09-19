@@ -19,8 +19,8 @@ describe('Review model', function () {
     describe ('getSimilar', function () {
       beforeEach(function () {
         let categories = [
-          {name: 'Cars'},
-          {name: 'Phones'},
+          {name: 'Cars', metaCategory: 'Vehicles'},
+          {name: 'Phones', metaCategory: 'Electronics'},
         ]
         let creatingCategories = categories.map(function(catObj){
           return Category.create(catObj)

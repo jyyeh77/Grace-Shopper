@@ -8,6 +8,18 @@ var Order = require('../../../db/models/order')
 var authUtils = require('../../configure/authentication/auth-utils.js')
 module.exports = router;
 
+// retrieve cart via user email
+router.get('/cart/:email', function (req, res, next) {
+  if (req.isAuthenticated()) {
+    User.findOne({ where : { email: req.params.email } })
+      .then(foundUser => {
+        return foundUser.getCart()
+          .then(userCart => res.send(userCart));
+      })
+      .catch(next);
+  }
+})
+
 // retrieves single user if ID parameter is specified in an /api/users/:id route
 router.param('id', function (req, res, next, id) {
   User.findById(id)
