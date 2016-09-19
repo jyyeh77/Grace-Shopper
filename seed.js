@@ -71,9 +71,8 @@ var seedUsers = function () {
 var seedCategories = function () {
   var categories = [
     {name: 'Cars', metaCategory: 'Vehicles'},
-    {name: 'Video', metaCategory: 'Electronics'},
     {name: 'Phones', metaCategory: 'Electronics'},
-    {name: 'TVs', metaCategory: 'Electronics'},
+    {name: 'TV', metaCategory: 'Electronics'},
     {name: 'Clocks', metaCategory: 'Electronics'},
     {name: 'Computers', metaCategory: 'Electronics'},
     {name: 'Radios', metaCategory: 'Electronics'}
@@ -89,7 +88,7 @@ var seedCategories = function () {
 
 
 var seedProducts = function () {
-  var Clocks, Cars, Phones, Video;
+  var Clocks, Cars, Phones, TV;
 
   Category.findOne({where: {name: 'Clocks'}})
     .then(function (foundCategory) {
@@ -103,20 +102,20 @@ var seedProducts = function () {
     .then(function (foundCategory) {
       Phones = foundCategory;
     });
-  Category.findOne({where: {name: 'Video'}})
+  Category.findOne({where: {name: 'TV'}})
     .then(function (foundCategory) {
-      Video = foundCategory;
+      TV = foundCategory;
     });
 
   return Promise.all([
     Product.create({
-      title: "iRazor",
-      description: "This may look like your granny's flip-phone, but inside it's running the latest iOS",
+      title: "iRazr",
+      description: "Relive the glory days of your youth (because we all peaked in middle school) with this hot pink Razr that runs the latest version of iOS. Bluetooth earbuds not included.",
       specs: '{"screensize":"2 in.","weight":"95g","quality":"primo"}',
       price: 599.99,
       quantity: 17,
-      creationDate: '2003',
-      imageUrl: 'http://i-cdn.phonearena.com/images/phones/4573-large/Motorola-RAZR-V3-0.jpg'
+      creationDate: '2005',
+      imageUrl: '/product_images/Razr-xs.png'
     })
       .then(function (newProduct) {
         newProduct.addCategory(Phones);
@@ -131,8 +130,8 @@ var seedProducts = function () {
       specs: '{"height":"4 ft","weight":"60kg","quality":"primo"}',
       price: 8000,
       quantity: 3,
-      creationDate: '1656',
-      imageUrl: 'http://www.todayifoundout.com/wp-content/uploads/2012/09/grandfather-clock.jpg'
+      creationDate: '1750',
+      imageUrl: '/product_images/rich-grandpa-xs.png'
     })
       .then(function (newProduct) {
         newProduct.addCategory(Clocks);
@@ -142,13 +141,13 @@ var seedProducts = function () {
       }),
 
     Product.create({
-      title: "Steampunk Watch Phone",
-      description: "The internals of this steampunk watch phone combine the state-of-the-art components of the Apple watch AND iPhone 7",
+      title: "Smart Pocket Watch",
+      description: "Apple Watch meets 19th-century antique. Read emails, monitor your heart rate, and look like an absolute boss doing it.",
       specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
       price: 1500,
       quantity: 12,
       creationDate: '1874',
-      imageUrl: 'https://mir-s3-cdn-cf.behance.net/project_modules/disp/21b2fe19036859.562d3e03e799d.jpg'
+      imageUrl: '/product_images/smart-pocketwatch-xs.png'
     })
       .then(function (newProduct) {
         newProduct.addCategory([Phones, Clocks]);
@@ -158,16 +157,16 @@ var seedProducts = function () {
       }),
 
     Product.create({
-      title: 'Retro Phone',
-      description: 'This phone has a classic look.',
+      title: 'Rotary Smartphone',
+      description: 'Now grandma can get all the benefits of a smartphone without ever having to learn how to use a touchscreen.',
       specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
       price: 80,
       quantity: 10,
-      creationDate: '1980',
-      imageUrl: 'http://www.retroplanet.com/mm5/graphics/00000006/23914_main.jpg'
+      creationDate: '1970',
+      imageUrl: '/product_images/rotary-smartphone-xs.png'
     })
       .then(function (newProduct) {
-        newProduct.addCategory(Clocks);
+        newProduct.addCategory(Phones);
       })
       .catch(function (err) {
         console.err(err);
@@ -180,7 +179,7 @@ var seedProducts = function () {
       price: 3000,
       quantity: 5,
       creationDate: '1908',
-      imageUrl: 'http://assets.blog.hemmings.com/wp-content/uploads/2011/03/model-t.jpg'
+      imageUrl: '/product_images/model-t-xs.png'
     })
       .then(function (newProduct) {
         newProduct.addCategory(Cars);
@@ -195,11 +194,11 @@ var seedProducts = function () {
       specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
       price: 200,
       quantity: 5,
-      creationDate: '1908',
-      imageUrl: 'http://graphicdesign-blog.com/wp-content/uploads/2012/02/Serie_1_Retro_TV_Front.jpg'
+      creationDate: '1965',
+      imageUrl: '/product_images/retro-tv-alt-xs.png'
     })
       .then(function (newProduct) {
-        newProduct.addCategory(Video);
+        newProduct.addCategory(TV);
       })
       .catch(function (err) {
         console.err(err);
@@ -218,13 +217,13 @@ var seedOrders = function () {
       userId: 1,
       products: [
         {
-          title: "iRazor",
-          description: "This may look like your granny's flip-phone, but inside it's running the latest iOS",
+          title: "iRazr",
+          description: "Relive the glory days of your youth (because we all peaked in middle school) with this hot pink Razr that runs the latest version of iOS. Bluetooth earbuds not included.",
           specs: '{"screensize":"2 in.","weight":"95g","quality":"primo"}',
           price: 599.99,
-          quantityOrdered: 1,
-          creationDate: '2003',
-          imageUrl: 'http://i-cdn.phonearena.com/images/phones/4573-large/Motorola-RAZR-V3-0.jpg'
+          quantity: 1,
+          creationDate: '2005',
+          imageUrl: '/product_images/Razr-xs.png'
         },
 
         {
@@ -244,13 +243,13 @@ var seedOrders = function () {
       userId: 2,
       products: [
         {
-          title: "Steampunk Watch Phone",
-          description: "The internals of this steampunk watch phone combine the state-of-the-art components of the Apple watch AND iPhone 7",
+          title: "Smart Pocket Watch",
+          description: "Apple Watch meets 19th-century antique. Read emails, monitor your heart rate, and look like an absolute boss doing it.",
           specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
           price: 1500,
           quantityOrdered: 1,
           creationDate: '1874',
-          imageUrl: 'https://mir-s3-cdn-cf.behance.net/project_modules/disp/21b2fe19036859.562d3e03e799d.jpg'
+          imageUrl: '/product_images/smart-pocketwatch-xs.png'
         }
       ]
     },
@@ -260,13 +259,13 @@ var seedOrders = function () {
       userId: 3,
       products: [
         {
-          title: 'Retro Phone',
-          description: 'This phone has a classic look.',
+          title: 'Rotary Smartphone',
+          description: 'Now grandma can get all the benefits of a smartphone without ever having to learn how to use a touchscreen.',
           specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
           price: 80,
-          quantityOrdered: 3,
-          creationDate: '1980',
-          imageUrl: 'http://www.retroplanet.com/mm5/graphics/00000006/23914_main.jpg'
+          quantityOrdered: 1,
+          creationDate: '1970',
+          imageUrl: '/product_images/rotary-smartphone-xs.png'
         }
       ]
     },
@@ -276,13 +275,13 @@ var seedOrders = function () {
       userId: 4,
       products: [
         {
-          title: "Steampunk Watch Phone",
-          description: "The internals of this steampunk watch phone combine the state-of-the-art components of the Apple watch AND iPhone 7",
+          title: "Smart Pocket Watch",
+          description: "Apple Watch meets 19th-century antique. Read emails, monitor your heart rate, and look like an absolute boss doing it.",
           specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
           price: 1500,
-          quantityOrdered: 2,
+          quantityOrdered: 1,
           creationDate: '1874',
-          imageUrl: 'https://mir-s3-cdn-cf.behance.net/project_modules/disp/21b2fe19036859.562d3e03e799d.jpg'
+          imageUrl: '/product_images/smart-pocketwatch-xs.png'
         }
       ]
     },
@@ -338,8 +337,8 @@ var seedOrders = function () {
           specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
           price: 200,
           quantityOrdered: 1,
-          creationDate: '1908',
-          imageUrl: 'http://graphicdesign-blog.com/wp-content/uploads/2012/02/Serie_1_Retro_TV_Front.jpg'
+          creationDate: '1965',
+          imageUrl: '/product_images/retro-tv-alt-xs.png'
         }
       ]
     },
@@ -366,13 +365,13 @@ var seedOrders = function () {
       userId: 3,
       products: [
         {
-          title: 'Retro Phone',
-          description: 'This phone has a classic look.',
+          title: 'Rotary Smartphone',
+          description: 'Now grandma can get all the benefits of a smartphone without ever having to learn how to use a touchscreen.',
           specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
           price: 80,
-          quantityOrdered: 7,
-          creationDate: '1980',
-          imageUrl: 'http://www.retroplanet.com/mm5/graphics/00000006/23914_main.jpg'
+          quantityOrdered: 2,
+          creationDate: '1970',
+          imageUrl: '/product_images/rotary-smartphone-xs.png'
         }
 
       ]
@@ -383,13 +382,13 @@ var seedOrders = function () {
       userId: 4,
       products: [
         {
-          title: "Steampunk Watch Phone",
-          description: "The internals of this steampunk watch phone combine the state-of-the-art components of the Apple watch AND iPhone 7",
+          title: "Smart Pocket Watch",
+          description: "Apple Watch meets 19th-century antique. Read emails, monitor your heart rate, and look like an absolute boss doing it.",
           specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
           price: 1500,
           quantityOrdered: 1,
           creationDate: '1874',
-          imageUrl: 'https://mir-s3-cdn-cf.behance.net/project_modules/disp/21b2fe19036859.562d3e03e799d.jpg'
+          imageUrl: '/product_images/smart-pocketwatch-xs.png'
         }
 
       ]
@@ -405,8 +404,8 @@ var seedOrders = function () {
           specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
           price: 200,
           quantityOrdered: 2,
-          creationDate: '1908',
-          imageUrl: 'http://graphicdesign-blog.com/wp-content/uploads/2012/02/Serie_1_Retro_TV_Front.jpg'
+          creationDate: '1965',
+          imageUrl: '/product_images/retro-tv-alt-xs.png'
         }
       ]
     },
@@ -416,13 +415,13 @@ var seedOrders = function () {
       userId: 1,
       products: [
         {
-          title: "iRazor",
-          description: "This may look like your granny's flip-phone, but inside it's running the latest iOS",
+          title: "iRazr",
+          description: "Relive the glory days of your youth (because we all peaked in middle school) with this hot pink Razr that runs the latest version of iOS. Bluetooth earbuds not included.",
           specs: '{"screensize":"2 in.","weight":"95g","quality":"primo"}',
           price: 599.99,
-          quantityOrdered: 1,
-          creationDate: '2003',
-          imageUrl: 'http://i-cdn.phonearena.com/images/phones/4573-large/Motorola-RAZR-V3-0.jpg'
+          quantity: 17,
+          creationDate: '2005',
+          imageUrl: '/product_images/Razr-xs.png'
         }
 
       ]
@@ -433,13 +432,13 @@ var seedOrders = function () {
       userId: 6,
       products: [
         {
-          title: "iRazor",
-          description: "This may look like your granny's flip-phone, but inside it's running the latest iOS",
+          title: "iRazr",
+          description: "Relive the glory days of your youth (because we all peaked in middle school) with this hot pink Razr that runs the latest version of iOS. Bluetooth earbuds not included.",
           specs: '{"screensize":"2 in.","weight":"95g","quality":"primo"}',
           price: 599.99,
-          quantityOrdered: 1,
-          creationDate: '2003',
-          imageUrl: 'http://i-cdn.phonearena.com/images/phones/4573-large/Motorola-RAZR-V3-0.jpg'
+          quantity: 1,
+          creationDate: '2005',
+          imageUrl: '/product_images/Razr-xs.png'
         }
       ]
     },
@@ -449,13 +448,13 @@ var seedOrders = function () {
       userId: 5,
       products: [
         {
-          title: 'Retro Phone',
-          description: 'This phone has a classic look.',
+          title: 'Rotary Smartphone',
+          description: 'Now grandma can get all the benefits of a smartphone without ever having to learn how to use a touchscreen.',
           specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
           price: 80,
-          quantityOrdered: 1,
-          creationDate: '1980',
-          imageUrl: 'http://www.retroplanet.com/mm5/graphics/00000006/23914_main.jpg'
+          quantityOrdered: 2,
+          creationDate: '1970',
+          imageUrl: '/product_images/rotary-smartphone-xs.png'
         }
       ]
     },
@@ -465,22 +464,22 @@ var seedOrders = function () {
       userId: 1,
       products: [
         {
-          title: 'Retro Phone',
-          description: 'This phone has a classic look.',
+          title: 'Rotary Smartphone',
+          description: 'Now grandma can get all the benefits of a smartphone without ever having to learn how to use a touchscreen.',
           specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
           price: 80,
-          quantityOrdered: 1,
-          creationDate: '1980',
-          imageUrl: 'http://www.retroplanet.com/mm5/graphics/00000006/23914_main.jpg'
+          quantityOrdered: 2,
+          creationDate: '1970',
+          imageUrl: '/product_images/rotary-smartphone-xs.png'
         },
         {
-          title: "iRazor",
-          description: "This may look like your granny's flip-phone, but inside it's running the latest iOS",
+          title: "iRazr",
+          description: "Relive the glory days of your youth (because we all peaked in middle school) with this hot pink Razr that runs the latest version of iOS. Bluetooth earbuds not included.",
           specs: '{"screensize":"2 in.","weight":"95g","quality":"primo"}',
           price: 599.99,
-          quantityOrdered: 2,
-          creationDate: '2003',
-          imageUrl: 'http://i-cdn.phonearena.com/images/phones/4573-large/Motorola-RAZR-V3-0.jpg'
+          quantity: 17,
+          creationDate: '2005',
+          imageUrl: '/product_images/Razr-xs.png'
         }
       ]
     }
