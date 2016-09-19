@@ -12,11 +12,13 @@
                 <h3>{{ product.title }}</h3>
                 <p class="availability">Availability: <span class="color">In stock</span></p>
                 <div class="price_single">
-                    <span class="reducedfrom">$800.00</span>
-                    <span class="actual item_price">${{product.price}}.00</span><a href="#">click for offer</a>
+                    <span class="item_price">${{product.price}}.00</span>
                 </div>
                 <h2 class="quick">Item Description:</h2>
                 <p class="quick_desc">{{product.description}}</p>
+                <h2 class="quick">Specs:</h2>
+                <p class="quick_desc capitalize spec_list_item" ng-repeat="(key, value) in specs">{{key}}: {{value}}</p>
+                <h2 class="quick" ng-show="product.creationDate">Created: <span>{{product.creationDate}}</span></h2>
                 <div class="quantity_box">
                     <ul class="product-qty">
                         <span>Quantity:

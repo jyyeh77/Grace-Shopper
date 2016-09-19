@@ -835,6 +835,11 @@ p.quick_desc {
 	margin-bottom: 2em;
 	font-family: 'Roboto', sans-serif;
 }
+
+.spec_list_item {
+	margin-bottom: 0!important;
+}
+
 ul.product-colors {
 	padding: 0;
 }
@@ -936,6 +941,10 @@ ul.size li a:hover {
 }
 .latest.products {
 	padding-top: 2%;
+}
+
+.capitalize::first-letter {
+	text-transform: uppercase;
 }
 /*--end-single--*/
 /*---- responsive-design -----*/

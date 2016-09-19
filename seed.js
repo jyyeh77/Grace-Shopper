@@ -115,7 +115,7 @@ var seedProducts = function () {
       specs: '{"screensize":"2 in.","weight":"95g","quality":"primo"}',
       price: 599.99,
       quantity: 17,
-      releaseDate: '2003',
+      creationDate: '2003',
       imageUrl: 'http://i-cdn.phonearena.com/images/phones/4573-large/Motorola-RAZR-V3-0.jpg'
     })
       .then(function (newProduct) {
@@ -131,7 +131,7 @@ var seedProducts = function () {
       specs: '{"height":"4 ft","weight":"60kg","quality":"primo"}',
       price: 8000,
       quantity: 3,
-      releaseDate: '1656',
+      creationDate: '1656',
       imageUrl: 'http://www.todayifoundout.com/wp-content/uploads/2012/09/grandfather-clock.jpg'
     })
       .then(function (newProduct) {
@@ -147,7 +147,7 @@ var seedProducts = function () {
       specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
       price: 1500,
       quantity: 12,
-      releaseDate: '1874',
+      creationDate: '1874',
       imageUrl: 'https://mir-s3-cdn-cf.behance.net/project_modules/disp/21b2fe19036859.562d3e03e799d.jpg'
     })
       .then(function (newProduct) {
@@ -163,7 +163,7 @@ var seedProducts = function () {
       specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
       price: 80,
       quantity: 10,
-      releaseDate: '1980',
+      creationDate: '1980',
       imageUrl: 'http://www.retroplanet.com/mm5/graphics/00000006/23914_main.jpg'
     })
       .then(function (newProduct) {
@@ -179,7 +179,7 @@ var seedProducts = function () {
       specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
       price: 3000,
       quantity: 5,
-      releaseDate: '1908',
+      creationDate: '1908',
       imageUrl: 'http://assets.blog.hemmings.com/wp-content/uploads/2011/03/model-t.jpg'
     })
       .then(function (newProduct) {
@@ -195,7 +195,7 @@ var seedProducts = function () {
       specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
       price: 200,
       quantity: 5,
-      releaseDate: '1908',
+      creationDate: '1908',
       imageUrl: 'http://graphicdesign-blog.com/wp-content/uploads/2012/02/Serie_1_Retro_TV_Front.jpg'
     })
       .then(function (newProduct) {
@@ -223,7 +223,7 @@ var seedOrders = function () {
           specs: '{"screensize":"2 in.","weight":"95g","quality":"primo"}',
           price: 599.99,
           quantityOrdered: 1,
-          releaseDate: '2003',
+          creationDate: '2003',
           imageUrl: 'http://i-cdn.phonearena.com/images/phones/4573-large/Motorola-RAZR-V3-0.jpg'
         },
 
@@ -233,7 +233,7 @@ var seedOrders = function () {
           specs: '{"height":"4 ft","weight":"60kg","quality":"primo"}',
           price: 8000,
           quantityOrdered: 2,
-          releaseDate: '1656',
+          creationDate: '1656',
           imageUrl: 'http://www.todayifoundout.com/wp-content/uploads/2012/09/grandfather-clock.jpg'
         }
       ]
@@ -249,7 +249,7 @@ var seedOrders = function () {
           specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
           price: 1500,
           quantityOrdered: 1,
-          releaseDate: '1874',
+          creationDate: '1874',
           imageUrl: 'https://mir-s3-cdn-cf.behance.net/project_modules/disp/21b2fe19036859.562d3e03e799d.jpg'
         }
       ]
@@ -265,7 +265,7 @@ var seedOrders = function () {
           specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
           price: 80,
           quantityOrdered: 3,
-          releaseDate: '1980',
+          creationDate: '1980',
           imageUrl: 'http://www.retroplanet.com/mm5/graphics/00000006/23914_main.jpg'
         }
       ]
@@ -281,7 +281,7 @@ var seedOrders = function () {
           specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
           price: 1500,
           quantityOrdered: 2,
-          releaseDate: '1874',
+          creationDate: '1874',
           imageUrl: 'https://mir-s3-cdn-cf.behance.net/project_modules/disp/21b2fe19036859.562d3e03e799d.jpg'
         }
       ]
@@ -297,7 +297,7 @@ var seedOrders = function () {
           specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
           price: 3000,
           quantityOrdered: 1,
-          releaseDate: '1908',
+          creationDate: '1908',
           imageUrl: 'http://assets.blog.hemmings.com/wp-content/uploads/2011/03/model-t.jpg'
         }
       ]
@@ -313,7 +313,7 @@ var seedOrders = function () {
           specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
           price: 3000,
           quantityOrdered: 1,
-          releaseDate: '1908',
+          creationDate: '1908',
           imageUrl: 'http://assets.blog.hemmings.com/wp-content/uploads/2011/03/model-t.jpg'
         }
       ]
@@ -329,7 +329,7 @@ var seedOrders = function () {
           specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
           price: 3000,
           quantityOrdered: 5,
-          releaseDate: '1908',
+          creationDate: '1908',
           imageUrl: 'http://assets.blog.hemmings.com/wp-content/uploads/2011/03/model-t.jpg'
         },
         {
@@ -338,7 +338,7 @@ var seedOrders = function () {
           specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
           price: 200,
           quantityOrdered: 1,
-          releaseDate: '1908',
+          creationDate: '1908',
           imageUrl: 'http://graphicdesign-blog.com/wp-content/uploads/2012/02/Serie_1_Retro_TV_Front.jpg'
         }
       ]
@@ -354,7 +354,7 @@ var seedOrders = function () {
           specs: '{"height":"4 ft","weight":"60kg","quality":"primo"}',
           price: "Rich Grandpa",
           quantityOrdered: 1,
-          releaseDate: '1656',
+          creationDate: '1656',
           imageUrl: 'http://www.todayifoundout.com/wp-content/uploads/2012/09/grandfather-clock.jpg'
         }
 
@@ -371,7 +371,7 @@ var seedOrders = function () {
           specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
           price: 80,
           quantityOrdered: 7,
-          releaseDate: '1980',
+          creationDate: '1980',
           imageUrl: 'http://www.retroplanet.com/mm5/graphics/00000006/23914_main.jpg'
         }
 
@@ -388,7 +388,7 @@ var seedOrders = function () {
           specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
           price: 1500,
           quantityOrdered: 1,
-          releaseDate: '1874',
+          creationDate: '1874',
           imageUrl: 'https://mir-s3-cdn-cf.behance.net/project_modules/disp/21b2fe19036859.562d3e03e799d.jpg'
         }
 
@@ -405,7 +405,7 @@ var seedOrders = function () {
           specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
           price: 200,
           quantityOrdered: 2,
-          releaseDate: '1908',
+          creationDate: '1908',
           imageUrl: 'http://graphicdesign-blog.com/wp-content/uploads/2012/02/Serie_1_Retro_TV_Front.jpg'
         }
       ]
@@ -421,7 +421,7 @@ var seedOrders = function () {
           specs: '{"screensize":"2 in.","weight":"95g","quality":"primo"}',
           price: 599.99,
           quantityOrdered: 1,
-          releaseDate: '2003',
+          creationDate: '2003',
           imageUrl: 'http://i-cdn.phonearena.com/images/phones/4573-large/Motorola-RAZR-V3-0.jpg'
         }
 
@@ -438,7 +438,7 @@ var seedOrders = function () {
           specs: '{"screensize":"2 in.","weight":"95g","quality":"primo"}',
           price: 599.99,
           quantityOrdered: 1,
-          releaseDate: '2003',
+          creationDate: '2003',
           imageUrl: 'http://i-cdn.phonearena.com/images/phones/4573-large/Motorola-RAZR-V3-0.jpg'
         }
       ]
@@ -454,7 +454,7 @@ var seedOrders = function () {
           specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
           price: 80,
           quantityOrdered: 1,
-          releaseDate: '1980',
+          creationDate: '1980',
           imageUrl: 'http://www.retroplanet.com/mm5/graphics/00000006/23914_main.jpg'
         }
       ]
@@ -470,7 +470,7 @@ var seedOrders = function () {
           specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
           price: 80,
           quantityOrdered: 1,
-          releaseDate: '1980',
+          creationDate: '1980',
           imageUrl: 'http://www.retroplanet.com/mm5/graphics/00000006/23914_main.jpg'
         },
         {
@@ -479,7 +479,7 @@ var seedOrders = function () {
           specs: '{"screensize":"2 in.","weight":"95g","quality":"primo"}',
           price: 599.99,
           quantityOrdered: 2,
-          releaseDate: '2003',
+          creationDate: '2003',
           imageUrl: 'http://i-cdn.phonearena.com/images/phones/4573-large/Motorola-RAZR-V3-0.jpg'
         }
       ]
