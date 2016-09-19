@@ -24,15 +24,11 @@ app.controller('ProductController', function ($rootScope, $state, $scope, thePro
 
   AuthService.getLoggedInUser()
   .then(user => {
-    console.log(user)
     $scope.user = user;
-    console.log($scope.user)
   })
-
 
   //makes put request via product factory to add review to product
   $scope.addReview = function(){
-    console.log("got to add review");
     var stars = $scope.review.stars;
     var content = $scope.review.content;
     var id = $scope.product.id
@@ -58,9 +54,6 @@ app.controller('ProductController', function ($rootScope, $state, $scope, thePro
     review.stars = starsArray
     review.date = review.createdAt.slice(0,10)
   })
-
-  console.log("updated reviews", $scope.reviews);
-
   // sends product ID and quantity of product to be added to cart upon pressing ADD TO CART
   $scope.editProductNum = function (product) {
     let productInCart = {id: product.id, quantity: $scope.quantity};

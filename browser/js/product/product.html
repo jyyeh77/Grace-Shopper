@@ -41,7 +41,7 @@
             </div>
         </div>
         <div class="clearfix"></div>
-        <div class="col-md-12 reviews">
+        <div class="col-md-12 reviews" ng-show="user">
             <h4 class="review-title">Write a review of {{product.title}}</h4>
             <form id="write-review" name="writeReview" ng-submit="addReview()">
                 <alert type="danger" ng-show="error">
