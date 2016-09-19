@@ -16,7 +16,15 @@ router.param('id', function(req, res, next, id){
 	Order.findById(req.params.id)
 	.then(foundOrder => {
 		if (!foundOrder) throw(errNotFound);
-		else req.order = foundOrder;
+		else {
+		  // convert stringified products back into JSON object
+		  foundOrder.products = foundOrder.getOrderProducts();
+
+      // serializes sequelize object to allow property adding
+      let foundOrderJSON = foundOrder.toJSON();
+      foundOrderJSON.total = foundOrder.getOrderCost();
+		  req.order = foundOrderJSON;
+    }
 		next()
 	})
 	.catch(next);
