@@ -30,6 +30,21 @@ router.param('id', function (req, res, next, id) {
     })
     .catch(next);
 })
+
+//ensureAdminOrCurrentUser
+router.get('/', authUtils.ensureAdmin, function(req, res, next){
+  if (req.query){
+    User.findOne({
+      where: {
+        email: req.query.email
+      }
+    })
+    .then(foundUser => res.send(foundUser))
+  } else {
+    User.findAll(users => res.send(users))
+  }
+})
+
 router.get('/:id', authUtils.ensureAdmin, function (req, res, next) {
   console.log('sesh:',req.session.passport.user)
   res.send(req.requestedUser);

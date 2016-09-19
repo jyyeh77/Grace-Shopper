@@ -69,6 +69,7 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
       }
 
       scope.user = null;
+      scope.isAdmin = AuthService.isAdmin()
 
       let cartLogout = function () {
         return AuthService.logout().then(function () {
