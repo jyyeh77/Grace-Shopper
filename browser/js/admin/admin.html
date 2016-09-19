@@ -1,0 +1,48 @@
+<div id="buttons-panel">
+	<button ng-click="showOM = !showOM" class='btn btn-primary'> order management</button>
+	<div ng-show="showOM" id="order-management">
+		<!-- View a list of all orders -->
+		<span>View all orders:</span> <button ng-click="viewAllOrders()">submit</button> 
+		<br>
+
+		<!-- Filter orders by status (Created, Processing, Cancelled, Completed) -->
+		<span>Filter orders by Status:</span>
+
+		<!-- Change the status of the order (Created -> Processing, Processing -> Cancelled || Completed) -->
+		<span>Change status of a specific Order: </span>
+
+		<!-- View details of a specific order -->
+		<span>View details of a specific order</span>
+	</div>
+
+	<br>
+
+	<button ng-click="showPM = !showPM" class='btn btn-primary'> product management</button>
+	<div ng-show="showPM" id="product-management">
+		<!-- Create and edit products with name, description, price and one or more photos -->
+		<span>Create new product</span> 
+
+		<!-- Create categories for items, each item can have multiple categories -->
+		<!-- Manage the availability of a product. If a product is no longer available, users will not see it while browsing, but they can view the product detail page if they've ordered it previously or have a direct link. On that product detail page, it should say "Currently Unavailable" -->
+		<!-- Add/remove categories from items -->
+	</div>
+
+	<br>
+
+	<button ng-click="showUM = !showUM" class='btn btn-primary'> user management</button>
+	<div ng-show="showUM" id="user-management">
+		<!-- Promote other user accounts to have admin status -->
+		<span>Set a user to admin: </span><input ng-model="emailOfUserToMakeAdmin" placeholder="email"> <button ng-click="setAdmin(emailOfUserToMakeAdmin)">submit</button> 
+		<br>
+
+		<!-- Delete a user -->
+		<span>Delete a user: </span> <input ng-model="emailOfUserToDelete" placeholder="email"> <button ng-click="deleteUser(emailOfUserToDelete)">submit</button>
+		<br>
+
+		<!-- Trigger password reset for a user (next time they successfully log in—with their old password—they are prompted for a new one) -->
+		<span>Trigger a password reset: </span><input ng-model="emailOfUserToResetPassword" placeholder="email"> <button ng-click="resetPassword(emailOfUserToResetPassword)">submit</button>
+		<br>
+	</div>
+
+	<br>
+</div>

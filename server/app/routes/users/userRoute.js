@@ -21,6 +21,7 @@ router.get('/cart/:email', function (req, res, next) {
 })
 
 // retrieves single user if ID parameter is specified in an /api/users/:id route
+
 router.param('id', function (req, res, next, id) {
   User.findById(id)
     .then(foundUser => {
@@ -30,6 +31,21 @@ router.param('id', function (req, res, next, id) {
     })
     .catch(next);
 })
+
+//ensureAdminOrCurrentUser
+router.get('/', function(req, res, next){
+  if (req.query){
+    User.findOne({
+      where: {
+        email: req.query.email
+      }
+    })
+    .then(foundUser => res.send(foundUser))
+  } else {
+    User.findAll(users => res.send(users))
+  }
+})
+
 router.get('/:id', authUtils.ensureAdmin, function (req, res, next) {
   console.log('sesh:',req.session.passport.user)
   res.send(req.requestedUser);
@@ -37,7 +53,9 @@ router.get('/:id', authUtils.ensureAdmin, function (req, res, next) {
 
 // admins can update current user info here
 router.put('/:id', function (req, res, next) {
-  req.requestedUser.update(req.body)
+  // req.requestedUser.update(req.body) why does this not act like a sequelize object?
+    User.findById(req.params.id)
+    .then(foundUser => foundUser.update(req.body))
     .then(user => {
       res.send(user);
     })
@@ -45,7 +63,9 @@ router.put('/:id', function (req, res, next) {
 })
 
 router.delete('/:id', function (req, res, next) {
-  req.requestedUser.destroy()
+  // req.requestedUser.destroy() 
+    User.findById(req.params.id)
+    .then(foundUser => foundUser.destroy())
     .then(() => {
       res.status(204).end();
     })
