@@ -98,7 +98,6 @@ app.factory('CartFactory', function ($http, Product) {
         specs: product.specs,
         price: product.price,
         quantityOrdered: product.cartNumber,
-        // TODO: products don't have release dates on their model....
         releaseDate: product.releaseDate,
         imageUrl: product.imageUrl
       }
