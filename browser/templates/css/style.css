@@ -948,6 +948,7 @@ ul.size li a:hover {
 	outline: none;
 	text-transform: uppercase;
 	border: none;
+	border-radius: 3px;
 }
 .single-but input[type="submit"]:hover {
 	background: #181b2a;
@@ -959,6 +960,28 @@ ul.size li a:hover {
 .capitalize::first-letter {
 	text-transform: uppercase;
 }
+
+.reviews {
+	text-align: center;
+	margin: 25px auto;
+}
+
+.product-review {
+/*	border: 1px solid black;*/
+	margin: 10px auto;
+	text-align: center;
+	padding: 10px;
+}
+
+.review-title {
+	margin-bottom: 30px;
+}
+
+.review-form {
+	width: 50%;
+	margin: 15px auto;
+}
+
 /*--end-single--*/
 /*---- responsive-design -----*/
 @media(max-width:1440px){
