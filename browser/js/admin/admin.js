@@ -36,14 +36,21 @@ app.controller('AdminController', function ($scope, AdminFactory, OrderFactory) 
   ]
 
   // gets all orders and displays in table
-  $scope.viewAllOrders = function () {
+  var showOrders = function () {
     AdminFactory.viewAllOrders()
       .then(allOrders => {
         $scope.allOrders = allOrders;
-        $scope.showOM = !$scope.showOM ? true : false;
+        $scope.showOM = !$scope.showOM;
         // hides single order page
         if ($scope.displayOrder) $scope.displayOrder = false;
       })
+  }
+  showOrders();
+
+  // used in view all orders button on single order page to return to all orders page
+  $scope.returnToAllOrders = function () {
+    $scope.showOM = true;
+    $scope.displayOrder = false;
   }
 
   // shows individual orders upon clicking order ID in order table

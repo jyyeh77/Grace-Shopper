@@ -2,9 +2,6 @@
 
     <!--MANAGE ORDERS-->
     <div class="col-xs-6" id="orderColumn">
-        <div class="text-center">
-            <button ng-click="viewAllOrders()" class='btn btn-primary '>Manage Orders</button>
-        </div>
         <div ng-show="showOM" id="order-management">
 
             <!-- View a list of all orders -->
@@ -14,10 +11,6 @@
                             <select ng-model="setStatus" ng-options="status.type for status in orderStatuses"></select>
                             <a ng-click="clearOrderFilter()">Clear filter</a>
                         </span>
-                        <label>Pending</label><input type="checkbox">
-                        <label>Completed</label><input type="checkbox">
-                        <label>Cancelled</label><input type="checkbox">
-                        <label>Shipped</label><input type="checkbox">
                 </div>
                 <div>
                     <table class="table">
@@ -36,10 +29,8 @@
                             <td>{{order.user.email}}</td>
                             <td>{{order.createdAt | date: shortDate}}</td>
                             <td>{{order.status}}</td>
-                            <!--<td><select ng-model="changeStatus" ng-options="status.type for status in orderStatuses">-->
-                            <!--</select>-->
-                            <!--</td>-->
-                            <td><button class="btn btn-sm btn-danger">Change status</button></td>
+                            <td><select ng-init="changeStatus = {{order.status}}" ng-model="changeStatus" ng-options="status.type for status in orderStatuses">
+                            </select></td>
                         </tr>
                         </tbody>
                     </table>
@@ -49,11 +40,12 @@
         <!--INDIVIDUAL ORDERS-->
         <div ng-show="displayOrder">
             <div class="col-xs-12">
-                <h3>Order Summary</h3>
-                <ul>
-                    <li>Status: {{order.status}}</li>
-                    <li>Date: {{order.createdAt | date: shortDate}}</li>
-                    <li>User: {{order.user.email}}</li>
+                <h3>Order Summary <button class="btn-sm" id="allOrdersBtn" ng-click="returnToAllOrders()">View all orders</button></h3>
+                <br>
+                <ul id="singleOrderList">
+                    <li><strong>Status: </strong>{{order.status}}</li>
+                    <li><strong>Date: </strong>{{order.createdAt | date: shortDate}}</li>
+                    <li><strong>User: </strong>{{order.user.email}}</li>
                 </ul>
                 <table class="table">
                     <thead>
