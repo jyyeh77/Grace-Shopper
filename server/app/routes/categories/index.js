@@ -1,8 +1,22 @@
 'use strict';
-var router = require('express').Router(); // eslint-disable-line new-cap
-var Category = require('../../../db/models/category');
+const router = require('express').Router(); // eslint-disable-line new-cap
+const db = require('../../../db');
+const Category = db.model('category');
 module.exports = router;
 
+// router.param('Category', function (req, res, next, Category) {
+//   Category.findAll({
+//     where: {
+//       category: Category
+//     }
+//   })
+//     .then(foundCategory => {
+//       if (!foundCategory) res.sendStatus(404)
+//       else req.requestedCategory = foundCategory;
+//       next();
+//     })
+//     .catch(next);
+// })
 
 router.get('/', function(req, res, next){
   Category.findAll()

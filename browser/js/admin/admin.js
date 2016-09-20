@@ -16,7 +16,7 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('AdminController', function ($scope, AdminFactory) {
+app.controller('AdminController', function ($scope, AdminFactory, OrderFactory) {
 
     $scope.greeting = 'Welcome to the admin page';
     //$scope.currentUser = loggedInUser; // might be redundant
@@ -27,10 +27,16 @@ app.controller('AdminController', function ($scope, AdminFactory) {
 
     //order management
     $scope.viewAllOrders = function(){
+        console.log('viewing ')
         AdminFactory.viewAllOrders()
         .then(allOrders => {
+            console.log('all', allOrders)
+            allOrders.forEach(order => {
+                order.total = OrderFactory.getOrderCost(order)
+            });
             $scope.allOrders = allOrders
         })
+        //.catch(err => console.log(err))
     }
 
     //user management
