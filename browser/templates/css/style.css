@@ -1024,6 +1024,12 @@ ul.size li a:hover {
 	margin: 15px auto;
 }
 
+.user-table {
+	width: 90%;
+	margin-left: 15px;
+	margin-top: 20px;
+}
+
 /*--end-single--*/
 /*---- responsive-design -----*/
 @media(max-width:1440px){

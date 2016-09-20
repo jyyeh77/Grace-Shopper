@@ -25,11 +25,21 @@ app.controller('AdminController', function ($scope, AdminFactory, OrderFactory, 
   $scope.success = false;
   $scope.warning = false;
 
+/* USER MANAGEMENT */
+
   //get list of all users
-  UserFactory.getAll()
-  .then(users => {
-    $scope.userList = users;
-    console.log("all users", $scope.userList);
+  function getUsers() {
+    UserFactory.getAll()
+    .then(users => {
+      $scope.userList = users;
+      console.log("all users", $scope.userList);
+    })
+  }
+  getUsers();
+
+  //watch for changes to user list, e.g. admin status or deletion
+  $scope.$watch('userList', (newUserList) => {
+    $scope.userList = newUserList;
   })
 
   /* ORDER MANAGEMENT */
@@ -114,6 +124,7 @@ app.controller('AdminController', function ($scope, AdminFactory, OrderFactory, 
     AdminFactory.changeAdminStatus(email)
     .then(() => {
       $scope.success = true;
+      getUsers();
     })
 
   }
@@ -122,6 +133,7 @@ app.controller('AdminController', function ($scope, AdminFactory, OrderFactory, 
     AdminFactory.deleteUser(email)
     .then(() => {
       $scope.success = true;
+      getUsers();
     })
   }
 
