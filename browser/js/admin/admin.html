@@ -46,3 +46,20 @@
 
 	<br>
 </div>
+
+<div>{{allOrders}}</div>
+<div id="view-all-orders">
+	<ol>
+		<li ng-repeat="order in allOrders">
+			<div>Order Id: {{order.id}}</div>
+			<div>Order Status: {{order.status}}</div>
+			<div>Products: {{order.products}}
+			<div ng-repeat="product in order.products">
+				<div>name: {{product.title}}</div>
+				<div>description: {{product.description}}</div>
+				<div>specs: {{product.specs}}
+			</div>
+			</div>
+		</li>
+	</ol>
+</div> 

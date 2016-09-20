@@ -57,6 +57,7 @@ app.factory('AdminFactory', function ($http) {
         method: 'GET',
         url: 'api/orders'
     })
+    .then(res => res.data)
   }
 
 
