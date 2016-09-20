@@ -13,6 +13,7 @@ var Cart = require('./models/cart');
 // associations
 User.hasMany(Order);
 User.hasMany(Review);
+Order.belongsTo(User);
 Product.belongsToMany(Category, {through: 'product_categories'});
 Category.belongsToMany(Product, {through: 'product_categories'});
 Product.hasMany(Review);

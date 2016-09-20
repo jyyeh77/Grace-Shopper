@@ -2,8 +2,18 @@
 	width: 50%
 }
 
-#view-all-orders{
-	width: 50%;
-	//overflow: hidden;
-	float: right;
+#adminRow {
+  padding-top: 30px;
+}
+
+#orderColumn {
+  border-right: 2px solid;
+}
+
+#viewOrdersBtn {
+  margin-top: 10px;
+}
+
+#ordersTable {
+  padding-top: 20px;
 }

@@ -27,7 +27,7 @@ app.factory('AdminFactory', function ($http) {
         url: `api/users?email=${userEmail}`,
     })
     .then(res => res.data)
-    .then(foundUser => {    
+    .then(foundUser => {
         return $http({
             method: 'delete',
             url: `api/users/${foundUser.id}`
@@ -35,7 +35,7 @@ app.factory('AdminFactory', function ($http) {
         })
     })
     //or just set user to inactive?
-    
+
   }
 
   AdminFactory.resetPassword = function(userEmail){
@@ -53,13 +53,12 @@ app.factory('AdminFactory', function ($http) {
   }
 
   AdminFactory.viewAllOrders = function(){
-    return $http({
-        method: 'GET',
-        url: 'api/orders'
-    })
-    .then(res => res.data)
+    return $http.get('/api/orders')
+      .then(res => res.data)
+      .catch(err => {
+        err.error = true;
+        return err;
+      })
   }
-
-
   return AdminFactory;
 });

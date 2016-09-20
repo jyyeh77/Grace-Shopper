@@ -1,86 +1,115 @@
-<div id="buttons-panel">
-	<button ng-click="showOM = !showOM" class='btn btn-primary'> order management</button>
-	<div ng-show="showOM" id="order-management">
-		<!-- View a list of all orders -->
-		<span>View all orders:</span> <button ng-click="viewAllOrders()">submit</button> 
-		<br>
+<div class="row" id="adminRow">
 
-		<!-- Filter orders by status (Created, Processing, Cancelled, Completed) -->
-		<span>Filter orders by Status:</span>
+    <!--MANAGE ORDERS-->
+    <div class="col-xs-6" id="orderColumn">
+        <div class="text-center">
+            <button ng-click="viewAllOrders()" class='btn btn-primary '>Manage Orders</button>
+        </div>
+        <div ng-show="showOM" id="order-management">
 
-		<!-- Change the status of the order (Created -> Processing, Processing -> Cancelled || Completed) -->
-		<span>Change status of a specific Order: </span>
-
-		<!-- View details of a specific order -->
-		<span>View details of a specific order</span>
-	</div>
-
-	<br>
-
-	<button ng-click="showPM = !showPM" class='btn btn-primary'> product management</button>
-	<div ng-show="showPM" id="product-management">
-		<!-- Create and edit products with name, description, price and one or more photos -->
-		<span>Create new product</span> 
-
-		<!-- Create categories for items, each item can have multiple categories -->
-		<!-- Manage the availability of a product. If a product is no longer available, users will not see it while browsing, but they can view the product detail page if they've ordered it previously or have a direct link. On that product detail page, it should say "Currently Unavailable" -->
-		<!-- Add/remove categories from items -->
-	</div>
-
-	<br>
-
-	<button ng-click="showUM = !showUM" class='btn btn-primary'> user management</button>
-	<div ng-show="showUM" id="user-management">
-		<!-- Promote other user accounts to have admin status -->
-		<span>Set a user to admin: </span><input ng-model="emailOfUserToMakeAdmin" placeholder="email"> <button ng-click="setAdmin(emailOfUserToMakeAdmin)">submit</button> 
-		<br>
-
-		<!-- Delete a user -->
-		<span>Delete a user: </span> <input ng-model="emailOfUserToDelete" placeholder="email"> <button ng-click="deleteUser(emailOfUserToDelete)">submit</button>
-		<br>
-
-		<!-- Trigger password reset for a user (next time they successfully log in—with their old password—they are prompted for a new one) -->
-		<span>Trigger a password reset: </span><input ng-model="emailOfUserToResetPassword" placeholder="email"> <button ng-click="resetPassword(emailOfUserToResetPassword)">submit</button>
-		<br>
-	</div>
-
-	<br>
-</div>
-
-<div id="view-all-orders">
-	<div class="panel panel-default" ng-repeat="order in allOrders">
-            <div class="panel-heading">
-                <h1 class="panel-title">
-                    <button type="button" class="btn" data-toggle="collapse"
-                            data-target="#{{order.id}}" id="orderButton">Order #{{order.id}} submitted on
-                        {{order.createdAt | date: shortDate}}
-                    </button>
-                </h1>
-            </div>
-            <div class="panel-collapse collapse in" id="{{order.id}}">
-                <div class="panel-body">
+            <!-- View a list of all orders -->
+            <div class="col-xs-12" id="ordersTable">
+                <div>
+                        <span>Filter by status:
+                            <select ng-model="setStatus" ng-options="status.type for status in orderStatuses"></select>
+                            <a ng-click="clearOrderFilter()">Clear filter</a>
+                        </span>
+                </div>
+                <div>
                     <table class="table">
                         <thead>
                         <tr>
-                            <th>Item</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
+                            <th>Id</th>
+                            <th>User</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Edit</th>
                         </tr>
                         </thead>
-                        <tbody ng-repeat="product in order.products">
+                        <tbody ng-repeat="order in allOrders | filter:{status: setStatus.type}">
                         <tr>
-                            <td>{{product.title}}</td>
-                            <td>{{product.quantityOrdered}}</td>
-                            <td>${{product.price}}.00</td>
+                            <td><a data-toggle="collapse" ng-click="showSingleOrder(order.id)">{{order.id}}</a></td>
+                            <td>{{order.user.email}}</td>
+                            <td>{{order.createdAt | date: shortDate}}</td>
+                            <td>{{order.status}}</td>
+                            <!--<td><select ng-model="changeStatus" ng-options="status.type for status in orderStatuses">-->
+                            <!--</select>-->
+                            <!--</td>-->
+                            <td><button class="btn btn-sm btn-danger">Change status</button></td>
                         </tr>
                         </tbody>
-                        <tr style="padding-right: 20px">
-                            <th></th>
-                            <th></th>
-                            <th>Total: ${{order.total}}.00</th>
-                        </tr>
+
                     </table>
                 </div>
             </div>
         </div>
+
+        <!--INDIVIDUAL ORDERS-->
+        <div ng-show="displayOrder">
+            <div class="col-xs-12">
+                <h3>Order Summary</h3>
+                <ul>
+                    <li>Status: {{order.status}}</li>
+                    <li>Date: {{order.createdAt | date: shortDate}}</li>
+                    <li>User: {{order.user.email}}</li>
+                </ul>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                    </tr>
+                    </thead>
+                    <tbody ng-repeat="product in order.products">
+                    <tr>
+                        <td>{{product.title}}</td>
+                        <td>{{product.quantityOrdered}}</td>
+                        <td>{{product.price}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!--MANAGE PRODUCTS-->
+    <div class="col-xs-3">
+        <div class="text-center">
+            <button ng-click="showPM = !showPM" class='btn btn-primary'>Manage Products</button>
+        </div>
+        <div ng-show="showPM" id="product-management">
+            <!-- Create and edit products with name, description, price and one or more photos -->
+            <span>Create new product</span>
+
+            <!-- Create categories for items, each item can have multiple categories -->
+            <!-- Manage the availability of a product. If a product is no longer available, users will not see it while browsing, but they can view the product detail page if they've ordered it previously or have a direct link. On that product detail page, it should say "Currently Unavailable" -->
+            <!-- Add/remove categories from items -->
+        </div>
+
+        <br>
+    </div>
+
+    <div class="col-xs-3">
+        <div class="text-center">
+            <button ng-click="showUM = !showUM" class='btn btn-primary'> user management</button>
+        </div>
+        <div ng-show="showUM" id="user-management">
+            <!-- Promote other user accounts to have admin status -->
+            <span>Set a user to admin: </span><input ng-model="emailOfUserToMakeAdmin" placeholder="email">
+            <button ng-click="setAdmin(emailOfUserToMakeAdmin)">submit</button>
+            <br>
+
+            <!-- Delete a user -->
+            <span>Delete a user: </span> <input ng-model="emailOfUserToDelete" placeholder="email">
+            <button ng-click="deleteUser(emailOfUserToDelete)">submit</button>
+            <br>
+
+            <!-- Trigger password reset for a user (next time they successfully log in—with their old password—they are prompted for a new one) -->
+            <span>Trigger a password reset: </span><input ng-model="emailOfUserToResetPassword" placeholder="email">
+            <button ng-click="resetPassword(emailOfUserToResetPassword)">submit</button>
+            <br>
+        </div>
+    </div>
 </div>
+
