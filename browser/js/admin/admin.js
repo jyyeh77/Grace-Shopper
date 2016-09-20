@@ -56,9 +56,12 @@ app.controller('AdminController', function ($scope, AdminFactory, OrderFactory) 
       })
   }
 
+  // resets status filter
   $scope.clearOrderFilter = function () {
    $scope.setStatus = {};
   }
+
+  //
 
   console.log($scope.setStatus);
 
