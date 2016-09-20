@@ -125,11 +125,11 @@
                 </uib-tab-heading>
                 <div id="user-management">
                     <!-- Promote other user accounts to have admin status, delete users, or flag for password reset on next visit -->
-                    <div class="alert alert-success user-update" ng-show="warning"> 
-                        User successfully updated!
+                    <div class="alert alert-success user-update" ng-show="success" ng-click="success=false"> 
+                        User successfully updated! Click here to close this message.
                     </div>
-                    <div class="alert alert-danger user-update" ng-show="success"> 
-                        User update failed. Please try again.
+                    <div class="alert alert-danger user-update" ng-show="warning" ng-click="warning=false"> 
+                        User update failed.Click here to close this message.
                     </div>
                     <input ng-model="userEmail" placeholder="Enter user email address here" class="form-control manage-user-email">
                     <div class="user-mgmt-buttons">

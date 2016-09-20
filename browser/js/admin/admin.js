@@ -105,9 +105,27 @@ app.controller('AdminController', function ($scope, AdminFactory, OrderFactory, 
   }
 
   //user management
-  $scope.setAdmin = AdminFactory.changeAdminStatus
-  $scope.deleteUser = AdminFactory.deleteUser;
-  $scope.resetPassword = AdminFactory.resetPassword;
+  $scope.setAdmin = function(email){
+    AdminFactory.changeAdminStatus(email)
+    .then(() => {
+      $scope.success = true;
+    })
+
+  }
+
+  $scope.deleteUser = function(email){
+    AdminFactory.deleteUser(email)
+    .then(() => {
+      $scope.success = true;
+    })
+  }
+
+  $scope.resetPassword = function(email) {
+    AdminFactory.resetPassword(email)
+    .then(() => {
+      $scope.success = true;
+    })
+  }
 
 });
 
