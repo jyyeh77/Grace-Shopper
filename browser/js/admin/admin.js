@@ -21,6 +21,11 @@ app.controller('AdminController', function ($scope, AdminFactory, OrderFactory, 
   $scope.displayOrder = false;
   $scope.showProduct = false;
 
+  //to display alerts after user update
+  $scope.success = false;
+  $scope.warning = false;
+
+
 
   /* ORDER MANAGEMENT */
 
@@ -100,7 +105,7 @@ app.controller('AdminController', function ($scope, AdminFactory, OrderFactory, 
   }
 
   //user management
-  $scope.setAdmin = AdminFactory.changeAdminStatus;
+  $scope.setAdmin = AdminFactory.changeAdminStatus
   $scope.deleteUser = AdminFactory.deleteUser;
   $scope.resetPassword = AdminFactory.resetPassword;
 

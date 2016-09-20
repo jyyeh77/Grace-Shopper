@@ -47,7 +47,8 @@ app.factory('AdminFactory', function ($http) {
     .then(foundUser => {
          return $http({
             method: 'put',
-            url: `api/users/${foundUser.id}`
+            url: `api/users/${foundUser.id}`,
+            data: {passwordReset: true}
          })
     })
   }

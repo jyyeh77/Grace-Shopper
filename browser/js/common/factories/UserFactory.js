@@ -4,6 +4,7 @@
 app.factory('UserFactory', function ($http) {
   let UserFactory = {};
   let currentUser = null;
+  console.log(currentUser)
 
   UserFactory.getUser = function () {
     return currentUser;
