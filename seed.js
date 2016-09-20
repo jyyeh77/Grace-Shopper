@@ -71,6 +71,7 @@ var seedUsers = function () {
 var seedCategories = function () {
   var categories = [
     {name: 'Cars', metaCategory: 'Vehicles'},
+    {name: 'Submarines', metaCategory: 'Vehicles'},
     {name: 'Phones', metaCategory: 'Electronics'},
     {name: 'TV', metaCategory: 'Electronics'},
     {name: 'Clocks', metaCategory: 'Electronics'},
@@ -89,7 +90,7 @@ var seedCategories = function () {
 
 
 var seedProducts = function () {
-  var Clocks, Cars, Phones, TV;
+  var Clocks, Cars, Phones, TV, Submarines, Computers, Radios;
 
   Category.findOne({where: {name: 'Clocks'}})
     .then(function (foundCategory) {
@@ -99,6 +100,10 @@ var seedProducts = function () {
     .then(function (foundCategory) {
       Cars = foundCategory;
     });
+  Category.findOne({where: {name: 'Submarines'}})
+    .then(function (foundCategory) {
+      Submarines = foundCategory;
+    });
   Category.findOne({where: {name: 'Phones'}})
     .then(function (foundCategory) {
       Phones = foundCategory;
@@ -107,39 +112,14 @@ var seedProducts = function () {
     .then(function (foundCategory) {
       TV = foundCategory;
     });
-
-  // var One, Two, Three, Four, Five, Six;
-
-  // Review.findById(1)
-  //   .then(foundReview => {
-  //     One = foundReview
-  // });
-
-  // Review.findById(2)
-  //   .then(foundReview => {
-  //     Two = foundReview
-  // });
-
-  // Review.findById(3)
-  //   .then(foundReview => {
-  //     Three = foundReview
-  // });
-
-  // Review.findById(4)
-  //   .then(foundReview => {
-  //     Four = foundReview
-  // });
-
-  // Review.findById(5)
-  //   .then(foundReview => {
-  //     Five = foundReview
-  // });
-
-  // Review.findById(6)
-  //   .then(foundReview => {
-  //     Six = foundReview
-  // });
-
+  Category.findOne({where: {name: 'Computers'}})
+    .then(function (foundCategory) {
+      Computers = foundCategory;
+    });
+  Category.findOne({where: {name: 'Radios'}})
+    .then(function (foundCategory) {
+      Radios = foundCategory;
+    });
 
   return Promise.all([
     Product.create({
@@ -210,7 +190,7 @@ var seedProducts = function () {
       title: 'Model T',
       description: 'Great car',
       specs: '{"material":"various metals","weight":"200g","quality":"swag"}',
-      price: 3000,
+      price: 30000,
       quantity: 5,
       creationDate: '1908',
       imageUrl: '/product_images/model-t-xs.png'
@@ -236,7 +216,57 @@ var seedProducts = function () {
       })
       .catch(function (err) {
         console.err(err);
+      }),
+
+    Product.create({
+      title: 'Steam Sub',
+      description: 'This submarine looks like it\'s over 100 years old... because it is! We overhauled the engine and interior, but decided not to interfere with the \'Vintage Chic\' aesthetic of the aging exterior. Looks great! Functionally, your mileage may vary.',
+      specs: '{"material":"various metals","weight":"2000kg","quality":"questionable"}',
+      price: 80000,
+      quantity: 1,
+      creationDate: '1889',
+      imageUrl: '/product_images/submarine.jpg'
+    })
+      .then(function (newProduct) {
+        newProduct.addCategory(Submarines);
       })
+      .catch(function (err) {
+        console.err(err);
+      }),
+
+    Product.create({
+      title: 'Vintage Desktop',
+      description: 'Help Gramps ease into the modern era with a desktop that reminds him of the good old days when he had 2/3 of his teeth. And fear not, it comes with macOs Sierra pre-ins',
+      specs: '{"material":"polycarbonate","weight":"18kg","quality":"vintage"}',
+      price: 1400,
+      quantity: 32,
+      creationDate: '1996',
+      imageUrl: '/product_images/microbee-computer.jpg'
+    })
+      .then(function (newProduct) {
+        newProduct.addCategory(Computers);
+      })
+      .catch(function (err) {
+        console.err(err);
+      }),
+
+    Product.create({
+      title: 'Grammy\'s Gramophone',
+      description: 'She\'ll be so excited to unwrap this vintage-looking music player! Until she realizes it only plays .FLAC and .WAV format audio files. Can also stream podcasts and XM radio (subscription required).',
+      specs: '{"material":"woodchips, uranium","weight":"14kg","quality":"flawless"}',
+      price: 999.99,
+      quantity: 42,
+      creationDate: '1901',
+      imageUrl: '/product_images/gramophone.jpg'
+    })
+      .then(function (newProduct) {
+        newProduct.addCategory(Radios);
+      })
+      .catch(function (err) {
+        console.err(err);
+      })
+
+
 
   ]);
 
