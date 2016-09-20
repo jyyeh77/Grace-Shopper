@@ -80,7 +80,12 @@ router.get('/', function (req, res, next) {
 			Order.findAll({where: req.query})
 			.then(foundOrders => {
 				if (!foundOrders.length) return next(errNoOrders);
-				else res.send(foundOrders);
+				else {
+				  foundOrders.forEach(order => {
+				    order.products = order.getOrderProducts();
+          })
+				  res.send(foundOrders);
+        }
 			})
 		} else {
 			return next(errForbidden);

@@ -3,13 +3,13 @@
 <div class="single-main">
     <div class="col-md-12 single-main-left">
         <div class="sngl-top">
-        <div class="col-md-1 single-top-left" style="margin-top: 5%">
+        <div class="col-md-2 single-top-left" style="margin-top: 5%">
         </div>
-            <div class="col-md-6 single-top-left" style="margin-top: 5%">
+            <div class="col-md-4 single-top-left" style="margin-top: 5%">
                 <img class="p-one img-responsive" src="{{product.imageUrl}}"/>
             </div>
         </div>
-        <div class="col-md-5 single-top-right" style="margin-top: 5%">
+        <div class="col-md-4 single-top-right" style="margin-top: 5%">
             <div class="details-left-info simpleCart_shelfItem">
                 <h3>{{ product.title }}</h3>
                 <p class="availability">Availability: <span class="color">In stock</span></p>
@@ -41,6 +41,32 @@
             </div>
         </div>
         <div class="clearfix"></div>
+        <div class="col-md-12 reviews" ng-show="user">
+            <h4 class="review-title">Write a review of {{product.title}}</h4>
+            <form id="write-review" name="writeReview" ng-submit="addReview()">
+                <alert type="danger" ng-show="error">
+                    {{ error }}
+                </alert>
+
+                <div class="form-group review-form">
+                    <label for="stars">How many stars would you give this product?  </label>
+                    <select name="stars" ng-model="review.stars" ng-options="number as number for number in starOptions" ng-init="review.stars='1'">
+                    </select>
+                </div>
+                <div class="form-group review-form">
+                    <textarea ng-model="review.content" name="content" class="form-control" id="content" placeholder="Write your review here"></textarea>
+                </div>
+                <button type="submit" value="Submit" class="btn btn-default">Submit Review</button>
+            </form>
+        </div>
+        <div class="col-md-12 reviews">
+        <h4 class="review-title">See what other customers are saying about {{product.title}}... </h4>
+            <div ng-repeat="review in reviews | orderBy:'$index':true" class="product-review">
+                <p> {{review.date | date:shortDate}}</p>
+                    <span class="glyphicon glyphicon-star" ng-repeat="star in review.stars"></span>
+                <p class="quick_desc"> {{review.content}}</p>
+            </div>
+        </div>
     </div>
 </div>
 <div class="clearfix"></div>

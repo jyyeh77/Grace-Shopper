@@ -76,6 +76,12 @@
 
  });
 
+ // alternate way to add review to product b/c the other one wasn't working --KF
+ router.post('/:id/review', function(req, res, next){
+    req.body.productId = req.params.id
+    Review.create(req.body)
+    .then(() => res.sendStatus(201))
+ })
 
  // ADMINS can update current product info here
  router.put('/:id', function(req, res, next) {
