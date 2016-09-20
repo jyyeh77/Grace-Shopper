@@ -90,6 +90,11 @@
             </form>
             <!-- Create categories for items, each item can have multiple categories -->
             <span>Create new category</span>
+            <form name="createCategoryForm" ng-submit="createCategory(category)">
+                <input ng-model="category.name" placeholder="name">
+                <select ng-model="category.metaCategory" ng-options="mc.type for mc in metaCategories"></select>
+                <input type="submit" id="submit" value="Submit"/>
+            </form>
             <!-- Manage the availability of a product. If a product is no longer available, users will not see it while browsing, but they can view the product detail page if they've ordered it previously or have a direct link. On that product detail page, it should say "Currently Unavailable" -->
             <!-- Add/remove categories from items -->
 

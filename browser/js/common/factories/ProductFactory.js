@@ -47,7 +47,8 @@ app.factory('Product', function($http) {
           .then(res => res.data)
         },
 
-        createFactory: function(categoryObj){
+        createCategory: function(categoryObj){
+          categoryObj.metaCategory = categoryObj.metaCategory.type
           return $http.post('/api/categories', categoryObj)
           .then(res => res.data)
         }
