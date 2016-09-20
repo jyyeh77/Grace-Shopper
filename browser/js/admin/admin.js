@@ -133,6 +133,7 @@ app.controller('AdminController', function ($scope, AdminFactory, OrderFactory, 
     AdminFactory.deleteUser(email)
     .then(() => {
       $scope.success = true;
+      $scope.userEmail = '';
       getUsers();
     })
   }
@@ -141,6 +142,7 @@ app.controller('AdminController', function ($scope, AdminFactory, OrderFactory, 
     AdminFactory.resetPassword(email)
     .then(() => {
       $scope.success = true;
+      getUsers();
     })
   }
 
