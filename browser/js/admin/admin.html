@@ -70,43 +70,59 @@
         </div>
     </div>
 
+
+    <div class="col-xs-6">
+        <uib-tabset active="active">
+            <uib-tab index="0">
+                <uib-tab-heading>
+                    Manage Products
+                </uib-tab-heading>  
+            </uib-tab>
+
+            <uib-tab index="1">
+                <uib-tab-heading>
+                    Manage Users
+                </uib-tab-heading>
+                <div id="user-management">
+                    <!-- Promote other user accounts to have admin status -->
+                    <div class="alert alert-success user-update" ng-show="warning"> 
+                        User successfully updated!
+                    </div>
+                    <div class="alert alert-danger user-update" ng-show="success"> 
+                        User update failed. Please try again.
+                    </div>
+                    <input ng-model="userEmail" placeholder="Enter user email address here" class="form-control manage-user-email">
+                    <div class="user-mgmt-buttons">
+                        <button class="btn btn-primary" ng-click="setAdmin(userEmail)">Make admin</button>
+                        <button class="btn btn-primary" ng-click="deleteUser(userEmail)">Delete user</button>
+                        <button class="btn btn-primary" ng-click="resetPassword(userEmail)">Reset password</button>
+                    </div>
+                </div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
     <!--MANAGE PRODUCTS-->
-    <div class="col-xs-3">
+<!--     <div class="col-xs-3">
         <div class="text-center">
             <button ng-click="showPM = !showPM" class='btn btn-primary'>Manage Products</button>
         </div>
         <div ng-show="showPM" id="product-management">
-            <!-- Create and edit products with name, description, price and one or more photos -->
-            <span>Create new product</span>
+             Create and edit products with name, description, price and one or more photos -->
+<!--             <span>Create new product</span>
             <a ui-sref="admin.products">Click me!</a>
-            <div ui-view></div>
+            <div ui-view></div> -->
             <!-- Create categories for items, each item can have multiple categories -->
             <!-- Manage the availability of a product. If a product is no longer available, users will not see it while browsing, but they can view the product detail page if they've ordered it previously or have a direct link. On that product detail page, it should say "Currently Unavailable" -->
             <!-- Add/remove categories from items -->
-        </div>
+<!--         </div>
 
         <br>
-    </div>
+    </div> -->
 
-    <div class="col-xs-3">
+<!--     <div class="col-xs-3">
         <div class="text-center">
-            <button ng-click="showUM = !showUM" class='btn btn-primary'> user management</button>
+x
         </div>
-        <div ng-show="showUM" id="user-management">
-            <!-- Promote other user accounts to have admin status -->
-            <span>Make admin: </span><input ng-model="emailOfUserToMakeAdmin" placeholder="email">
-            <button class="btn btn-sm" ng-click="setAdmin(emailOfUserToMakeAdmin)">submit</button>
-            <br>
 
-            <!-- Delete a user -->
-            <span>Delete user: </span> <input ng-model="emailOfUserToDelete" placeholder="email">
-            <button class="btn btn-sm" ng-click="deleteUser(emailOfUserToDelete)">submit</button>
-            <br>
-
-            <!-- Trigger password reset for a user (next time they successfully log in—with their old password—they are prompted for a new one) -->
-            <span>Flag for password reset: </span><input ng-model="emailOfUserToResetPassword" placeholder="email">
-            <button class="btn btn-sm" ng-click="resetPassword(emailOfUserToResetPassword)">submit</button>
-            <br>
-        </div>
-    </div>
+    </div> -->
 </div>

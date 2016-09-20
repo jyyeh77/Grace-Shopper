@@ -59,6 +59,21 @@ select {
 	margin: 0 5px;
 }
 
+.manage-user-email {
+	width: 70%;
+	margin: 20px 15px;
+}
+
+.user-mgmt-buttons {
+	width: 70%;
+	margin: 0 15px;
+}
+
+.user-update {
+	width: 80%;
+	margin: 10px 15px;
+}
+
 .top-header-middle {
 	text-align: center;
 }
