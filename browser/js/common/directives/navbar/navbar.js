@@ -113,6 +113,8 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
 
           // for cart persistence ONLY DURING login
           if (scope.isLoggedIn()) {
+
+            // TODO: THIS IS A MAJOR SECURITY RISK!!
             if (scope.user.isAdmin){
               scope.isAdmin = true
             } else {

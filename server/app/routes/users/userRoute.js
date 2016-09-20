@@ -46,6 +46,7 @@ router.get('/', function(req, res, next){
   }
 })
 
+// retrieve single user based on ID
 router.get('/:id', authUtils.ensureAdmin, function (req, res, next) {
   console.log('sesh:',req.session.passport.user)
   res.send(req.requestedUser);
@@ -63,7 +64,7 @@ router.put('/:id', function (req, res, next) {
 })
 
 router.delete('/:id', function (req, res, next) {
-  // req.requestedUser.destroy() 
+  // req.requestedUser.destroy()
     User.findById(req.params.id)
     .then(foundUser => foundUser.destroy())
     .then(() => {
@@ -84,7 +85,8 @@ router.post('/', function(req, res, next){
   //     if (!userExists) {
   //       User.create({
   //         email: req.body.email,
-  //         password: req.body.password
+  //         password: req.body.password,
+  //          isAdmin = false
   //       })
   //       .then(createdUser => res.send(createdUser))
   //     } else {
