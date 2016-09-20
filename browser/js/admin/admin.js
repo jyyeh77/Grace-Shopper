@@ -60,6 +60,7 @@ app.controller('AdminController', function ($scope, AdminFactory, OrderFactory) 
       .then(order => {
         $scope.showOM = false;
         $scope.displayOrder = true;
+        order.total = OrderFactory.getOrderCost(order);
         $scope.order = order;
       })
   }
@@ -86,11 +87,13 @@ app.controller('AdminController', function ($scope, AdminFactory, OrderFactory) 
     $scope.allOrders = newOrders;
   })
 
-
   //user management
   $scope.setAdmin = AdminFactory.changeAdminStatus;
   $scope.deleteUser = AdminFactory.deleteUser;
   $scope.resetPassword = AdminFactory.resetPassword;
 
-
 });
+
+app.controller('AdminProductsController', function ($scope, Product) {
+
+})
