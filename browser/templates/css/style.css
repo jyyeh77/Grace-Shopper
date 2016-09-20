@@ -86,7 +86,8 @@ body a{
 }
 .box_1 {
 	float: right;
-	margin-top: 15px;
+	margin-top: 10px;
+	margin-right: 10px;
     padding-right: 5px;
 }
 .box_1 h3 {
@@ -1752,6 +1753,7 @@ a.simpleCart_empty {
 .bnr-right img {
 	width: 80%;
 }
+
 .shoes {
 	padding: 2em 0px;
 }
@@ -1861,5 +1863,8 @@ ul.product-categories li a {
 	font-size: 11px;
 	line-height: 1.6em;
 }
+
+
+
 }
 /*---- responsive-design -----*/

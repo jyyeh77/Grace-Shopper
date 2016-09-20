@@ -3775,7 +3775,7 @@ select.input-group-sm > .input-group-btn > .btn {
 textarea.input-group-sm > .form-control,
 textarea.input-group-sm > .input-group-addon,
 textarea.input-group-sm > .input-group-btn > .btn,
-select[multiple].input-group-sm > .form-control,
+[multiple].input-group-sm > .form-control,
 select[multiple].input-group-sm > .input-group-addon,
 select[multiple].input-group-sm > .input-group-btn > .btn {
   height: auto;
