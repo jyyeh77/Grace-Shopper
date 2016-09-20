@@ -7,6 +7,8 @@ const utils = {
             .then(foundUser => (foundUser.isAdmin))
     },
     ensureAdmin: function(req, res, next){
+      // req.user should already be deseralized by passport
+      // could check req.user.isAdmin property - KHJH
         utils.isAdmin(req.session.passport.user)
         .then(userIsAdmin => {
           if (!userIsAdmin) res.redirect('/')

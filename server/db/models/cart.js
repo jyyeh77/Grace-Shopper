@@ -6,6 +6,7 @@
 var Sequelize = require('sequelize');
 let db = require('../_db');
 
+// Ask what itemCounts is -KHJH
 module.exports = db.define('cart', {
 
   itemCounts: {

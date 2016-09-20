@@ -59,6 +59,9 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
         emptyCart();
       }
 
+      // Could be a better idea to move this logic into a CartFactory
+      // include the Cart itself and the emptyCart function  --KHJH
+
       var emptyCart = function () {
         scope.cartQuantity = 0;
         // updates actual cart page
@@ -171,5 +174,3 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
   };
 
 });
-
-

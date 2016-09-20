@@ -10,12 +10,16 @@ app.config(function ($stateProvider) {
 
 app.controller('CheckoutController', function ($rootScope, $q, $log, $state, $scope, AuthService, CartFactory) {
 
+  // Same comment, move into the CartFactory -KHJH
+
   // upon broadcast from resetCart() in nav-bar directive, reset cart!
   $scope.$on('emptyCart', function (event, data) {
     $scope.cartProducts = null;
     $scope.cartTotal = 0;
     console.log("Emptying checkout cart!");
   })
+
+  // Use same method as other places to get logged in user. -- KHJH
 
   // gets user information from nav-bar $rootScope broadcast upon refresh...
   AuthService.getLoggedInUser()

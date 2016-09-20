@@ -14,6 +14,10 @@ module.exports = router;
 
 // gets cart object on current session. if nothing in cart, returns empty object
 router.get('/', function (req, res, next) {
+  // Have a conditional to check if the user is logged in or not.
+  // return session for unauthenticated user
+  // return persisted version if authenticated
+  // - KHJH
   res.send(req.session.cart)
 })
 
@@ -72,4 +76,3 @@ router.delete('/', function (req, res, next) {
 // } else {
 // 	req.session.cart = {};
 // }
-

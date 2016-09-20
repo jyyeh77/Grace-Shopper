@@ -68,6 +68,11 @@ module.exports = function (app, db) {
                 email: req.body.email,
                 password: req.body.password
               })
+
+              // use req.logIn function that passport gives you
+              // to attach the createdUser to the session
+              // sanitize the user before sending it back. - KHJH
+
               .then(createdUser => res.send(createdUser))
             } else {
                 var error = new Error('That email is already being used.');

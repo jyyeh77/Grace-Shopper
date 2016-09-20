@@ -9,7 +9,10 @@ app.factory('CartFactory', function ($http, Product) {
     return $http.get('/api/cart')
       .then(res => res.data)
       .catch(err => {
+        // ??
         err.error=true;
+        // Need to throw the err, in order for it to be caught in the controller. - KHJH
+        // throw err;
         return err;
       });
   };
@@ -20,6 +23,7 @@ app.factory('CartFactory', function ($http, Product) {
       .then(res => res.data)
       .catch(err => {
         err.error = true;
+        // Same as comment above. -KHJH
         return err;
       })
   }
