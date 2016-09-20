@@ -127,7 +127,7 @@ var seedProducts = function () {
       title: "iRazr",
       description: "Relive the glory days of your youth (because we all peaked in middle school) with this hot pink Razr that runs the latest version of iOS. Bluetooth earbuds not included.",
       specs: '{"screensize":"2 in.","weight":"95g","quality":"primo"}',
-      price: 599.99,
+      price: 600,
       quantity: 17,
       creationDate: '2005',
       imageUrl: '/product_images/Razr-xs.png',
@@ -356,7 +356,7 @@ var seedOrders = function () {
           title: "iRazr",
           description: "Relive the glory days of your youth (because we all peaked in middle school) with this hot pink Razr that runs the latest version of iOS. Bluetooth earbuds not included.",
           specs: '{"screensize":"2 in.","weight":"95g","quality":"primo"}',
-          price: 599.99,
+          price: 600,
           quantity: 1,
           quantityOrdered: 3,
           creationDate: '2005',
@@ -555,8 +555,8 @@ var seedOrders = function () {
           title: "iRazr",
           description: "Relive the glory days of your youth (because we all peaked in middle school) with this hot pink Razr that runs the latest version of iOS. Bluetooth earbuds not included.",
           specs: '{"screensize":"2 in.","weight":"95g","quality":"primo"}',
-          price: 599.99,
-          quantityOrdered: 17,
+          price: 600,
+          quantity: 17,
           creationDate: '2005',
           imageUrl: '/product_images/Razr-xs.png'
         }
@@ -572,8 +572,8 @@ var seedOrders = function () {
           title: "iRazr",
           description: "Relive the glory days of your youth (because we all peaked in middle school) with this hot pink Razr that runs the latest version of iOS. Bluetooth earbuds not included.",
           specs: '{"screensize":"2 in.","weight":"95g","quality":"primo"}',
-          price: 599.99,
-          quantityOrdered: 1,
+          price: 600,
+          quantity: 1,
           creationDate: '2005',
           imageUrl: '/product_images/Razr-xs.png'
         }
@@ -613,8 +613,8 @@ var seedOrders = function () {
           title: "iRazr",
           description: "Relive the glory days of your youth (because we all peaked in middle school) with this hot pink Razr that runs the latest version of iOS. Bluetooth earbuds not included.",
           specs: '{"screensize":"2 in.","weight":"95g","quality":"primo"}',
-          price: 599.99,
-          quantityOrdered: 17,
+          price: 600,
+          quantity: 17,
           creationDate: '2005',
           imageUrl: '/product_images/Razr-xs.png'
         }

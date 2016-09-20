@@ -1,15 +1,15 @@
 app.config(function ($stateProvider) {
 
-  $stateProvider.state('admin', {
+  $stateProvider
+    .state('admin', {
     data: {
       authenticate: true
     },
     url: '/admin',
     controller: 'AdminController',
     templateUrl: 'js/admin/admin.html'
- 
-  });
 
+  })
 });
 
 app.controller('AdminController', function ($scope, AdminFactory, OrderFactory, Product) {
@@ -20,6 +20,7 @@ app.controller('AdminController', function ($scope, AdminFactory, OrderFactory, 
   $scope.showPM = false;
   $scope.showUM = false;
   $scope.displayOrder = false;
+  $scope.showProduct = false;
 
 
   /* ORDER MANAGEMENT */
@@ -35,10 +36,13 @@ app.controller('AdminController', function ($scope, AdminFactory, OrderFactory, 
   var showOrders = function () {
     AdminFactory.viewAllOrders()
       .then(allOrders => {
-        if (!$scope.allOrders) $scope.allOrders = allOrders;
+        $scope.allOrders = allOrders;
         $scope.showOM = true;
         // hides single order page
         if ($scope.displayOrder) $scope.displayOrder = false;
+      })
+      .catch(err => {
+        alert("ERROR: ", err.message);
       })
   }
   showOrders();
@@ -55,6 +59,7 @@ app.controller('AdminController', function ($scope, AdminFactory, OrderFactory, 
       .then(order => {
         $scope.showOM = false;
         $scope.displayOrder = true;
+        order.total = OrderFactory.getOrderCost(order);
         $scope.order = order;
       })
   }
@@ -97,10 +102,25 @@ app.controller('AdminController', function ($scope, AdminFactory, OrderFactory, 
     $scope.allOrders = newOrders;
   })
 
+  /* PRODUCT MANAGEMENT */
+  Product.fetchAll()
+    .then(allProducts => {
+      $scope.products = allProducts;
+    })
+
+  $scope.showSingleProduct = function (product) {
+      Product.fetchById(product.id)
+        .then(foundProduct => {
+            $scope.product = foundProduct;
+            $scope.showProduct = true;
+          })
+  }
 
   //user management
 
   $scope.setAdmin = AdminFactory.changeAdminStatus;
   $scope.deleteUser = AdminFactory.deleteUser;
   $scope.resetPassword = AdminFactory.resetPassword;
+
 });
+
