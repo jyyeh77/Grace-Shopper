@@ -13,6 +13,10 @@ module.exports = function (db) {
     // /api so they are isolated from our GET /* wildcard.
     app.use('/api', require('./routes'));
 
+    // quick link to github repo
+    app.get('/github', function(req, res, next){
+        res.redirect('https://github.com/jyyeh77/Grace-Shopper');
+    })
 
     /*
      This middleware will catch any URLs resembling a file extension
