@@ -14,6 +14,10 @@
                             <select ng-model="setStatus" ng-options="status.type for status in orderStatuses"></select>
                             <a ng-click="clearOrderFilter()">Clear filter</a>
                         </span>
+                        <label>Pending</label><input type="checkbox">
+                        <label>Completed</label><input type="checkbox">
+                        <label>Cancelled</label><input type="checkbox">
+                        <label>Shipped</label><input type="checkbox">
                 </div>
                 <div>
                     <table class="table">

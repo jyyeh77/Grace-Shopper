@@ -63,7 +63,6 @@ app.controller('AdminController', function ($scope, AdminFactory, OrderFactory) 
 
   //
 
-  console.log($scope.setStatus);
 
   //user management
   $scope.setAdmin = AdminFactory.changeAdminStatus;
