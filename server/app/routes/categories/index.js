@@ -45,8 +45,8 @@ router.get('/:category', function (req, res, next) {
   .catch(next);
 });
 
-router.post('/:category', function(req, res, next){
-  Category.create({name: req.params.category})
+router.post('/', function(req, res, next){
+  Category.create(req.body)
   .then(createdCategory => res.send(createdCategory))
   .catch(next)
 });

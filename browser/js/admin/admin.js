@@ -12,7 +12,7 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('AdminController', function ($scope, AdminFactory, OrderFactory) {
+app.controller('AdminController', function ($scope, AdminFactory, OrderFactory, Product) {
 
   $scope.greeting = 'Welcome to the admin page';
   //$scope.currentUser = loggedInUser; // might be redundant
@@ -36,7 +36,7 @@ app.controller('AdminController', function ($scope, AdminFactory, OrderFactory) 
     AdminFactory.viewAllOrders()
       .then(allOrders => {
         $scope.allOrders = allOrders;
-        $scope.showOM = !$scope.showOM ? true : false;
+        $scope.showOM = !$scope.showOM;
         // hides single order page
         if ($scope.displayOrder) $scope.displayOrder = false;
       })
@@ -57,11 +57,12 @@ app.controller('AdminController', function ($scope, AdminFactory, OrderFactory) 
    $scope.setStatus = {};
   }
 
-  //
+  /* PRODUCT MANAGEMENT */
+  $scope.product = {};
+  $scope.createProduct = Product.createProduct;
+  $scope.createProduct = Product.createCategory;
 
-  console.log($scope.setStatus);
-
-  //user management
+  /* USER MANAGEMENT */
   $scope.setAdmin = AdminFactory.changeAdminStatus;
   $scope.deleteUser = AdminFactory.deleteUser;
   $scope.resetPassword = AdminFactory.resetPassword;

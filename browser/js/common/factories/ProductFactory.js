@@ -40,6 +40,16 @@ app.factory('Product', function($http) {
             err.error = true;
             return err;
           })
+        },
+
+        createProduct: function(productObj){
+          return $http.post('/api/products', productObj)
+          .then(res => res.data)
+        },
+
+        createFactory: function(categoryObj){
+          return $http.post('/api/categories', categoryObj)
+          .then(res => res.data)
         }
     };
 });
