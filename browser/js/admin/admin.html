@@ -6,6 +6,7 @@
 
             <!-- View a list of all orders -->
             <div class="col-xs-12" id="ordersTable">
+                <h4 style="margin-bottom: 20px"><strong>Edit Orders</strong></h4>
                 <div>
                         <span>Filter by status:
                             <select ng-model="setStatus" ng-options="status.type for status in orderStatuses"></select>
@@ -24,7 +25,7 @@
                             <th>Confirm</th>
                         </tr>
                         </thead>
-                        <tbody ng-repeat="order in allOrders | filter:{status: setStatus.type}">
+                        <tbody ng-repeat="order in allOrders | orderBy: '-user.email' | filter:{status: setStatus.type}">
                         <tr>
                             <td><a data-toggle="collapse" ng-click="showSingleOrder(order.id)">{{order.id}}</a></td>
                             <td>{{order.user.email}}</td>
@@ -80,6 +81,42 @@
                 <uib-tab-heading>
                     Manage Products
                 </uib-tab-heading>
+
+                <!--Show ALL PRODUCTS-->
+                <div ng-show="!showProduct">
+                    <h4>Edit Products</h4>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Photo</th>
+                            <th>Name</th>
+                            <th>Availability</th>
+                            <th>Edit</th>
+                        </tr>
+                        </thead>
+                        <tbody ng-repeat="product in products">
+                            <tr>
+                                <td><img id="adminProdImg" src="{{product.imageUrl}}"></td>
+                                <td>{{product.title}}</td>
+                                <td>some availability</td>
+                                <td><a ng-click="showSingleProduct(product)">Change product</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!--SHOW SINGLE PRODUCT-->
+                <div ng-show="showProduct">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Edit Photo</th>
+                            <th>Edit Name</th>
+                            <th>Edit Availability </th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
             </uib-tab>
 
             <uib-tab index="1">
