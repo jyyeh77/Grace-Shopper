@@ -39,7 +39,7 @@ app.controller('AdminController', function ($scope, AdminFactory, OrderFactory) 
   var showOrders = function () {
     AdminFactory.viewAllOrders()
       .then(allOrders => {
-        if (!$scope.allOrders) $scope.allOrders = allOrders;
+        $scope.allOrders = allOrders;
         $scope.showOM = true;
         // hides single order page
         if ($scope.displayOrder) $scope.displayOrder = false;
