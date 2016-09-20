@@ -82,6 +82,25 @@ navbar {
       }
   }
 
+  .signup-button {
+    float: right;
+    background: none;
+    border: none;
+    margin: 11px 7px 0 0;
+    outline: none!important;
+    box-shadow: none;
+
+      &:hover {
+        text-decoration: underline;
+        color: #5375ae;
+      }
+
+      &:active {
+        box-shadow: none;
+        color: #5375ae;
+      }
+  }
+
   .search-btn {
     border: none;
     background: none;
