@@ -52,6 +52,7 @@ app.factory('AdminFactory', function ($http) {
     })
   }
 
+  // retrieves all orders
   AdminFactory.viewAllOrders = function(){
     return $http.get('/api/orders')
       .then(res => res.data)
@@ -60,5 +61,13 @@ app.factory('AdminFactory', function ($http) {
         return err;
       })
   }
+
+  // updates order status in database, returns updated order status to front
+  AdminFactory.setOrderStatus = function (orderId, newStatus) {
+    return $http.put(`/api/orders/${orderId}`, {status: newStatus})
+      .then(res => res.data)
+  }
+
+
   return AdminFactory;
 });

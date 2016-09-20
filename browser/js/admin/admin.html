@@ -21,6 +21,7 @@
                             <th>Date</th>
                             <th>Status</th>
                             <th>Edit</th>
+                            <th>Confirm</th>
                         </tr>
                         </thead>
                         <tbody ng-repeat="order in allOrders | filter:{status: setStatus.type}">
@@ -29,8 +30,9 @@
                             <td>{{order.user.email}}</td>
                             <td>{{order.createdAt | date: shortDate}}</td>
                             <td>{{order.status}}</td>
-                            <td><select ng-init="changeStatus = {{order.status}}" ng-model="changeStatus" ng-options="status.type for status in orderStatuses">
+                            <td><select ng-init="status.changed=orderStatuses[0]" ng-model="status.changed" ng-options="status.type for status in orderStatuses">
                             </select></td>
+                            <td><button type="button" class="btn btn-sm btn-success" ng-click="confirmStatus(order.id, status.changed)"><span class="glyphicon glyphicon-ok"></span></button></td>
                         </tr>
                         </tbody>
                     </table>
