@@ -1,18 +1,19 @@
 app.config(function ($stateProvider) {
 
-  $stateProvider.state('admin', {
+  $stateProvider
+    .state('admin', {
     data: {
       authenticate: true
     },
     url: '/admin',
     controller: 'AdminController',
     templateUrl: 'js/admin/admin.html'
-    // resolve: {
-    //     loggedInUser: function(AuthService){
-    //         return AuthService.getLoggedInUser();
-    //     }
-    // }
-  });
+  })
+    .state('admin.products', {
+      templateUrl: 'js/admin/adminProducts.html',
+      controller: 'AdminProductsController'
+    })
+
 
 });
 
