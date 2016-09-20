@@ -16,11 +16,12 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state, CartFactory) 
     $scope.sendLogin = function (loginInfo) {
 
         $scope.error = null;
+
         // empties cart of not logged-in user prior to LOGIN
         return CartFactory.emptyCart()
           .then(() => {
             AuthService.login(loginInfo).then(function () {
-              $state.go('home');
+              $state.go('account');
             }).catch(function () {
               $scope.error = 'Invalid login credentials.';
             });
