@@ -67,16 +67,33 @@ navbar {
   .account-button {
     background: none;
     border: none;
-    margin: 0px 5px;
+    margin: 0 7px 0 0;
     outline: none!important;
     box-shadow: none;
 
       &:hover {
         text-decoration: underline;
+        color: #5375ae;
       }
 
       &:active {
          box-shadow: none;
+         color: #5375ae;
+      }
+  }
+
+  .search-btn {
+    border: none;
+    background: none;
+    box-shadow: none;
+    outline: none!important;
+
+      &:active {
+        box-shadow: none;
+      }
+
+      &:hover {
+        color: #5375ae;
       }
   }
 
