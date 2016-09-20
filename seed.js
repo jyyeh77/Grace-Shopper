@@ -130,7 +130,8 @@ var seedProducts = function () {
       price: 599.99,
       quantity: 17,
       creationDate: '2005',
-      imageUrl: '/product_images/Razr-xs.png'
+      imageUrl: '/product_images/Razr-xs.png',
+      availability: 'In Stock'
     })
       .then(function (newProduct) {
         newProduct.addCategory(Phones)
@@ -146,7 +147,8 @@ var seedProducts = function () {
       price: 8000,
       quantity: 3,
       creationDate: '1750',
-      imageUrl: '/product_images/rich-grandpa-xs.png'
+      imageUrl: '/product_images/rich-grandpa-xs.png',
+      availability: 'In Stock'
     })
       .then(function (newProduct) {
         newProduct.addCategory(Clocks)
@@ -162,7 +164,8 @@ var seedProducts = function () {
       price: 1500,
       quantity: 12,
       creationDate: '1874',
-      imageUrl: '/product_images/smart-pocketwatch-xs.png'
+      imageUrl: '/product_images/smart-pocketwatch-xs.png',
+      availability: 'In Stock'
     })
       .then(function (newProduct) {
         newProduct.addCategory([Phones, Clocks]);
@@ -178,7 +181,8 @@ var seedProducts = function () {
       price: 80,
       quantity: 10,
       creationDate: '1970',
-      imageUrl: '/product_images/rotary-smartphone-xs.png'
+      imageUrl: '/product_images/rotary-smartphone-xs.png',
+      availability: 'In Stock'
     })
       .then(function (newProduct) {
         newProduct.addCategory(Phones);
@@ -194,7 +198,8 @@ var seedProducts = function () {
       price: 30000,
       quantity: 5,
       creationDate: '1908',
-      imageUrl: '/product_images/model-t-xs.png'
+      imageUrl: '/product_images/model-t-xs.png',
+      availability: 'In Stock'
     })
       .then(function (newProduct) {
         newProduct.addCategory(Cars);
@@ -210,7 +215,8 @@ var seedProducts = function () {
       price: 200,
       quantity: 5,
       creationDate: '1965',
-      imageUrl: '/product_images/retro-tv-alt-xs.png'
+      imageUrl: '/product_images/retro-tv-alt-xs.png',
+      availability: 'Out of Stock'
     })
       .then(function (newProduct) {
         newProduct.addCategory(TV);
@@ -226,7 +232,8 @@ var seedProducts = function () {
       price: 80000,
       quantity: 1,
       creationDate: '1889',
-      imageUrl: '/product_images/submarine.jpg'
+      imageUrl: '/product_images/submarine.jpg',
+      availability: 'In Stock'
     })
       .then(function (newProduct) {
         newProduct.addCategory(Submarines);
@@ -242,7 +249,8 @@ var seedProducts = function () {
       price: 1400,
       quantity: 32,
       creationDate: '1996',
-      imageUrl: '/product_images/microbee-computer.jpg'
+      imageUrl: '/product_images/microbee-computer.jpg',
+      availability: 'In Stock'
     })
       .then(function (newProduct) {
         newProduct.addCategory(Computers);
@@ -258,7 +266,8 @@ var seedProducts = function () {
       price: 999.99,
       quantity: 42,
       creationDate: '1901',
-      imageUrl: '/product_images/gramophone.jpg'
+      imageUrl: '/product_images/gramophone.jpg',
+      availability: 'Out of Stock'
     })
       .then(function (newProduct) {
         newProduct.addCategory(Radios);

@@ -28,8 +28,11 @@ var Product = db.define('product', {
     },
     imageUrl: {
         type: Sequelize.STRING
+    },
+    availability: {
+        type: Sequelize.ENUM('In Stock', 'Out of Stock')
     }
-}, {
+    }, {
     instanceMethods: {
         //finds the categories of an instance, returns an array of unique instances which share 
         //at least one of those categories, without including itself in the array 
