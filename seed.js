@@ -447,7 +447,7 @@ var seedOrders = function () {
           title: 'Rich Grandpa',
           description: "This may look like your grandfather's clock, but inside is a lot of unnecessary platinum, some bitcoins, and a quad-core processor",
           specs: '{"height":"4 ft","weight":"60kg","quality":"primo"}',
-          price: "Rich Grandpa",
+          price: 8000,
           quantityOrdered: 1,
           creationDate: '1656',
           imageUrl: 'http://www.todayifoundout.com/wp-content/uploads/2012/09/grandfather-clock.jpg'
