@@ -13,7 +13,7 @@ module.exports = router;
 router.param('id', function(req, res, next, id){
 	let errNotFound = newError("Order not found.", 404);
 
-	Order.findById(req.params.id)
+	Order.findById(req.params.id, {include: [User]})
 	.then(foundOrder => {
 		if (!foundOrder) throw(errNotFound);
 		else {
@@ -77,7 +77,7 @@ router.get('/', function (req, res, next) {
 	auth.isAdmin(user)
 	.then(admin => {
 		if (admin || (req.isAuthenticated() && user == req.query.userId)){
-			Order.findAll({where: req.query})
+			Order.findAll({where: req.query, include: [User]})
 			.then(foundOrders => {
 				if (!foundOrders.length) return next(errNoOrders);
 				else {

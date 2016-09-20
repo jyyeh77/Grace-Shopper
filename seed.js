@@ -318,6 +318,7 @@ var seedOrders = function () {
           specs: '{"screensize":"2 in.","weight":"95g","quality":"primo"}',
           price: 599.99,
           quantity: 1,
+          quantityOrdered: 3,
           creationDate: '2005',
           imageUrl: '/product_images/Razr-xs.png'
         },
