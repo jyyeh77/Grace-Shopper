@@ -17,7 +17,7 @@ body a{
 }
 /*--starts-top-header--*/
 .top-header {
-	padding: 1em 0px 1.5em 0px;
+	padding: 1em 0px 0px 0px;
 }
 .search-bar input[type="text"] {
 	width: 100%;
@@ -30,23 +30,33 @@ body a{
 	font-size: 0.875em;
 	font-family: 'Roboto', sans-serif;
 }
-.search-bar input[type="submit"] {
-	background: url(../images/search.png)no-repeat 0px 0px;
-	outline: none;
+/*.search-bar input[type="submit"] {
+/*	background: url(../images/search.png)no-repeat 0px 0px;*/
+/*	outline: none;
 	-webkit-appearance: none;
 	border: 0;
 	display: inline-block;
-	vertical-align: -webkit-baseline-middle;
-	position: absolute;
+	vertical-align: -webkit-baseline-middle;*/
+/*	position: absolute;
 	width: 24px;
 	height: 24px;
 	top: 6px;
-	left: 200px;
-}
+	left: 200px;*/
+/*}*/
+
 .search-bar {
-	position: relative;
-	width: 70%;
-	margin-top: 8px;
+	padding: 4px 6px;
+	outline: none!important;
+	margin-top: 9px;
+	width: 80%;
+}
+
+
+select {
+	background: none;
+	border: 0.5 px solid black;
+	outline: none!important;
+	margin: 0 5px;
 }
 
 .top-header-middle {
@@ -86,10 +96,20 @@ body a{
 }
 .box_1 {
 	float: right;
-	margin-top: 10px;
-	margin-right: 10px;
+	margin-top: 18px;
+	margin-right: 7px;
     padding-right: 5px;
 }
+
+.box_1 a {
+	text-decoration: none;
+}
+
+.box_1 a:hover {
+	text-decoration: none;
+	color: #5375ae;
+}
+
 .box_1 h3 {
 	color: #888073 !important;
 	font-size: 1em;
@@ -109,7 +129,13 @@ a.simpleCart_empty {
 	display: inline-block;
 	vertical-align: middle;
 	color: #888073;
+	font-weight: 500;
 }
+
+.total:hover {
+	color: #5375ae;
+}
+
 .cart box_1 a:hover{
 	text-decoration:none;
 }

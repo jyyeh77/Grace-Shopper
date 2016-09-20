@@ -20,10 +20,10 @@ router.param('id', function(req, res, next, id){
 		  // convert stringified products back into JSON object
 		  foundOrder.products = foundOrder.getOrderProducts();
 
-      // serializes sequelize object to allow property adding
-      let foundOrderJSON = foundOrder.toJSON();
-      foundOrderJSON.total = foundOrder.getOrderCost();
-		  req.order = foundOrderJSON;
+      req.order = foundOrder;
+
+      // uses getter method to calculate order total prior to sending order to front
+      req.order.total = foundOrder.getTotal;
     }
 		next()
 	})
