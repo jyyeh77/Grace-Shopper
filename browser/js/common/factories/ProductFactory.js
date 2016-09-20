@@ -30,27 +30,34 @@ app.factory('Product', function($http) {
         },
 
         setSelectedProduct: function (product) {
-          selectProduct = product;
+            selectProduct = product;
         },
 
         addReview: function(id, data){
-          return $http.post('/api/products/' + id + '/review', data)
-          .then(res => res.data)
-          .catch(err => {
+            return $http.post('/api/products/' + id + '/review', data)
+            .then(res => res.data)
+            .catch(err => {
             err.error = true;
             return err;
-          })
+            })
         },
 
         createProduct: function(productObj){
-          return $http.post('/api/products', productObj)
-          .then(res => res.data)
+            productObj.availability = productObj.availability.type
+            return $http.post('/api/products', productObj)
+            .then(res => res.data)
         },
 
         createCategory: function(categoryObj){
-          categoryObj.metaCategory = categoryObj.metaCategory.type
-          return $http.post('/api/categories', categoryObj)
-          .then(res => res.data)
+            categoryObj.metaCategory = categoryObj.metaCategory.type
+            return $http.post('/api/categories', categoryObj)
+            .then(res => res.data)
+        },
+
+        addProductsCategory: function(product, category){
+            return $http.post('/api/products')
         }
+
     };
 });
+

@@ -30,7 +30,7 @@ var Product = db.define('product', {
         type: Sequelize.STRING
     },
     availability: {
-        type: Sequelize.ENUM('In Stock', 'Out of Stock')
+        type: Sequelize.ENUM('In Stock', 'Currently Unavailable')
     }
     }, {
     instanceMethods: {

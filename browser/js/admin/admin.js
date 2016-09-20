@@ -79,7 +79,7 @@ app.controller('AdminController', function ($scope, AdminFactory, OrderFactory, 
   $scope.category = {};
   $scope.productAvailabilities = [
     {type: 'In Stock'},
-    {type: 'Out of Stock'},
+    {type: 'Currently Unavailable'},
   ];
   $scope.metaCategories = [
     {type: 'Electronics'},
@@ -108,6 +108,30 @@ app.controller('AdminController', function ($scope, AdminFactory, OrderFactory, 
   })
 
   /* PRODUCT MANAGEMENT */
+  $scope.product = {};
+  $scope.category = {};
+  $scope.productAvailabilities = [
+    {type: 'In Stock'},
+    {type: 'Currently Unavailable'},
+  ];
+  $scope.metaCategories = [
+    {type: 'Electronics'},
+    {type: 'Vehicles'},
+  ];
+  $scope.createProduct = function(){
+    
+    Product.createProduct($scope.product);
+    $scope.product = {};
+  }
+  $scope.createCategory = function(){
+    
+    Product.createCategory($scope.category);
+    $scope.category = {};
+  };
+  
+  $scope.addProductCategory = Product.addProductCategory;
+
+
   Product.fetchAll()
     .then(allProducts => {
       $scope.products = allProducts;

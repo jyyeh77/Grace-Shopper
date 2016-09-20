@@ -216,7 +216,7 @@ var seedProducts = function () {
       quantity: 5,
       creationDate: '1965',
       imageUrl: '/product_images/retro-tv-alt-xs.png',
-      availability: 'Out of Stock'
+      availability: 'Currently Unavailable'
     })
       .then(function (newProduct) {
         newProduct.addCategory(TV);
@@ -267,7 +267,7 @@ var seedProducts = function () {
       quantity: 42,
       creationDate: '1901',
       imageUrl: '/product_images/gramophone.jpg',
-      availability: 'Out of Stock'
+      availability: 'Currently Unavailable'
     })
       .then(function (newProduct) {
         newProduct.addCategory(Radios);
