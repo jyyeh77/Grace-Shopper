@@ -33,12 +33,6 @@ module.exports = db.define('order', {
           return JSON.parse(product);
         })
       }
-      // getOrderCost: function () {
-      //   return this.products.reduce((prev, curr) => {
-      //     let productTotal = curr.price * curr.quantityOrdered;
-      //     return prev + productTotal;
-      //   }, 0);
-      // }
     }
   }
 
