@@ -30,7 +30,7 @@ navbar {
     }
     &:hover {
       background: none;
-      color: #f31214;
+      color: #5375ae;
     }
     &:focus {
       background: none;
@@ -43,6 +43,12 @@ navbar {
     margin-top: 10px;
     background: none;
     outline: none !important;
+
+      &:hover {
+        color: #FFF;
+        background-color: #5375ae;
+        border-color: #5375ae;
+      }
   }
 
   .logout-button {
@@ -50,6 +56,28 @@ navbar {
     border: 1px solid gray;
     background: none;
     outline: none !important;
+
+      &:hover {
+        color: #FFF;
+        background-color: #5375ae;
+        border-color: #5375ae;
+      }
+  }
+
+  .account-button {
+    background: none;
+    border: none;
+    margin: 0px 5px;
+    outline: none!important;
+    box-shadow: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+
+      &:active {
+         box-shadow: none;
+      }
   }
 
   .welcome {

@@ -21,8 +21,8 @@
 
                 <button id="signup-button" ng-hide="isLoggedIn()" ui-sref="signup" class="btn login-button">Signup</button>
                 <div ng-show="user" class="welcome">
-                    <span>Welcome, {{ user.email }}!</span>
-                    <a ui-sref="account">My Account</a>
+  <!--                   <span>Welcome, {{ user.email }}!</span> -->
+                    <button ui-sref="account" class="btn account-button">My Account</button>
 
                     <button ng-show="user" ng-click="logout()" class="btn logout-button">Logout</button>
                 </div>
