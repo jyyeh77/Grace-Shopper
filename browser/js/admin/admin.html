@@ -6,6 +6,7 @@
 
             <!-- View a list of all orders -->
             <div class="col-xs-12" id="ordersTable">
+                <h4 style="margin-bottom: 20px"><strong>Edit Orders</strong></h4>
                 <div>
                         <span>Filter by status:
                             <select ng-model="setStatus" ng-options="status.type for status in orderStatuses"></select>
@@ -24,7 +25,7 @@
                             <th>Confirm</th>
                         </tr>
                         </thead>
-                        <tbody ng-repeat="order in allOrders | filter:{status: setStatus.type}">
+                        <tbody ng-repeat="order in allOrders | orderBy: '-user.email' | filter:{status: setStatus.type}">
                         <tr>
                             <td><a data-toggle="collapse" ng-click="showSingleOrder(order.id)">{{order.id}}</a></td>
                             <td>{{order.user.email}}</td>
@@ -63,20 +64,59 @@
                         <td>{{product.quantityOrdered}}</td>
                         <td>{{product.price}}</td>
                     </tr>
-                    <tr>Total: </tr>
                     </tbody>
+                    <tr style="padding-right: 20px">
+                        <th></th>
+                        <th></th>
+                        <th>Total: ${{order.total}}.00</th>
+                    </tr>
                 </table>
             </div>
         </div>
     </div>
-
 
     <div class="col-xs-6">
         <uib-tabset active="active">
             <uib-tab index="0">
                 <uib-tab-heading>
                     Manage Products
-                </uib-tab-heading>  
+                </uib-tab-heading>
+
+                <!--Show ALL PRODUCTS-->
+                <div ng-show="!showProduct">
+                    <h4>Edit Products</h4>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Photo</th>
+                            <th>Name</th>
+                            <th>Availability</th>
+                            <th>Edit</th>
+                        </tr>
+                        </thead>
+                        <tbody ng-repeat="product in products">
+                            <tr>
+                                <td><img id="adminProdImg" src="{{product.imageUrl}}"></td>
+                                <td>{{product.title}}</td>
+                                <td>some availability</td>
+                                <td><a ng-click="showSingleProduct(product)">Change product</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!--SHOW SINGLE PRODUCT-->
+                <div ng-show="showProduct">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Edit Photo</th>
+                            <th>Edit Name</th>
+                            <th>Edit Availability </th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
             </uib-tab>
 
             <uib-tab index="1">
@@ -84,7 +124,7 @@
                     Manage Users
                 </uib-tab-heading>
                 <div id="user-management">
-                    <!-- Promote other user accounts to have admin status -->
+                    <!-- Promote other user accounts to have admin status, delete users, or flag for password reset on next visit -->
                     <div class="alert alert-success user-update" ng-show="warning"> 
                         User successfully updated!
                     </div>
@@ -101,28 +141,4 @@
             </uib-tab>
         </uib-tabset>
     </div>
-    <!--MANAGE PRODUCTS-->
-<!--     <div class="col-xs-3">
-        <div class="text-center">
-            <button ng-click="showPM = !showPM" class='btn btn-primary'>Manage Products</button>
-        </div>
-        <div ng-show="showPM" id="product-management">
-             Create and edit products with name, description, price and one or more photos -->
-<!--             <span>Create new product</span>
-            <a ui-sref="admin.products">Click me!</a>
-            <div ui-view></div> -->
-            <!-- Create categories for items, each item can have multiple categories -->
-            <!-- Manage the availability of a product. If a product is no longer available, users will not see it while browsing, but they can view the product detail page if they've ordered it previously or have a direct link. On that product detail page, it should say "Currently Unavailable" -->
-            <!-- Add/remove categories from items -->
-<!--         </div>
-
-        <br>
-    </div> -->
-
-<!--     <div class="col-xs-3">
-        <div class="text-center">
-x
-        </div>
-
-    </div> -->
 </div>
