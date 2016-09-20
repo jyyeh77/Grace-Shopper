@@ -66,8 +66,12 @@ app.controller('AdminController', function ($scope, AdminFactory, OrderFactory, 
 
   /* PRODUCT MANAGEMENT */
   $scope.product = {};
+  $scope.productAvailabilities = [
+    {type: 'In Stock'},
+    {type: 'Out of Stock'},
+  ]
   $scope.createProduct = Product.createProduct;
-  $scope.createProduct = Product.createCategory;
+  $scope.createCategory = Product.createCategory;
 
   /* USER MANAGEMENT */
 

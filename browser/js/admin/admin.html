@@ -80,13 +80,14 @@
             <!-- Create and edit products with name, description, price and one or more photos -->
             <span>Create new product</span>
             <form name="createProductForm" ng-submit="createProduct(product)">
-            	<input ng-model="product.name" placeholder="name">
+            	<input ng-model="product.title" placeholder="title">
             	<input ng-model="product.description" placeholder="description">
             	<input ng-model="product.price" type="number" step="0.01" placeholder="price">
+                <select ng-model="product.availability" ng-options="av.type for av in productAvailabilities"></select>
             	<input ng-model="product.image" type="file" accept="image/*" placeholder="imageurl">
+
             	<input type="submit" id="submit" value="Submit"/>
             </form>
-
             <!-- Create categories for items, each item can have multiple categories -->
             <span>Create new category</span>
             <!-- Manage the availability of a product. If a product is no longer available, users will not see it while browsing, but they can view the product detail page if they've ordered it previously or have a direct link. On that product detail page, it should say "Currently Unavailable" -->
