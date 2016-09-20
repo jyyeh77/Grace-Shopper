@@ -95,17 +95,17 @@
         <div ng-show="showUM" id="user-management">
             <!-- Promote other user accounts to have admin status -->
             <span>Set a user to admin: </span><input ng-model="emailOfUserToMakeAdmin" placeholder="email">
-            <button ng-click="setAdmin(emailOfUserToMakeAdmin)">submit</button>
+            <button class="btn btn-sm" ng-click="setAdmin(emailOfUserToMakeAdmin)">submit</button>
             <br>
 
             <!-- Delete a user -->
             <span>Delete a user: </span> <input ng-model="emailOfUserToDelete" placeholder="email">
-            <button ng-click="deleteUser(emailOfUserToDelete)">submit</button>
+            <button class="btn btn-sm" ng-click="deleteUser(emailOfUserToDelete)">submit</button>
             <br>
 
             <!-- Trigger password reset for a user (next time they successfully log in—with their old password—they are prompted for a new one) -->
             <span>Trigger a password reset: </span><input ng-model="emailOfUserToResetPassword" placeholder="email">
-            <button ng-click="resetPassword(emailOfUserToResetPassword)">submit</button>
+            <button class="btn btn-sm" ng-click="resetPassword(emailOfUserToResetPassword)">submit</button>
             <br>
         </div>
     </div>
