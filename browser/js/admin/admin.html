@@ -137,6 +137,20 @@
                         <button class="btn btn-primary" ng-click="deleteUser(userEmail)">Delete user</button>
                         <button class="btn btn-primary" ng-click="resetPassword(userEmail)">Reset password</button>
                     </div>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>Admin</th>
+                        </tr>
+                        </thead>
+                        <tbody ng-repeat="user in userList">
+                            <tr>
+                                <td>{{user.email}}</td>
+                                <td >{{user.isAdmin ? 'Yes' : 'No'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </uib-tab>
         </uib-tabset>

@@ -14,5 +14,11 @@ app.factory('UserFactory', function ($http) {
     currentUser = user;
   }
 
+  UserFactory.getAll = function() {
+  	console.log("function called")
+  	return $http.get('/api/users')
+  		.then(res => res.data);
+  }
+
   return UserFactory;
 })

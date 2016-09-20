@@ -11,7 +11,7 @@ app.config(function ($stateProvider) {
   })
 });
 
-app.controller('AdminController', function ($scope, AdminFactory, OrderFactory, Product) {
+app.controller('AdminController', function ($scope, AdminFactory, OrderFactory, Product, UserFactory) {
 
   $scope.greeting = 'Welcome to the admin page';
   //$scope.currentUser = loggedInUser; // might be redundant
@@ -25,7 +25,12 @@ app.controller('AdminController', function ($scope, AdminFactory, OrderFactory, 
   $scope.success = false;
   $scope.warning = false;
 
-
+  //get list of all users
+  UserFactory.getAll()
+  .then(users => {
+    $scope.userList = users;
+    console.log("all users", $scope.userList);
+  })
 
   /* ORDER MANAGEMENT */
 
@@ -126,6 +131,9 @@ app.controller('AdminController', function ($scope, AdminFactory, OrderFactory, 
       $scope.success = true;
     })
   }
+
+
+
 
 });
 
