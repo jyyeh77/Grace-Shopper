@@ -3,15 +3,13 @@
     <div class="container">
         <div class="top-header-main">
             <div class="col-md-4 top-header-left">
-                <div class="search-bar">
+            <div class="input-group">
                     <p>{{typeaheadObject.query}}</p>
-                    <input placeholder="Find product..." type="text" typeahead-on-select="select($item, $model, $label, $event)" value="Search" ng-model="selectedProduct" uib-typeahead="product for product in products | filter:$viewValue">
-                    <input ng-click="switch(foundProduct)" type="submit" value="">
+                    <input placeholder="Find product..." type="text" typeahead-on-select="select($item, $model, $label, $event)" value="Search" ng-model="selectedProduct" uib-typeahead="product for product in products | filter:$viewValue" class="search-bar">
+<!--                     <input ng-click="switch(foundProduct)" type="submit" value=""> -->
+                    <button ng-click="switch(foundProduct)" class="btn search-btn" type="submit"><i class="glyphicon glyphicon-search"></i></button>
                 </div>
                 <br>
-                <div ng-show="isAdmin">
-                    <button ui-sref="admin">Admin Panel</button>
-                </div>
             </div>
             <div class="col-md-4 top-header-middle">
                 <a href="index.html"><img src="/js/common/directives/fullstack-logo/retrotech-logo-small.png" style="width: 70%"/></a>
@@ -19,19 +17,21 @@
             <div class="col-md-4 top-header-right">
                 <button ng-show="!user" ui-sref="login" class="btn login-button">Login</button>
 
-                <button id="signup-button" ng-hide="isLoggedIn()" ui-sref="signup" class="btn login-button">Signup</button>
+                <button id="signup-button" ng-hide="isLoggedIn()" ui-sref="signup" class="btn signup-button">Signup</button>
+                <div ng-show="isAdmin">    
+                </div>
                 <div ng-show="user" class="welcome">
   <!--                   <span>Welcome, {{ user.email }}!</span> -->
                     <button ui-sref="account" class="btn account-button">My Account</button>
-
+                    <button ng-show="isAdmin" ui-sref="admin" class="btn account-button">Admin</button>
                     <button ng-show="user" ng-click="logout()" class="btn logout-button">Logout</button>
                 </div>
                 <div class="cart box_1">
                     <a ui-sref="cart">
-                        <strong><div class="total" >({{cartQuantity}} items)</div></strong>
-                            <span class="glyphicon glyphicon-shopping-cart"></span>
+                        <div class="total" >({{cartQuantity}} items) <span class="glyphicon glyphicon-shopping-cart"></span></div>
+                            
                     </a>
-                    <p><a ng-click='resetCart()' class="simpleCart_empty">Empty Cart</a></p>
+<!--                     <p><a ng-click='resetCart()' class="simpleCart_empty">Empty Cart</a></p> -->
                     <div class="clearfix"> </div>
                 </div>
             </div>
