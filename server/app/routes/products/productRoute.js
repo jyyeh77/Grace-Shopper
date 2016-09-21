@@ -85,9 +85,6 @@
 
  // ADMINS can update current product info here
  router.put('/:id', function(req, res, next) {
-	// if (){
-	// 	Product.removeCategory()
-	// }
 	req.requestedProduct.update(req.body)
 		.then(product => res.send(product))
 		.catch(next);

@@ -18,7 +18,6 @@ app.config(function ($stateProvider) {
 
 app.controller('OrderController', function ($scope, OrderFactory, recentOrder) {
   $scope.order = recentOrder;
-
 })
 
 

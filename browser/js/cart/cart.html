@@ -13,7 +13,6 @@
                     <li><span>Quantity</span></li>
                     <div class="clearfix"> </div>
                 </ul>
-                <pre>{{cartProducts}}</pre>
                 <div class="in-check" ng-repeat="product in cartProducts">
                     <ul class="cart-header">
                         <li class="ring-in"><a ui-sref="product({id: product.id})" ><img src="{{product.imageUrl}}" class="img-responsive" alt=""></a>
@@ -22,7 +21,7 @@
                         <li><span>${{product.price}}.00</span></li>
                         <li><span>In Stock</span></li>
                         <li><span>{{product.cartNumber}} <a ng-click="removeItem(product.id, product.cartNumber)">remove from cart</a></span></li>
-                        
+
                         <div class="clearfix"> </div>
                     </ul>
                 </div>

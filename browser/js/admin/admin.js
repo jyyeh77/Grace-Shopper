@@ -2,18 +2,18 @@ app.config(function ($stateProvider) {
 
   $stateProvider
     .state('admin', {
-    data: {
-      authenticate: true
-    },
-    url: '/admin',
-    controller: 'AdminController',
-    templateUrl: 'js/admin/admin.html'
+      data: {
+        authenticate: true
+      },
+      url: '/admin',
+      controller: 'AdminController',
+      templateUrl: 'js/admin/admin.html'
 
-  })
+    })
 });
 
 
-app.controller('AdminController', function ($scope, AdminFactory, OrderFactory, Product, UserFactory) {
+app.controller('AdminController', function ($scope, $location, $anchorScroll, AdminFactory, OrderFactory, Product, UserFactory) {
 
 
   $scope.greeting = 'Welcome to the admin page';
@@ -28,16 +28,16 @@ app.controller('AdminController', function ($scope, AdminFactory, OrderFactory, 
   $scope.success = false;
   $scope.warning = false;
 
-/* USER MANAGEMENT */
+  /* USER MANAGEMENT */
 
   //get list of all users
   function getUsers() {
     UserFactory.getAll()
-    .then(users => {
-      $scope.userList = users;
-      console.log("all users", $scope.userList);
-    })
+      .then(users => {
+        $scope.userList = users;
+      })
   }
+
   getUsers();
 
   //watch for changes to user list, e.g. admin status or deletion
@@ -88,7 +88,7 @@ app.controller('AdminController', function ($scope, AdminFactory, OrderFactory, 
 
   // resets status filter
   $scope.clearOrderFilter = function () {
-   $scope.setStatus = {};
+    $scope.setStatus = {};
   }
 
   /* PRODUCT MANAGEMENT */
@@ -135,71 +135,87 @@ app.controller('AdminController', function ($scope, AdminFactory, OrderFactory, 
     {type: 'Electronics'},
     {type: 'Vehicles'},
   ];
-  $scope.createProduct = function(){
-    
-    Product.createProduct($scope.product);
+  $scope.createProduct = function (product) {
+    Product.createProduct(product);
     $scope.product = {};
   }
-  $scope.createCategory = function(){
-    
+  $scope.createCategory = function () {
     Product.createCategory($scope.category);
     $scope.category = {};
   };
-  
+
   $scope.addProductCategory = Product.addProductCategory;
 
+  // EDIT EXISTING PRODUCTS
 
-  Product.fetchAll()
-    .then(allProducts => {
-      $scope.products = allProducts;
-    })
+  // scrolls user to top upon selecting single item to edit
+  var goToTop = function () {
+    $location.hash('tabs');
+    $anchorScroll();
+  }
+
+  let getAllProducts = function () {
+    Product.fetchAll()
+      .then(allProducts => {
+        $scope.products = allProducts;
+      })
+  }
+  getAllProducts();
 
   $scope.showSingleProduct = function (product) {
-      Product.fetchById(product.id)
-        .then(foundProduct => {
-            $scope.product = foundProduct;
-            $scope.showProduct = true;
-          })
+    Product.fetchById(product.id)
+      .then(foundProduct => {
+        $scope.product = foundProduct;
+        $scope.showProduct = true;
+        goToTop();
+      })
+  }
+
+  $scope.backToProductPanel = function () {
+    $scope.showProduct = false;
+    getAllProducts();
   }
 
 
   // FILE UPLOAD
+
+  // ng-pattern on image url input uses this to check for valid image link
   $scope.regex = /\.(gif|jpg|jpeg|tiff|png)$/i;
+
+  // update image for product!
   $scope.submitImage = function (imageUrl) {
-
-
+    return Product.updateProduct($scope.product, {imageUrl: imageUrl})
+      .then(updatedProduct => {
+        $scope.product = updatedProduct;
+      } );
   }
-
-
-
-
 
 
   //user management
-  $scope.setAdmin = function(email){
+  $scope.setAdmin = function (email) {
     AdminFactory.changeAdminStatus(email)
-    .then(() => {
-      $scope.success = true;
-      getUsers();
-    })
+      .then(() => {
+        $scope.success = true;
+        getUsers();
+      })
 
   }
 
-  $scope.deleteUser = function(email){
+  $scope.deleteUser = function (email) {
     AdminFactory.deleteUser(email)
-    .then(() => {
-      $scope.success = true;
-      $scope.userEmail = '';
-      getUsers();
-    })
+      .then(() => {
+        $scope.success = true;
+        $scope.userEmail = '';
+        getUsers();
+      })
   }
 
-  $scope.resetPassword = function(email) {
+  $scope.resetPassword = function (email) {
     AdminFactory.resetPassword(email)
-    .then(() => {
-      $scope.success = true;
-      getUsers();
-    })
+      .then(() => {
+        $scope.success = true;
+        getUsers();
+      })
   }
 
 });

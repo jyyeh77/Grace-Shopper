@@ -17,8 +17,6 @@
 #ordersTable {
   padding-top: 20px;
 }
-<<<<<<< HEAD
-=======
 
 #allOrdersBtn {
   background: #5375ae;
@@ -48,13 +46,14 @@
   margin-top: 20px;
 }
 
-#imgUploadBar {
-  width: 50%;
+#prodBtn {
+  margin-left: 20px;
+  background: #5375ae;
+  color: white;
+  &:hover {
+    background: #181b2a;
+  }
 }
 
 
 
-
-
-
->>>>>>> master
