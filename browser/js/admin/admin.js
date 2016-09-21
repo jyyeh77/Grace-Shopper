@@ -11,7 +11,7 @@ app.config(function ($stateProvider) {
   })
 });
 
-app.controller('AdminController', function ($scope, AdminFactory, OrderFactory, Product) {
+app.controller('AdminController', function ($scope, AdminFactory, OrderFactory, Product, UserFactory) {
 
   $scope.greeting = 'Welcome to the admin page';
   //$scope.currentUser = loggedInUser; // might be redundant
@@ -25,7 +25,22 @@ app.controller('AdminController', function ($scope, AdminFactory, OrderFactory, 
   $scope.success = false;
   $scope.warning = false;
 
+/* USER MANAGEMENT */
 
+  //get list of all users
+  function getUsers() {
+    UserFactory.getAll()
+    .then(users => {
+      $scope.userList = users;
+      console.log("all users", $scope.userList);
+    })
+  }
+  getUsers();
+
+  //watch for changes to user list, e.g. admin status or deletion
+  $scope.$watch('userList', (newUserList) => {
+    $scope.userList = newUserList;
+  })
 
   /* ORDER MANAGEMENT */
 
@@ -105,9 +120,34 @@ app.controller('AdminController', function ($scope, AdminFactory, OrderFactory, 
   }
 
   //user management
-  $scope.setAdmin = AdminFactory.changeAdminStatus
-  $scope.deleteUser = AdminFactory.deleteUser;
-  $scope.resetPassword = AdminFactory.resetPassword;
+  $scope.setAdmin = function(email){
+    AdminFactory.changeAdminStatus(email)
+    .then(() => {
+      $scope.success = true;
+      getUsers();
+    })
+
+  }
+
+  $scope.deleteUser = function(email){
+    AdminFactory.deleteUser(email)
+    .then(() => {
+      $scope.success = true;
+      $scope.userEmail = '';
+      getUsers();
+    })
+  }
+
+  $scope.resetPassword = function(email) {
+    AdminFactory.resetPassword(email)
+    .then(() => {
+      $scope.success = true;
+      getUsers();
+    })
+  }
+
+
+
 
 });
 
