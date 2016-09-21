@@ -16,7 +16,9 @@ app.config(function ($stateProvider) {
 app.controller('ProductController', function ($rootScope, $state, $scope, theProduct, CartFactory, Product, AuthService) {
 
 	$scope.product = theProduct;
+  $scope.isAvailable = Product.checkAvailability(theProduct)
   $scope.quantity = 1;
+  $scope.cartSuccess = false;
   $scope.specs = JSON.parse($scope.product.specs);
   $scope.reviews = $scope.product.reviews;
   $scope.starOptions = ['1', '2', '3', '4', '5'];
@@ -56,6 +58,8 @@ app.controller('ProductController', function ($rootScope, $state, $scope, thePro
   // sends product ID and quantity of product to be added to cart upon pressing ADD TO CART
   $scope.editProductNum = function (product) {
     let productInCart = {id: product.id, quantity: $scope.quantity};
+    // to successfully added product!
+    $scope.cartSuccess = true;
     // sends product quantity to nav-bar cart for update
     $rootScope.$emit('updateNavBarCart', $scope.quantity);
     return CartFactory.editProductNum(productInCart);
@@ -65,7 +69,6 @@ app.controller('ProductController', function ($rootScope, $state, $scope, thePro
   Product.getSimilarProducts($scope.product)
     .then(similar => {
       $scope.similarProducts = similar;
-      console.log("SIMILAR PRODUCTS", $scope.similarProducts);
     })
     .catch(function(err){
       alert("ERROR: ", err.message);

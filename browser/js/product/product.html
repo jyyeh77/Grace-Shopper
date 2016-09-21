@@ -36,7 +36,10 @@
                 </div>
                 <div class="clearfix"></div>
                 <div class="single-but item_add">
-                    <input type="submit" ng-click="editProductNum(product)" value="add to cart"/>
+                    <input type="submit" ng-disabled="isAvailable==false" ng-click="editProductNum(product)" value="add to cart"/>
+                </div>
+                <div id="prodSuccessMsg" class="alert alert-success" ng-show="cartSuccess">
+                    Product successfully added to cart!
                 </div>
             </div>
         </div>
