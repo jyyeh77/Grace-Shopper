@@ -70,6 +70,10 @@
     </div>
 </div>
 <div class="clearfix"></div>
+<div class="container slider text-center" >
+    <h4>Similar Products You Might Like</h4>
+        <img id="sliderImg" ng-repeat="product in similarProducts" class="slide" ng-src="{{product.imageUrl}}" <a ui-sref="product({id: product.id})"></a>
+</div>
 <div ng-show="product.error">
     <h1 class="unfound">{{product.data}}</h1>
     <img src="http://www.noviquitaeten.de/images/steamdriven_sewing_machine.x1600.jpg"/>
