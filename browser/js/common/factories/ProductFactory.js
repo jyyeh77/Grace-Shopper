@@ -66,6 +66,10 @@ app.factory('Product', function ($http) {
     updateProduct: function (product, update) {
       return $http.put(`/api/products/${product.id}`, update)
         .then(res => res.data)
+    },
+
+    checkAvailability: function (product) {
+      return product.availability === 'In Stock';
     }
 
   };
