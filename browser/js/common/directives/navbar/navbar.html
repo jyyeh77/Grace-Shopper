@@ -27,11 +27,11 @@
                     <button ng-show="user" ng-click="logout()" class="btn logout-button">Logout</button>
                 </div>
                 <div class="cart box_1">
-                    <a ui-sref="cart">
+                    <a ng-click="goToCart()">
                         <strong><div class="total" >({{cartQuantity}} items)</div></strong>
                             <span class="glyphicon glyphicon-shopping-cart"></span>
                     </a>
-                    <p><a ng-click='resetCart()' class="simpleCart_empty">Empty Cart</a></p>
+                    
                     <div class="clearfix"> </div>
                 </div>
             </div>

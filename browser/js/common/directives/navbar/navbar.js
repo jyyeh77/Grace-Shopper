@@ -36,6 +36,11 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
         $state.go('product', {id: product.id})
       }
 
+      scope.goToCart = function(){
+        $rootScope.$broadcast('openingCart');
+        $state.go('cart');
+      }
+
       // fetches cart information from session to update cart quantity in NAV-BAR
       CartFactory.fetchCart()
         .then(cart => {
@@ -55,21 +60,21 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
       })
 
       // only resets cart quantity in nav-bar scope, but NOT in session!
-      scope.resetCart = function () {
-        emptyCart();
-      }
+      // scope.resetCart = function () {
+      //   emptyCart();
+      // }
+
+      $rootScope.$on('resetCart', function(event){
+        console.log('resettttt');
+        scope.cartQuantity = 0;
+      })
 
       var emptyCart = function () {
         scope.cartQuantity = 0;
         // updates actual cart page
-        $rootScope.$broadcast('emptyCart');
+        // $rootScope.$broadcast('emptyCart');
         // empties both session cart and saves empty cart in DB if user is logged in
-        return CartFactory.emptyCart()
-          .then(() => {
-            if (scope.isLoggedIn()){
-              return CartFactory.saveUserCart();
-            }
-          });
+
       }
 
       scope.user = null;
@@ -135,7 +140,9 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
                         .then(() => {
                           return CartFactory.fetchUserCart(scope.user.email)
                             .then(userCart => {
-                              scope.cartQuantity = CartFactory.totalQuantity(userCart.itemCounts);
+                              var quant = CartFactory.totalQuantity(userCart.itemCounts);
+                              console.log(quant);
+                              scope.cartQuantity = quant;
                               // sets req.session.cart to current user cart item counts
                               return CartFactory.setCart(userCart.itemCounts);
                             });

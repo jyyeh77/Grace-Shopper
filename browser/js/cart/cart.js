@@ -1,58 +1,78 @@
-app.config(function ($stateProvider) {
+app.config(function($stateProvider) {
 
-  // Register our cart state.
-  $stateProvider.state('cart', {
-    url: '/cart',
-    controller: 'CartController',
-    templateUrl: 'js/cart/cart.html',
-    resolve: {
+    // Register our cart state.
+    $stateProvider.state('cart', {
+        url: '/cart',
+        controller: 'CartController',
+        templateUrl: 'js/cart/cart.html',
+        resolve: {
 
-    }
-  });
+        }
+    });
 
 });
 
-app.controller('CartController', function ($rootScope, $scope, $log, $q, $state, AuthService, CartFactory) {
+app.controller('CartController', function($rootScope, $scope, $log, $q, $state, AuthService, CartFactory) {
 
-  // upon broadcast from resetCart() in nav-bar directive, reset cart!
-  $scope.$on('emptyCart', function (event, data) {
-    $scope.cartProducts = null;
-    $scope.cartTotal = 0;
-  })
 
-  // for showing custom welcome message if user is logged in
-  AuthService.getLoggedInUser()
-    .then(user => {
-      $scope.user = user;
-    })
-    .catch($log.error())
-
-  // get session cart, then retrieve product information from DB
-  // will ALSO update pre-existing cart info if valid user is logged in!
-  CartFactory.fetchCart()
-    .then(cart => {
-      let cartProducts = CartFactory.getCartProducts(cart);
-      return $q.all(cartProducts)
-        .then(cartProducts => {
-          let cartTotal = 0;
-
-          // attaches current # of each product in cart & calculates total price
-          cartProducts.forEach(product => {
-            product.cartNumber = cart[product.id];
-            cartTotal += product.cartNumber * product.price;
-          })
-
-          $scope.cartProducts = cartProducts;
-          $scope.cartTotal = cartTotal;
-
-          // will hide checkout button if no items in cart!
-          $scope.checkoutStatus = CartFactory.checkoutStatus(cartTotal);
+    // for showing custom welcome message if user is logged in
+    AuthService.getLoggedInUser()
+        .then(user => {
+            $scope.user = user;
         })
-    })
-    .catch($log.error());
+        .catch($log.error())
+
+
+    $rootScope.$on('openingCart', function(event, data) {
+        console.log('openingCart');
+        load();
+    });
+
+    var cartTotalCalculator = function() {
+        $scope.cartTotal = $scope.cartProducts.reduce((total, prod) => total += prod.price * prod.cartNumber, 0);
+    }
+
+    load();
+
+    // get session cart, then retrieve product information from DB
+    // will ALSO update pre-existing cart info if valid user is logged in!
+    function load() {
+        CartFactory.fetchCart()
+            .then(cart => {
+                let cartProducts = CartFactory.getCartProducts(cart);
+                return $q.all(cartProducts)
+                    .then(cartProducts => {
+
+                        // attaches current # of each product in cart 
+                        cartProducts.forEach(product => product.cartNumber = cart[product.id]);
+                        $scope.cartProducts = cartProducts;
+                        cartTotalCalculator();
+                    })
+            })
+            .catch($log.error());
+    }
+
+    //remove item from scope.cartProducts, req.session.cart, and db
+    $scope.removeItem = function(productId, quantity) {
+        for (var i = 0; i < $scope.cartProducts.length; i++) {
+            if ($scope.cartProducts[i].id === productId) {
+                $scope.cartProducts.splice(i, 1);
+                break;
+            }
+        }
+        cartTotalCalculator();
+        $rootScope.$emit('updateNavBarCart', -quantity);
+        CartFactory.removeItem(productId);
+    };
+
+
+    $scope.hardResetCart = function() {
+        $scope.cartProducts = [];
+        return CartFactory.hardResetCart();
+    }
 
     // takes user to checkout page with their saved cart
-    $scope.goToCheckout = function () {
-      $state.go('checkout');
+    $scope.goToCheckout = function() {
+        $state.go('checkout');
     }
 });
