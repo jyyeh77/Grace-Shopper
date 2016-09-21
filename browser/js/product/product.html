@@ -60,7 +60,7 @@
         <div class="col-md-12 reviews" ng-show="product.reviews.length">
         <h4 class="review-title">See what other customers are saying about {{product.title}}...</h4>
             <div ng-repeat="review in product.reviews | orderBy:'$index':true" class="product-review">
-                <p>{{review.date | date:shortDate}}</p>
+                <p>{{user.name || 'Anonymous'}} | {{review.date | date:shortDate}}</p>
                     <span class="glyphicon glyphicon-star" ng-repeat="star in review.stars"></span>
                 <p class="quick_desc">{{review.content}}</p>
             </div>
