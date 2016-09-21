@@ -55,5 +55,18 @@
   }
 }
 
+#productDetails {
+  margin-top: 20px;
+}
+
+#submit {
+  margin-top: 20px;
+  background: #5375ae;
+  color: white;
+  &:hover {
+    background: #181b2a;
+  }
+}
+
 
 

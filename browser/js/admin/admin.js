@@ -28,6 +28,9 @@ app.controller('AdminController', function ($scope, $location, $anchorScroll, Ad
   $scope.success = false;
   $scope.warning = false;
 
+  // to display alerts after product update
+  $scope.productSuccess = false;
+
   /* USER MANAGEMENT */
 
   //get list of all users
@@ -188,6 +191,15 @@ app.controller('AdminController', function ($scope, $location, $anchorScroll, Ad
       .then(updatedProduct => {
         $scope.product = updatedProduct;
       } );
+  }
+
+  // change product name
+  $scope.submitDetails = function (changedProduct) {
+    return Product.updateProduct($scope.product, changedProduct)
+      .then(updatedProduct => {
+        $scope.product = updatedProduct;
+        $scope.productSuccess = true;
+      })
   }
 
 
