@@ -64,5 +64,12 @@ app.factory('AdminFactory', function ($http) {
       .then(res => res.data)
   }
 
+  // AdminFactory.validateImage = function (file) {
+  //   let imgRegex = /\.(.+)$/;
+  //   if (!imgRegex.test(file)) {
+  //     alert("INVALID IMAGE!")
+  //   }
+  // }
+
   return AdminFactory;
 });

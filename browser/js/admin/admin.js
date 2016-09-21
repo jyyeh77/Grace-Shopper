@@ -11,7 +11,7 @@ app.config(function ($stateProvider) {
   })
 });
 
-app.controller('AdminController', function ($scope, AdminFactory, OrderFactory, Product) {
+app.controller('AdminController', function ($scope, Upload, $timeout, AdminFactory, OrderFactory, Product) {
 
   $scope.greeting = 'Welcome to the admin page';
   //$scope.currentUser = loggedInUser; // might be redundant
@@ -98,6 +98,18 @@ app.controller('AdminController', function ($scope, AdminFactory, OrderFactory, 
             $scope.showProduct = true;
           })
   }
+
+  // FILE UPLOAD
+  $scope.regex = /\.(gif|jpg|jpeg|tiff|png)$/i;
+  $scope.submitImage = function (imageUrl) {
+
+
+  }
+
+
+
+
+
 
   //user management
   $scope.setAdmin = AdminFactory.changeAdminStatus;
