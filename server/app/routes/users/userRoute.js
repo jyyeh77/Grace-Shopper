@@ -33,7 +33,7 @@ router.param('id', function (req, res, next, id) {
 })
 
 //ensureAdminOrCurrentUser
-router.get('/', function(req, res, next){
+router.get('/', authUtils.ensureAdmin, function(req, res, next){
   if (req.query.email){
     User.findOne({
       where: {
@@ -51,13 +51,11 @@ router.get('/', function(req, res, next){
 
 // retrieve single user based on ID
 router.get('/:id', authUtils.ensureAdmin, function (req, res, next) {
-  console.log('sesh:',req.session.passport.user)
   res.send(req.requestedUser);
 })
 
 // admins can update current user info here
 router.put('/:id', function (req, res, next) {
-  // req.requestedUser.update(req.body) why does this not act like a sequelize object?
     User.findById(req.params.id)
     .then(foundUser => foundUser.update(req.body))
     .then(user => {
@@ -67,7 +65,6 @@ router.put('/:id', function (req, res, next) {
 })
 
 router.delete('/:id', function (req, res, next) {
-  // req.requestedUser.destroy()
     User.findById(req.params.id)
     .then(foundUser => foundUser.destroy())
     .then(() => {
@@ -76,27 +73,3 @@ router.delete('/:id', function (req, res, next) {
     .catch(next);
 })
 
-//change this to a /signup
-router.post('/', function(req, res, next){
-  //   User.find({
-  //     where: {
-  //       email: req.body.email,
-  //     }
-  //   })
-  //   .then(userExists => {
-  //     console.log('running asfdas', userExists)
-  //     if (!userExists) {
-  //       User.create({
-  //         email: req.body.email,
-  //         password: req.body.password,
-  //          isAdmin = false
-  //       })
-  //       .then(createdUser => res.send(createdUser))
-  //     } else {
-  //       res.send('user exists ')
-  //     }
-  //   })
-
-
-  // .catch(next);
-})

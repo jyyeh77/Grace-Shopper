@@ -67,6 +67,7 @@ app.controller('CartController', function($rootScope, $scope, $log, $q, $state, 
 
     $scope.hardResetCart = function() {
         $scope.cartProducts = [];
+        $scope.cartTotal = 0;
         return CartFactory.hardResetCart();
     }
 
