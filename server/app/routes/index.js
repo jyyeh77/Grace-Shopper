@@ -2,6 +2,10 @@
 var router = require('express').Router(); // eslint-disable-line new-cap
 module.exports = router;
 
+router.get('/github', function(req, res, next){
+	res.redirect('https://github.com/jyyeh77/Grace-Shopper');
+})
+
 router.use('/categories', require('./categories'))
 
 router.use('/users', require('./users/userRoute'));

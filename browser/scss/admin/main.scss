@@ -18,4 +18,40 @@
   padding-top: 20px;
 }
 
+#allOrdersBtn {
+  background: #5375ae;
+  color: white;
+  &:hover {
+    background: #181b2a;
+  }
+}
+
+#singleOrderList {
+  list-style-type: none;
+  padding-left: 0px;
+}
+
+#adminProdImg {
+  width: 100px;
+  height: auto;
+}
+
+#singleImgView {
+  width: 200px;
+  height: auto;
+  padding-bottom: 20px;
+}
+
+#imgSubmit {
+  margin-top: 20px;
+}
+
+#imgUploadBar {
+  width: 50%;
+}
+
+
+
+
+
 

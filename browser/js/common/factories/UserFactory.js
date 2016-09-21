@@ -4,6 +4,7 @@
 app.factory('UserFactory', function ($http) {
   let UserFactory = {};
   let currentUser = null;
+  console.log(currentUser)
 
   UserFactory.getUser = function () {
     return currentUser;
@@ -11,6 +12,12 @@ app.factory('UserFactory', function ($http) {
 
   UserFactory.setUser = function (user) {
     currentUser = user;
+  }
+
+  UserFactory.getAll = function() {
+  	console.log("function called")
+  	return $http.get('/api/users')
+  		.then(res => res.data);
   }
 
   return UserFactory;

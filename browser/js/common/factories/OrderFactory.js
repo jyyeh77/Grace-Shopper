@@ -7,7 +7,9 @@ app.factory('OrderFactory', function ($http) {
   // fetch 1 order based on order ID
   OrderFactory.fetchOrder = function (orderId) {
     return $http.get(`/api/orders/${orderId}`)
-      .then(res => res.data)
+      .then(res => {
+        return res.data
+      })
       .catch(err => {
         err.error = true;
         return err;
