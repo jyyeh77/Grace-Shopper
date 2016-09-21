@@ -31,9 +31,14 @@
                             <td>{{order.user.email}}</td>
                             <td>{{order.createdAt | date: shortDate}}</td>
                             <td>{{order.status}}</td>
-                            <td><select ng-init="status.changed=orderStatuses[0]" ng-model="status.changed" ng-options="status.type for status in orderStatuses">
+                            <td><select ng-init="status.changed=orderStatuses[0]" ng-model="status.changed"
+                                        ng-options="status.type for status in orderStatuses">
                             </select></td>
-                            <td><button type="button" class="btn btn-sm btn-success" ng-click="confirmStatus(order.id, status.changed)"><span class="glyphicon glyphicon-ok"></span></button></td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-success"
+                                        ng-click="confirmStatus(order.id, status.changed)"><span
+                                        class="glyphicon glyphicon-ok"></span></button>
+                            </td>
                         </tr>
                         </tbody>
 
@@ -45,7 +50,9 @@
         <!--INDIVIDUAL ORDERS-->
         <div ng-show="displayOrder">
             <div class="col-xs-12">
-                <h3>Order Summary <button class="btn-sm" id="allOrdersBtn" ng-click="returnToAllOrders()">View all orders</button></h3>
+                <h3>Order Summary
+                    <button class="btn-sm" id="allOrdersBtn" ng-click="returnToAllOrders()">View all orders</button>
+                </h3>
                 <br>
                 <ul id="singleOrderList">
                     <li><strong>Status: </strong>{{order.status}}</li>
@@ -124,27 +131,33 @@
                         </tr>
                         </thead>
                         <tbody ng-repeat="product in products">
-                            <tr>
-                                <td><img id="adminProdImg" src="{{product.imageUrl}}"></td>
-                                <td>{{product.title}}</td>
-                                <td>{{product.availability}}</td>
-                                <td><a ng-click="showSingleProduct(product)">Change product</a></td>
-                            </tr>
+                        <tr>
+                            <td><img id="adminProdImg" src="{{product.imageUrl}}"></td>
+                            <td>{{product.title}}</td>
+                            <td>some availability</td>
+                            <td><a ng-click="showSingleProduct(product)">Change product</a></td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
 
                 <!--SHOW SINGLE PRODUCT-->
                 <div ng-show="showProduct">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th>Edit Photo</th>
-                            <th>Edit Name</th>
-                            <th>Edit Availability </th>
-                        </tr>
-                        </thead>    
-                    </table>
+                    <div class="text-center">
+                        <h3>{{product.title}}</h3>
+                    </div>
+                    <div>
+                        <h4>Edit Image</h4>
+                        <img id="singleImgView" src="{{product.imageUrl}}">
+                        <form name="imageForm" ng-submit="submitImage(image.link)">
+                            <fieldset>
+                                <input type="text" id="imgUploadBar" ng-model="image.link" class="form-control" placeholder="New image url..." ng-pattern="regex" required>
+                                <input type="submit" id="imgSubmit" ng-disabled="imageForm.$invalid" value="Upload" />
+                            </fieldset>
+                            <br>
+                        </form>
+                    </div>
+
                 </div>
             </uib-tab>
 
@@ -154,11 +167,11 @@
                 </uib-tab-heading>
                 <div id="user-management">
                     <!-- Promote other user accounts to have admin status, delete users, or flag for password reset on next visit -->
-                    <div class="alert alert-success user-update" ng-show="warning"> 
-                        User successfully updated!
+                    <div class="alert alert-success user-update" ng-show="success" ng-click="success=false">
+                        User successfully updated! Click here to close this message.
                     </div>
-                    <div class="alert alert-danger user-update" ng-show="success"> 
-                        User update failed. Please try again.
+                    <div class="alert alert-danger user-update" ng-show="warning" ng-click="warning=false">
+                        User update failed.Click here to close this message.
                     </div>
                     <input ng-model="userEmail" placeholder="Enter user email address here" class="form-control manage-user-email">
                     <div class="user-mgmt-buttons">
@@ -166,6 +179,20 @@
                         <button class="btn btn-primary" ng-click="deleteUser(userEmail)">Delete user</button>
                         <button class="btn btn-primary" ng-click="resetPassword(userEmail)">Reset password</button>
                     </div>
+                    <table class="table user-table">
+                        <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>Admin</th>
+                        </tr>
+                        </thead>
+                        <tbody ng-repeat="user in userList">
+                            <tr>
+                                <td>{{user.email}}</td>
+                                <td >{{user.isAdmin ? 'Yes' : 'No'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </uib-tab>
         </uib-tabset>

@@ -1,6 +1,6 @@
 'use strict';
 
-window.app = angular.module('RetroTech', ['fsaPreBuilt', 'ui.router', 'ui.bootstrap', 'ngAnimate', 'growlNotifications']);
+window.app = angular.module('RetroTech', ['fsaPreBuilt', 'ui.router', 'ui.bootstrap', 'ngAnimate', 'growlNotifications', 'ngFileUpload']);
 
 
 app.config(function ($urlRouterProvider, $locationProvider) {

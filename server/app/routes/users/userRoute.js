@@ -34,15 +34,18 @@ router.param('id', function (req, res, next, id) {
 
 //ensureAdminOrCurrentUser
 router.get('/', function(req, res, next){
-  if (req.query){
+  if (req.query.email){
     User.findOne({
       where: {
         email: req.query.email
       }
     })
     .then(foundUser => res.send(foundUser))
+    .catch(next)
   } else {
-    User.findAll(users => res.send(users))
+    User.findAll()
+    .then(users => res.send(users))
+    .catch(next)
   }
 })
 
