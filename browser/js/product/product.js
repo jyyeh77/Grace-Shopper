@@ -16,7 +16,6 @@ app.config(function ($stateProvider) {
 app.controller('ProductController', function ($rootScope, $state, $scope, theProduct, CartFactory, Product, AuthService) {
 
 	$scope.product = theProduct;
-  console.log("id" , $scope.product.id)
   $scope.quantity = 1;
   $scope.specs = JSON.parse($scope.product.specs);
   $scope.reviews = $scope.product.reviews;
@@ -61,4 +60,15 @@ app.controller('ProductController', function ($rootScope, $state, $scope, thePro
     $rootScope.$emit('updateNavBarCart', $scope.quantity);
     return CartFactory.editProductNum(productInCart);
   }
+
+  // for rendering similar products!
+  Product.getSimilarProducts($scope.product)
+    .then(similar => {
+      $scope.similarProducts = similar;
+      console.log("SIMILAR PRODUCTS", $scope.similarProducts);
+    })
+    .catch(function(err){
+      alert("ERROR: ", err.message);
+    })
+
 });

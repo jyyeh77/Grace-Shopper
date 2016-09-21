@@ -56,6 +56,7 @@
 
  // fetch similar
  router.get('/:id/similar', function(req, res, next) {
+   console.log("GETTING SIMILAR~~~~~~~~~~~~~~~~")
 	 req.requestedProduct.getSimilar()
 		 .then(productArray => res.send(productArray))
 		 .catch(next);
