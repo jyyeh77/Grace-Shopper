@@ -13,25 +13,28 @@
                     <li><span>Quantity</span></li>
                     <div class="clearfix"> </div>
                 </ul>
+                <pre>{{cartProducts}}</pre>
                 <div class="in-check" ng-repeat="product in cartProducts">
                     <ul class="cart-header">
-                        <div class="close1"></div>
                         <li class="ring-in"><a ui-sref="product({id: product.id})" ><img src="{{product.imageUrl}}" class="img-responsive" alt=""></a>
                         </li>
                         <li><span>{{product.title}}</span></li>
                         <li><span>${{product.price}}.00</span></li>
                         <li><span>In Stock</span></li>
-                        <li><span>{{product.cartNumber}}</span></li>
+                        <li><span>{{product.cartNumber}} <a ng-click="removeItem(product.id, product.cartNumber)">remove from cart</a></span></li>
+                        
                         <div class="clearfix"> </div>
                     </ul>
                 </div>
+
                 <ul class="unit">
-                    <li><span></span></li>
+                    <!-- <li><span></span></li> -->
                     <li style="text-align: center; font-weight: bold"><span>Cart Total: </span></li>
                     <li style="text-align: center; font-weight: bold"><span>${{cartTotal}}.00</span></li>
                     <li><span ng-show="!user">Please Sign Up To Checkout</span></li>
                     <li><span></span></li>
-                    <li><span><button class="btn btn-danger" ng-show="user && checkoutStatus" ng-click="goToCheckout()">CHECKOUT</button></span></li>
+                    <li><button class="btn btn-danger" ng-show="user&&cartProducts.length" ng-click="goToCheckout()">CHECKOUT</button></li>
+                    <li><button ng-show="cartProducts.length" ng-click="hardResetCart()" class="btn btn-danger">EMPTY CART</button></li>
                     <div class="clearfix"> </div>
                 </ul>
             </div>

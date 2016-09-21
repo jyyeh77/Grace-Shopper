@@ -1,7 +1,7 @@
 /**
  * Created by jyyeh77 on 9/17/16.
  */
-app.factory('CartFactory', function ($http, Product) {
+app.factory('CartFactory', function ($rootScope, $http, Product, AuthService) {
   let CartFactory = {};
 
   // gets existing cart on session regardless of login status
@@ -16,6 +16,7 @@ app.factory('CartFactory', function ($http, Product) {
 
   // gets cart from DB associated with 1 user via email
   CartFactory.fetchUserCart = function (userEmail) {
+
     return $http.get(`/api/users/cart/${userEmail}`)
       .then(res => res.data)
       .catch(err => {
@@ -66,15 +67,43 @@ app.factory('CartFactory', function ($http, Product) {
       })
   }
 
+  // remove item from req.session.cart as well as user cart (if exists)
+  CartFactory.removeItem = function(productId){
+    return $http.delete('api/cart/'+productId)
+      .then(res => res.data);
+  }
+
   // empties session cart
   CartFactory.emptyCart = function () {
+    
     return $http.delete('/api/cart/')
-      .then(res => res.data)
-      .catch(err => {
-        err.error = true;
-        return err;
-      })
+      .then(res => {
+        console.log('in EMMPPPPTYCART', res)
+        return res.data
+    })
+      // .catch(err => {
+      //   err.error = true;
+      //   return err;
+      // })
   }
+
+  CartFactory.hardResetCart = function(){
+    $rootScope.$broadcast('resetCart');
+    return CartFactory.emptyCart()
+      .then(function(cart){
+        console.log('HETHNUOSTNUEHOSNTOHENOS', cart);
+        return CartFactory.saveUserCart();
+      });
+  }
+
+  // function() {
+  //       return CartFactory.emptyCart()
+  //           .then(() => {
+  //               if (scope.isLoggedIn()) {
+  //                   return CartFactory.saveUserCart();
+  //               }
+  //           });
+  //   }
 
   // calculates total # of items in saved cart
   CartFactory.totalQuantity = function (cartObj) {
@@ -85,9 +114,6 @@ app.factory('CartFactory', function ($http, Product) {
     return sum;
   }
 
-  CartFactory.checkoutStatus = function (cartTotal) {
-    return cartTotal > 0 ? true : false;
-  }
 
   // formats cart products to save as order instance
   CartFactory.checkoutProducts = function (productArray) {
@@ -114,6 +140,8 @@ app.factory('CartFactory', function ($http, Product) {
         return err;
       })
   }
+
+
   return CartFactory;
 
 })
