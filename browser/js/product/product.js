@@ -20,22 +20,31 @@ app.controller('ProductController', function ($rootScope, $state, $scope, thePro
   $scope.quantity = 1;
   $scope.cartSuccess = false;
   $scope.specs = JSON.parse($scope.product.specs);
-  $scope.reviews = $scope.product.reviews;
-  $scope.starOptions = ['1', '2', '3', '4', '5'];
-
+ 
   AuthService.getLoggedInUser()
   .then(user => {
     $scope.user = user;
   })
 
-  //makes put request via product factory to add review to product
+  /*----------------------------------- REVIEWS -----------------------------------*/ 
+
+  // format review data for use in ui (stars -> array for ng-repeat and date -> yyyy/mm/dd)
+  $scope.product.reviews.forEach(review => {
+    review.stars = _.range(1, parseInt(review.stars) + 1);
+    review.date = review.createdAt.slice(0,10);
+  })
+
+  // adds new review to product, then reloads state to instantly display new review
   $scope.addReview = function(){
-    var stars = $scope.review.stars;
-    var content = $scope.review.content;
-    var id = $scope.product.id
-    Product.addReview(id, {stars: stars, content: content, productId: id})
-      .then(() => $state.reload())
+    Product.addReview($scope.product.id, { 
+      stars: $scope.review.stars, 
+      content: $scope.review.content, 
+      productId: $scope.product.id
+    })
+    .then(() => $state.reload())
   }
+
+  /*-----------------------------------------------------------------------------*/
 
   // allow user to increase/decrease quantity of product to be added to cart
   $scope.increment = function () {
@@ -45,16 +54,7 @@ app.controller('ProductController', function ($rootScope, $state, $scope, thePro
     if ($scope.quantity > 1) $scope.quantity--;
   }
 
-  // turns "stars" string on each review into an array of integers that can be used in an ng-repeat
-  $scope.reviews.forEach(review => {
-    const stars = parseInt(review.stars);
-    const starsArray = [];
-    for (var i = 1; i <= stars; i++){
-      starsArray.push(i);
-    }
-    review.stars = starsArray
-    review.date = review.createdAt.slice(0,10)
-  })
+
   // sends product ID and quantity of product to be added to cart upon pressing ADD TO CART
   $scope.editProductNum = function (product) {
     let productInCart = {id: product.id, quantity: $scope.quantity};

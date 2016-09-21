@@ -285,12 +285,6 @@ var seedProducts = function () {
 var seedReviews = function () {
   var reviews = [
     {
-      stars: '4',
-      content: "This is great!",
-      userId: 2,
-      productId: 1
-    },
-    {
       stars: '3',
       content: "This is okay...",
       userId: 1,
