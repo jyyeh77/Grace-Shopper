@@ -49,7 +49,6 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
             // default # of items in cart is 0, otherwise set to sum of all items in current cart!
             if (CartFactory.totalQuantity(scope.cart) > 0) scope.cartQuantity = CartFactory.totalQuantity(scope.cart)
             else scope.cartQuantity = 0
-            console.log("No user logged in - cart is temporary! ", scope.cart);
           }
         });
 
@@ -65,16 +64,15 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
       // }
 
       $rootScope.$on('resetCart', function(event){
-        console.log('resettttt');
         scope.cartQuantity = 0;
       })
 
       var emptyCart = function () {
         scope.cartQuantity = 0;
-        // updates actual cart page
-        // $rootScope.$broadcast('emptyCart');
-        // empties both session cart and saves empty cart in DB if user is logged in
-
+        return CartFactory.emptyCart()
+          .then(() => {
+            return CartFactory.saveUserCart();
+          })
       }
 
       scope.user = null;
@@ -126,7 +124,6 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
               scope.isAdmin = false
             }
 
-            console.log("User logged in, using their cart from DB!", scope.user.email);
             return CartFactory.fetchCart()
               .then(updatedUserCart => {
                 // we need this condition for refreshes while logged in as session Cart WONT BE EMPTY!
@@ -141,9 +138,8 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
                           return CartFactory.fetchUserCart(scope.user.email)
                             .then(userCart => {
                               var quant = CartFactory.totalQuantity(userCart.itemCounts);
-                              console.log(quant);
                               scope.cartQuantity = quant;
-                              // sets req.session.cart to current user cart item counts
+                              // sets req.sessionscart to current user cart item counts
                               return CartFactory.setCart(userCart.itemCounts);
                             });
                         });

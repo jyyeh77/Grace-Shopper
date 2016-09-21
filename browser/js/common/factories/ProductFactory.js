@@ -56,6 +56,11 @@ app.factory('Product', function($http) {
 
         addProductsCategory: function(product, category){
             return $http.post('/api/products')
+        },
+
+        updateProduct: function (product, update) {
+          return $http.put(`/api/products/${product.id}`, update)
+            .then(res => res.data)
         }
 
     };

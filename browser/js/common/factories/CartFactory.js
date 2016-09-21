@@ -9,7 +9,7 @@ app.factory('CartFactory', function ($rootScope, $http, Product, AuthService) {
     return $http.get('/api/cart')
       .then(res => res.data)
       .catch(err => {
-        err.error=true;
+        err.error = true;
         return err;
       });
   };
@@ -26,7 +26,6 @@ app.factory('CartFactory', function ($rootScope, $http, Product, AuthService) {
   }
 
   CartFactory.setCart = function (userCart) {
-    console.log("Replacing empty session cart with user cart!");
     return $http.put('/api/cart/', userCart)
       .then(res => res.data)
       .catch(err => {
@@ -68,42 +67,28 @@ app.factory('CartFactory', function ($rootScope, $http, Product, AuthService) {
   }
 
   // remove item from req.session.cart as well as user cart (if exists)
-  CartFactory.removeItem = function(productId){
-    return $http.delete('api/cart/'+productId)
+  CartFactory.removeItem = function (productId) {
+    return $http.delete('api/cart/' + productId)
       .then(res => res.data);
   }
 
   // empties session cart
   CartFactory.emptyCart = function () {
-    
     return $http.delete('/api/cart/')
       .then(res => {
-        console.log('in EMMPPPPTYCART', res)
         return res.data
-    })
-      // .catch(err => {
-      //   err.error = true;
-      //   return err;
-      // })
+      })
   }
 
-  CartFactory.hardResetCart = function(){
+  // empties session cart and saves result to DB
+  // broadcasts resetCart to nav-bar to empty items from cart
+  CartFactory.hardResetCart = function () {
     $rootScope.$broadcast('resetCart');
     return CartFactory.emptyCart()
-      .then(function(cart){
-        console.log('HETHNUOSTNUEHOSNTOHENOS', cart);
+      .then(() => {
         return CartFactory.saveUserCart();
-      });
-  }
-
-  // function() {
-  //       return CartFactory.emptyCart()
-  //           .then(() => {
-  //               if (scope.isLoggedIn()) {
-  //                   return CartFactory.saveUserCart();
-  //               }
-  //           });
-  //   }
+      })
+  };
 
   // calculates total # of items in saved cart
   CartFactory.totalQuantity = function (cartObj) {

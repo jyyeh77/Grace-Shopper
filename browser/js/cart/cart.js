@@ -24,7 +24,6 @@ app.controller('CartController', function($rootScope, $scope, $log, $q, $state, 
 
 
     $rootScope.$on('openingCart', function(event, data) {
-        console.log('openingCart');
         load();
     });
 
@@ -43,7 +42,7 @@ app.controller('CartController', function($rootScope, $scope, $log, $q, $state, 
                 return $q.all(cartProducts)
                     .then(cartProducts => {
 
-                        // attaches current # of each product in cart 
+                        // attaches current # of each product in cart
                         cartProducts.forEach(product => product.cartNumber = cart[product.id]);
                         $scope.cartProducts = cartProducts;
                         cartTotalCalculator();

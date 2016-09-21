@@ -86,37 +86,11 @@
 
     <!-- MANAGE PRODUCTS -->
     <div class="col-xs-6">
-        <uib-tabset active="active">
+        <uib-tabset active="active" id="tabs">
             <uib-tab index="0">
                 <uib-tab-heading>
-                    Manage Products
+                    Edit Products
                 </uib-tab-heading>
-
-                <div>
-                    <h4>Create new category</h4>
-                    <form name="createCategoryForm" ng-submit="createCategory(category)">
-                    <input ng-model="category.name" placeholder="name" class="form-control">
-                    <select ng-model="category.metaCategory" ng-init="category.metaCategory = metaCategories[0] " ng-options="mc.type for mc in metaCategories"></select>
-                    <input type="submit" id="submit" value="Submit" class="btn btn-primary"/>
-                    </form>
-                </div>
-
-                <div>
-                    <h4>Create Product</h4>
-                    <form name="createProductForm" ng-submit="createProduct(product)">
-                        <input ng-model="product.title" placeholder="title" class="form-control">
-                        <input ng-model="product.description" placeholder="description" class="form-control">
-                        <input ng-model="product.price" type="number" step="0.01" placeholder="price" class="form-control">
-                        <select ng-model="product.availability" ng-init="product.availability = productAvailabilities[0]" ng-options="av.type for av in productAvailabilities"></select>
-                        <input ng-model="product.imageUrl" type="url" placeholder="image url" class="form-control">
-                        <input ng-model="product.specs" type="text" placeholder="product specs as JSON" class="form-control">
-                        <br>
-
-                        <input type="submit" id="submit" value="Submit" class="btn btn-primary"/>
-                    </form>
-                </div>
- 
-                            </select></td>
 
                 <!--Show ALL PRODUCTS-->
                 <div ng-show="!showProduct">
@@ -134,7 +108,7 @@
                         <tr>
                             <td><img id="adminProdImg" src="{{product.imageUrl}}"></td>
                             <td>{{product.title}}</td>
-                            <td>some availability</td>
+                            <td>{{product.availability}}</td>
                             <td><a ng-click="showSingleProduct(product)">Change product</a></td>
                         </tr>
                         </tbody>
@@ -144,24 +118,82 @@
                 <!--SHOW SINGLE PRODUCT-->
                 <div ng-show="showProduct">
                     <div class="text-center">
-                        <h3>{{product.title}}</h3>
+                        <h3>{{product.title}}
+                            <button id="prodBtn" class="btn btn-sm" ng-click="backToProductPanel()">Back to products
+                                panel
+                            </button>
+                        </h3>
                     </div>
                     <div>
                         <h4>Edit Image</h4>
                         <img id="singleImgView" src="{{product.imageUrl}}">
                         <form name="imageForm" ng-submit="submitImage(image.link)">
-                            <fieldset>
-                                <input type="text" id="imgUploadBar" ng-model="image.link" class="form-control" placeholder="New image url..." ng-pattern="regex" required>
-                                <input type="submit" id="imgSubmit" ng-disabled="imageForm.$invalid" value="Upload" />
-                            </fieldset>
+
+                            <input type="text" id="imgUploadBar" ng-model="image.link" class="form-control"
+                                   placeholder="New image url..." ng-pattern="regex" required>
+                            <input type="submit" id="imgSubmit" ng-disabled="imageForm.$invalid" value="Upload"/>
                             <br>
                         </form>
                     </div>
-
+                    <div id="productDetails">
+                        <h4>Change Details</h4>
+                        <form name="productForm" ng-submit="submitDetails(changedProduct)">
+                            <input ng-model="changedProduct.title" placeholder="Title" class="form-control">
+                            <input ng-model="changedProduct.description" placeholder="Description" class="form-control">
+                            <input ng-model="changedProduct.price" type="number" min=1 step="0.01" placeholder="Price"
+                                   class="form-control">
+                            <span class="error" ng-show="productForm.changedProduct.price.$error.number">Not valid number!</span>
+                            <span class="error" ng-show="productForm.changedProduct.price.$error.min">The value must be higher than $1.00!</span>
+                            <input type="submit" id="submit" value="Submit" class="btn btn-primary"/>
+                        </form>
+                        <div class="alert alert-success user-update" ng-show="productSuccess">
+                            Product successfully updated!
+                        </div>
+                    </div>
                 </div>
             </uib-tab>
 
+
             <uib-tab index="1">
+                <uib-tab-heading>
+                    Create Products
+                </uib-tab-heading>
+                <!--Form for creating products-->
+                <div>
+                    <h4>Create new category</h4>
+                    <form name="createCategoryForm" ng-submit="createCategory(category)">
+                        <input ng-model="category.name" placeholder="name" class="form-control" required>
+                        <select ng-model="category.metaCategory" ng-init="category.metaCategory = metaCategories[0] "
+                                ng-options="mc.type for mc in metaCategories"></select>
+                        <input type="submit" id="submit" value="Submit" class="btn btn-primary"/>
+                    </form>
+                </div>
+                <div>
+                    <h4>Create Product</h4>
+                    <form name="createProductForm" ng-submit="createProduct(newproduct)">
+                        <input ng-model="newproduct.title" placeholder="title" class="form-control" required>
+                        <input ng-model="newproduct.description" placeholder="description" class="form-control"
+                               required>
+                        <input ng-model="newproduct.price" type="number" min=1 step="0.01" placeholder="price"
+                               class="form-control" required>
+                        <span class="error"
+                              ng-show="createProductForm.product.price.$error.number">Not valid number!</span>
+                        <span class="error" ng-show="createProductForm.product.price.$error.min">The value must not be lower than $1.00!</span>
+                        <select ng-model="newproduct.availability"
+                                ng-init="product.availability = productAvailabilities[0]"
+                                ng-options="av.type for av in productAvailabilities"></select>
+                        <input ng-model="newproduct.imageUrl" type="url" placeholder="image url" class="form-control"
+                               required>
+                        <input ng-model="newproduct.specs" type="text" placeholder="product specs as JSON"
+                               class="form-control" required>
+                        <br>
+                        <input type="submit" id="submit" value="Submit" class="btn btn-primary"/>
+                    </form>
+                </div>
+            </uib-tab>
+
+            <!--USER MANAGEMENT-->
+            <uib-tab index="2">
                 <uib-tab-heading>
                     Manage Users
                 </uib-tab-heading>
@@ -173,7 +205,8 @@
                     <div class="alert alert-danger user-update" ng-show="warning" ng-click="warning=false">
                         User update failed.Click here to close this message.
                     </div>
-                    <input ng-model="userEmail" placeholder="Enter user email address here" class="form-control manage-user-email">
+                    <input ng-model="userEmail" placeholder="Enter user email address here"
+                           class="form-control manage-user-email">
                     <div class="user-mgmt-buttons">
                         <button class="btn btn-primary" ng-click="setAdmin(userEmail)">Make admin</button>
                         <button class="btn btn-primary" ng-click="deleteUser(userEmail)">Delete user</button>
@@ -187,10 +220,10 @@
                         </tr>
                         </thead>
                         <tbody ng-repeat="user in userList">
-                            <tr>
-                                <td>{{user.email}}</td>
-                                <td >{{user.isAdmin ? 'Yes' : 'No'}}</td>
-                            </tr>
+                        <tr>
+                            <td>{{user.email}}</td>
+                            <td>{{user.isAdmin ? 'Yes' : 'No'}}</td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
