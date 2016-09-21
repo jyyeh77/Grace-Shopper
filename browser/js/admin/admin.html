@@ -135,47 +135,36 @@
                 <uib-tab-heading>
                     Manage Users
                 </uib-tab-heading>
-
+                <div id="user-management">
+                    <!-- Promote other user accounts to have admin status, delete users, or flag for password reset on next visit -->
+                    <div class="alert alert-success user-update" ng-show="success" ng-click="success=false">
+                        User successfully updated! Click here to close this message.
+                    </div>
+                    <div class="alert alert-danger user-update" ng-show="warning" ng-click="warning=false">
+                        User update failed.Click here to close this message.
+                    </div>
+                    <input ng-model="userEmail" placeholder="Enter user email address here" class="form-control manage-user-email">
+                    <div class="user-mgmt-buttons">
+                        <button class="btn btn-primary" ng-click="setAdmin(userEmail)">Make admin</button>
+                        <button class="btn btn-primary" ng-click="deleteUser(userEmail)">Delete user</button>
+                        <button class="btn btn-primary" ng-click="resetPassword(userEmail)">Reset password</button>
+                    </div>
+                    <table class="table user-table">
+                        <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>Admin</th>
+                        </tr>
+                        </thead>
+                        <tbody ng-repeat="user in userList">
+                            <tr>
+                                <td>{{user.email}}</td>
+                                <td >{{user.isAdmin ? 'Yes' : 'No'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </uib-tab>
         </uib-tabset>
     </div>
-    <!--&lt;!&ndash;MANAGE PRODUCTS&ndash;&gt;-->
-    <!--<div class="col-xs-3">-->
-    <!--<div class="text-center">-->
-    <!--<button ng-click="showPM = !showPM" class='btn btn-primary'>Manage Products</button>-->
-    <!--</div>-->
-    <!--<div ng-show="showPM" id="product-management">-->
-    <!--&lt;!&ndash; Create and edit products with name, description, price and one or more photos &ndash;&gt;-->
-    <!--<span>Create new product</span>-->
-    <!--<a ui-sref="admin.products">Click me!</a>-->
-    <!--<div ui-view></div>-->
-    <!--&lt;!&ndash; Create categories for items, each item can have multiple categories &ndash;&gt;-->
-    <!--&lt;!&ndash; Manage the availability of a product. If a product is no longer available, users will not see it while browsing, but they can view the product detail page if they've ordered it previously or have a direct link. On that product detail page, it should say "Currently Unavailable" &ndash;&gt;-->
-    <!--&lt;!&ndash; Add/remove categories from items &ndash;&gt;-->
-    <!--</div>-->
-
-    <!--<br>-->
-    <!--</div>-->
-
-    <!--<div class="col-xs-3">-->
-    <!--<div class="text-center">-->
-    <!--<button ng-click="showUM = !showUM" class='btn btn-primary'> user management</button>-->
-    <!--</div>-->
-    <!--<div ng-show="showUM" id="user-management">-->
-    <!--&lt;!&ndash; Promote other user accounts to have admin status &ndash;&gt;-->
-    <!--<span>Set a user to admin: </span><input ng-model="emailOfUserToMakeAdmin" placeholder="email">-->
-    <!--<button class="btn btn-sm" ng-click="setAdmin(emailOfUserToMakeAdmin)">submit</button>-->
-    <!--<br>-->
-
-    <!--&lt;!&ndash; Delete a user &ndash;&gt;-->
-    <!--<span>Delete a user: </span> <input ng-model="emailOfUserToDelete" placeholder="email">-->
-    <!--<button class="btn btn-sm" ng-click="deleteUser(emailOfUserToDelete)">submit</button>-->
-    <!--<br>-->
-
-    <!--&lt;!&ndash; Trigger password reset for a user (next time they successfully log in—with their old password—they are prompted for a new one) &ndash;&gt;-->
-    <!--<span>Trigger a password reset: </span><input ng-model="emailOfUserToResetPassword" placeholder="email">-->
-    <!--<button class="btn btn-sm" ng-click="resetPassword(emailOfUserToResetPassword)">submit</button>-->
-    <!--<br>-->
-    <!--</div>-->
-    <!--</div>-->
 </div>

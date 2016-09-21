@@ -59,6 +59,21 @@ select {
 	margin: 0 5px;
 }
 
+.manage-user-email {
+	width: 70%;
+	margin: 20px 15px;
+}
+
+.user-mgmt-buttons {
+	width: 70%;
+	margin: 0 15px;
+}
+
+.user-update {
+	width: 80%;
+	margin: 10px 15px;
+}
+
 .top-header-middle {
 	text-align: center;
 }
@@ -1007,6 +1022,12 @@ ul.size li a:hover {
 .review-form {
 	width: 50%;
 	margin: 15px auto;
+}
+
+.user-table {
+	width: 90%;
+	margin-left: 15px;
+	margin-top: 20px;
 }
 
 /*--end-single--*/
