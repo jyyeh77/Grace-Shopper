@@ -8,6 +8,7 @@ app.config(function ($stateProvider) {
     url: '/admin',
     controller: 'AdminController',
     templateUrl: 'js/admin/admin.html'
+
   })
 });
 
@@ -90,6 +91,22 @@ app.controller('AdminController', function ($scope, AdminFactory, OrderFactory, 
    $scope.setStatus = {};
   }
 
+  /* PRODUCT MANAGEMENT */
+  $scope.product = {};
+  $scope.category = {};
+  $scope.productAvailabilities = [
+    {type: 'In Stock'},
+    {type: 'Currently Unavailable'},
+  ];
+  $scope.metaCategories = [
+    {type: 'Electronics'},
+    {type: 'Vehicles'},
+  ]
+  $scope.createProduct = Product.createProduct;
+  $scope.createCategory = Product.createCategory;
+
+  /* USER MANAGEMENT */
+
   // changes order status when check button is clicked
   $scope.confirmStatus = function (orderId, changedStatus) {
     let newStatus = changedStatus.type.toString();
@@ -108,6 +125,30 @@ app.controller('AdminController', function ($scope, AdminFactory, OrderFactory, 
   })
 
   /* PRODUCT MANAGEMENT */
+  $scope.product = {};
+  $scope.category = {};
+  $scope.productAvailabilities = [
+    {type: 'In Stock'},
+    {type: 'Currently Unavailable'},
+  ];
+  $scope.metaCategories = [
+    {type: 'Electronics'},
+    {type: 'Vehicles'},
+  ];
+  $scope.createProduct = function(){
+    
+    Product.createProduct($scope.product);
+    $scope.product = {};
+  }
+  $scope.createCategory = function(){
+    
+    Product.createCategory($scope.category);
+    $scope.category = {};
+  };
+  
+  $scope.addProductCategory = Product.addProductCategory;
+
+
   Product.fetchAll()
     .then(allProducts => {
       $scope.products = allProducts;
@@ -120,6 +161,7 @@ app.controller('AdminController', function ($scope, AdminFactory, OrderFactory, 
             $scope.showProduct = true;
           })
   }
+
 
   // FILE UPLOAD
   $scope.regex = /\.(gif|jpg|jpeg|tiff|png)$/i;
@@ -159,9 +201,6 @@ app.controller('AdminController', function ($scope, AdminFactory, OrderFactory, 
       getUsers();
     })
   }
-
-
-
 
 });
 
